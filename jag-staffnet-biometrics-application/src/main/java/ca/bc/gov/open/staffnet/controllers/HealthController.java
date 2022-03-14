@@ -50,17 +50,16 @@ public class HealthController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
 
         try {
-            //            HttpEntity<GetHealthResponse> resp =
-            //                    restTemplate.exchange(
-            //                            builder.build().encode().toUri(),
-            //                            HttpMethod.GET,
-            //                            new HttpEntity<>(new HttpHeaders()),
-            //                            GetHealthResponse.class);
+            HttpEntity<GetHealthResponse> resp =
+                    restTemplate.exchange(
+                            builder.build().encode().toUri(),
+                            HttpMethod.GET,
+                            new HttpEntity<>(new HttpHeaders()),
+                            GetHealthResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "getHealth")));
-            return new GetHealthResponse();
-            //            return resp.getBody();
+            return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
