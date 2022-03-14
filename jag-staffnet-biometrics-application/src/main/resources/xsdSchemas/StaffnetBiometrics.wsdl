@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="SNBiometrics" targetNamespace="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:tns="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="finishEnrollmentWithIdCheck" type="tns:finishEnrollmentWithIdCheck"/>
+            <xsd:element name="finishEnrollmentWithIdCheckResponse" type="tns:finishEnrollmentWithIdCheckResponse"/>
+            <xsd:element name="deactivateBiometricCredentialByDID" type="tns:deactivateBiometricCredentialByDID"/>
+            <xsd:element name="deactivateBiometricCredentialByDIDResponse" type="tns:deactivateBiometricCredentialByDIDResponse"/>
+            <xsd:element name="reactivateBiometricCredentialByDID" type="tns:reactivateBiometricCredentialByDID"/>
+            <xsd:element name="reactivateBiometricCredentialByDIDResponse" type="tns:reactivateBiometricCredentialByDIDResponse"/>
+            <xsd:element name="startSearchForIdentity" type="tns:startSearchForIdentity"/>
+            <xsd:element name="startSearchForIdentityResponse" type="tns:startSearchForIdentityResponse"/>
+            <xsd:element name="refreshIdentityWithIdCheck" type="tns:refreshIdentityWithIdCheck"/>
+            <xsd:element name="refreshIdentityWithIdCheckResponse" type="tns:refreshIdentityWithIdCheckResponse"/>
+            <xsd:element name="destroyBiometricCredentialByDID" type="tns:destroyBiometricCredentialByDID"/>
+            <xsd:element name="destroyBiometricCredentialByDIDResponse" type="tns:destroyBiometricCredentialByDIDResponse"/>
+            <xsd:element name="finishSearchForIdentity" type="tns:finishSearchForIdentity"/>
+            <xsd:element name="finishSearchForIdentityResponse" type="tns:finishSearchForIdentityResponse"/>
+            <xsd:element name="startEnrollmentWithIdCheck" type="tns:startEnrollmentWithIdCheck"/>
+            <xsd:element name="startEnrollmentWithIdCheckResponse" type="tns:startEnrollmentWithIdCheckResponse"/>
+            <xsd:element name="biometricReconciliation" type="tns:biometricReconciliation"/>
+            <xsd:element name="biometricReconciliationResponse" type="tns:biometricReconciliationResponse"/>
+            <xsd:complexType name="finishEnrollmentWithIdCheck">
+                <xsd:sequence>
+                    <xsd:element name="finishEnrollmentWithIdCheckRequest" nillable="true" type="tns:finishEnrollmentWithIdCheckRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishEnrollmentWithIdCheckRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="issuanceID" type="xsd:string"/>
+                    <xsd:element name="IdentityEventId" nillable="true" type="xsd:string"/>
+                    <xsd:element name="individual_id" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishEnrollmentWithIdCheckResponse">
+                <xsd:sequence>
+                    <xsd:element name="finishEnrollmentWithIdCheckResponse" nillable="true" type="tns:finishEnrollmentWithIdCheckResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishEnrollmentWithIdCheckResponse2">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="did" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="givenNames" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="lastName" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photo" type="xsd:base64Binary"/>
+                    <xsd:element name="dateOfBirth" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="biometricTemplateUrl" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photoTakenDate" type="xsd:string"/>
+                    <xsd:element name="imageSetSuccessYN" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="deactivateBiometricCredentialByDID">
+                <xsd:sequence>
+                    <xsd:element name="deactivateBiometricCredentialByDIDRequest" nillable="true" type="tns:deactivateBiometricCredentialByDIDRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="deactivateBiometricCredentialByDIDRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element name="DID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="deactivateBiometricCredentialByDIDResponse">
+                <xsd:sequence>
+                    <xsd:element name="deactivateBiometricCredentialByDIDResponse" nillable="true" type="tns:deactivateBiometricCredentialByDIDResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="deactivateBiometricCredentialByDIDResponse2">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="reactivateBiometricCredentialByDID">
+                <xsd:sequence>
+                    <xsd:element name="reactivateBiometricCredentialByDIDRequest" nillable="true" type="tns:reactivateBiometricCredentialByDIDRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="reactivateBiometricCredentialByDIDRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element name="DID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="reactivateBiometricCredentialByDIDResponse">
+                <xsd:sequence>
+                    <xsd:element name="reactivateBiometricCredentialByDIDResponse" nillable="true" type="tns:reactivateBiometricCredentialByDIDResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="reactivateBiometricCredentialByDIDResponse2">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startSearchForIdentity">
+                <xsd:sequence>
+                    <xsd:element name="startSearchForIdentityRequest" nillable="true" type="tns:startSearchForIdentityRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startSearchForIdentityRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element name="activeOnly" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startSearchForIdentityResponse">
+                <xsd:sequence>
+                    <xsd:element name="startSearchForIdentityResponse" nillable="true" type="tns:startSearchForIdentityResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startSearchForIdentityResponse2">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                    <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+                    <xsd:element name="searchURL" nillable="true" type="xsd:string"/>
+                    <xsd:element name="expiryDate" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="refreshIdentityWithIdCheck">
+                <xsd:sequence>
+                    <xsd:element name="refreshIdentityWithIdCheckRequest" nillable="true" type="tns:refreshIdentityWithIdCheckRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="refreshIdentityWithIdCheckRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+                    <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="did" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="refreshIdentityWithIdCheckResponse">
+                <xsd:sequence>
+                    <xsd:element name="refreshIdentityWithIdCheckResponse" nillable="true" type="tns:refreshIdentityWithIdCheckResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="refreshIdentityWithIdCheckResponse2">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="issuanceId" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="enrollmentURL" type="xsd:string"/>
+                    <xsd:element name="expiryDate" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="destroyBiometricCredentialByDID">
+                <xsd:sequence>
+                    <xsd:element name="destroyBiometricCredentialByDIDRequest" nillable="true" type="tns:destroyBiometricCredentialByDIDRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="destroyBiometricCredentialByDIDRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element name="DID" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="destroyBiometricCredentialByDIDResponse">
+                <xsd:sequence>
+                    <xsd:element name="destroyBiometricCredentialByDIDResponse" nillable="true" type="tns:destroyBiometricCredentialByDIDResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="destroyBiometricCredentialByDIDResponse2">
+                <xsd:sequence>
+                    <xsd:element name="code" nillable="true" type="xsd:string"/>
+                    <xsd:element name="failureCode" nillable="true" type="xsd:string"/>
+                    <xsd:element name="message" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishSearchForIdentity">
+                <xsd:sequence>
+                    <xsd:element name="finishSearchForIdentityRequest" nillable="true" type="tns:finishSearchForIdentityRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishSearchForIdentityRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+                    <xsd:element name="requesterUserGuid" nillable="true" type="xsd:string"/>
+                    <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishSearchForIdentityResponse">
+                <xsd:sequence>
+                    <xsd:element name="finishSearchForIdentityResponse" nillable="true" type="tns:finishSearchForIdentityResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="finishSearchForIdentityResponse2">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="DID" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="active" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startEnrollmentWithIdCheck">
+                <xsd:sequence>
+                    <xsd:element name="startEnrollmentWithIdCheckRequest" nillable="true" type="tns:startEnrollmentWithIdCheckRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startEnrollmentWithIdCheckRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+                    <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="did" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startEnrollmentWithIdCheckResponse">
+                <xsd:sequence>
+                    <xsd:element name="startEnrollmentWithIdCheckResponse" nillable="true" type="tns:startEnrollmentWithIdCheckResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="startEnrollmentWithIdCheckResponse2">
+                <xsd:sequence>
+                    <xsd:element name="enrollmentURL" type="xsd:string"/>
+                    <xsd:element name="issuanceId" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="expiryDate" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="biometricReconciliation">
+                <xsd:sequence>
+                    <xsd:element name="biometricReconciliationRequest" nillable="true" type="tns:biometricReconciliationRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="biometricReconciliationRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+                    <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="biometricReconciliationResponse">
+                <xsd:sequence>
+                    <xsd:element name="biometricReconciliationResponse" nillable="true" type="tns:biometricReconciliationResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="biometricReconciliationResponse2">
+                <xsd:sequence>
+                    <xsd:element name="responseCd" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="responseTxt" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="SNBiometrics_PortType_biometricReconciliation">
+        <wsdl:part name="parameters" element="tns:biometricReconciliation">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_destroyBiometricCredentialByDID">
+        <wsdl:part name="parameters" element="tns:destroyBiometricCredentialByDID">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_startEnrollmentWithIdCheckResponse">
+        <wsdl:part name="parameters" element="tns:startEnrollmentWithIdCheckResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_startSearchForIdentityResponse">
+        <wsdl:part name="parameters" element="tns:startSearchForIdentityResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_refreshIdentityWithIdCheck">
+        <wsdl:part name="parameters" element="tns:refreshIdentityWithIdCheck">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_finishSearchForIdentity">
+        <wsdl:part name="parameters" element="tns:finishSearchForIdentity">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_biometricReconciliationResponse">
+        <wsdl:part name="parameters" element="tns:biometricReconciliationResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_reactivateBiometricCredentialByDIDResponse">
+        <wsdl:part name="parameters" element="tns:reactivateBiometricCredentialByDIDResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_destroyBiometricCredentialByDIDResponse">
+        <wsdl:part name="parameters" element="tns:destroyBiometricCredentialByDIDResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_startEnrollmentWithIdCheck">
+        <wsdl:part name="parameters" element="tns:startEnrollmentWithIdCheck">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_deactivateBiometricCredentialByDIDResponse">
+        <wsdl:part name="parameters" element="tns:deactivateBiometricCredentialByDIDResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_finishSearchForIdentityResponse">
+        <wsdl:part name="parameters" element="tns:finishSearchForIdentityResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_reactivateBiometricCredentialByDID">
+        <wsdl:part name="parameters" element="tns:reactivateBiometricCredentialByDID">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_deactivateBiometricCredentialByDID">
+        <wsdl:part name="parameters" element="tns:deactivateBiometricCredentialByDID">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_refreshIdentityWithIdCheckResponse">
+        <wsdl:part name="parameters" element="tns:refreshIdentityWithIdCheckResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_startSearchForIdentity">
+        <wsdl:part name="parameters" element="tns:startSearchForIdentity">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_finishEnrollmentWithIdCheckResponse">
+        <wsdl:part name="parameters" element="tns:finishEnrollmentWithIdCheckResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SNBiometrics_PortType_finishEnrollmentWithIdCheck">
+        <wsdl:part name="parameters" element="tns:finishEnrollmentWithIdCheck">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="SNBiometrics_PortType">
+        <wsdl:operation name="refreshIdentityWithIdCheck">
+            <wsdl:input message="tns:SNBiometrics_PortType_refreshIdentityWithIdCheck">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_refreshIdentityWithIdCheckResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="finishEnrollmentWithIdCheck">
+            <wsdl:input message="tns:SNBiometrics_PortType_finishEnrollmentWithIdCheck">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_finishEnrollmentWithIdCheckResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="startEnrollmentWithIdCheck">
+            <wsdl:input message="tns:SNBiometrics_PortType_startEnrollmentWithIdCheck">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_startEnrollmentWithIdCheckResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="destroyBiometricCredentialByDID">
+            <wsdl:input message="tns:SNBiometrics_PortType_destroyBiometricCredentialByDID">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_destroyBiometricCredentialByDIDResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="biometricReconciliation">
+            <wsdl:input message="tns:SNBiometrics_PortType_biometricReconciliation">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_biometricReconciliationResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reactivateBiometricCredentialByDID">
+            <wsdl:input message="tns:SNBiometrics_PortType_reactivateBiometricCredentialByDID">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_reactivateBiometricCredentialByDIDResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="finishSearchForIdentity">
+            <wsdl:input message="tns:SNBiometrics_PortType_finishSearchForIdentity">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_finishSearchForIdentityResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deactivateBiometricCredentialByDID">
+            <wsdl:input message="tns:SNBiometrics_PortType_deactivateBiometricCredentialByDID">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_deactivateBiometricCredentialByDIDResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="startSearchForIdentity">
+            <wsdl:input message="tns:SNBiometrics_PortType_startSearchForIdentity">
+            </wsdl:input>
+            <wsdl:output message="tns:SNBiometrics_PortType_startSearchForIdentityResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder" type="tns:SNBiometrics_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="refreshIdentityWithIdCheck">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_refreshIdentityWithIdCheck" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="finishEnrollmentWithIdCheck">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishEnrollmentWithIdCheck" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="startEnrollmentWithIdCheck">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startEnrollmentWithIdCheck" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="destroyBiometricCredentialByDID">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_destroyBiometricCredentialByDID" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="biometricReconciliation">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_biometricReconciliation" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reactivateBiometricCredentialByDID">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_reactivateBiometricCredentialByDID" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="finishSearchForIdentity">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishSearchForIdentity" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deactivateBiometricCredentialByDID">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_deactivateBiometricCredentialByDID" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="startSearchForIdentity">
+            <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startSearchForIdentity" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="StaffNet_Biometrics.ws.provider.SNBiometrics">
+        <wsdl:port name="StaffNet_Biometrics_ws_provider_SNBiometrics_Port" binding="tns:StaffNet_Biometrics_ws_provider_SNBiometrics_Binder">
+            <soap:address location="http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

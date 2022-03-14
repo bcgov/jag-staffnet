@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning"
+            xmlns:tns="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="getWorkerProvisioningQueueItem">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="getWorkerProvisioningQueueItemRequest" nillable="true"
+                             type="tns:getWorkerProvisioningQueueItemRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="getWorkerProvisioningQueueItemRequest">
+        <xsd:sequence>
+            <xsd:element name="LocationCd" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getWorkerProvisioningQueueItemResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="getWorkerProvisioningQueueItemResponse" nillable="true"
+                             type="tns:getWorkerProvisioningQueueItemResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="getWorkerProvisioningQueueItemResponse2">
+        <xsd:sequence>
+            <xsd:element name="EventId" type="xsd:string"/>
+            <xsd:element name="OperationMode" type="xsd:string"/>
+            <xsd:element name="WorkerDID" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ProvisioningTargetId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="LastNm" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="FirstNm" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="JobTitle" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="EmployeeNo" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="BiometricTemplateURL" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="EnrollmentDtm" type="xsd:dateTime"/>
+            <xsd:element minOccurs="0" name="Photo" type="xsd:base64Binary"/>
+            <xsd:element name="ResponseCd" type="xsd:string"/>
+            <xsd:element name="ResponseMessage" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="setWorkerProvisioningStatus">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="setWorkerProvisioningStatusRequest" nillable="true"
+                             type="tns:setWorkerProvisioningStatusRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="setWorkerProvisioningStatusRequest">
+        <xsd:sequence>
+            <xsd:element name="EventId" nillable="true" type="xsd:string"/>
+            <xsd:element name="ProcessResultCd" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ProcessResultMessage" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="setWorkerProvisioningStatusResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="setWorkerProvisioningStatusResponse" nillable="true"
+                             type="tns:setWorkerProvisioningStatusResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="setWorkerProvisioningStatusResponse2">
+        <xsd:sequence>
+            <xsd:element name="ResponseCd" nillable="true" type="xsd:string"/>
+            <xsd:element name="ResponseMessage" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getProvisionedWorkers">
+        <xsd:complexType name="getProvisionedWorkers">
+            <xsd:sequence>
+                <xsd:element name="getProvisionedWorkerRequest" nillable="true" type="tns:getProvisionedWorkerRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="getProvisionedWorkerRequest">
+        <xsd:sequence>
+            <xsd:element name="LocationCd" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getProvisionedWorkersResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="getProvisionedWorkerResponse" nillable="true" type="tns:getProvisionedWorkerResponse"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="getProvisionedWorkerResponse">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Workers" type="tns:Workers"/>
+            <xsd:element name="RecordCount" type="xsd:string"/>
+            <xsd:element name="ResponseCd" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ResponseMessage" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Workers">
+        <xsd:sequence>
+            <xsd:element name="DID" type="xsd:string"/>
+            <xsd:element name="first_nm" nillable="true" type="xsd:string"/>
+            <xsd:element name="last_nm" nillable="true" type="xsd:string"/>
+            <xsd:element name="employee_number" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getPing">
+        <xsd:complexType>
+            <xsd:sequence/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getPingResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="status" nillable="true" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getHealth">
+        <xsd:complexType>
+            <xsd:sequence/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getHealthResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="appid" nillable="true" type="xsd:string"/>
+                <xsd:element name="method" nillable="true" type="xsd:string"/>
+                <xsd:element name="status" nillable="true" type="xsd:string"/>
+                <xsd:element name="host" nillable="true" type="xsd:string"/>
+                <xsd:element name="instance" nillable="true" type="xsd:string"/>
+                <xsd:element name="version" nillable="true" type="xsd:string"/>
+                <xsd:element name="compatibility" nillable="true" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

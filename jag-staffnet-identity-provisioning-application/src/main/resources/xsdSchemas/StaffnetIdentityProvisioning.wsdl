@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="StaffNetIdentityProvisioning" targetNamespace="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning" xmlns:tns="http://reeks.bcgov/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="getWorkerProvisioningQueueItem" type="tns:getWorkerProvisioningQueueItem"/>
+            <xsd:element name="getWorkerProvisioningQueueItemResponse" type="tns:getWorkerProvisioningQueueItemResponse"/>
+            <xsd:element name="setWorkerProvisioningStatus" type="tns:setWorkerProvisioningStatus"/>
+            <xsd:element name="setWorkerProvisioningStatusResponse" type="tns:setWorkerProvisioningStatusResponse"/>
+            <xsd:element name="getProvisionedWorkers" type="tns:getProvisionedWorkers"/>
+            <xsd:element name="getProvisionedWorkersResponse" type="tns:getProvisionedWorkersResponse"/>
+            <xsd:complexType name="getWorkerProvisioningQueueItem">
+                <xsd:sequence>
+                    <xsd:element name="getWorkerProvisioningQueueItemRequest" nillable="true" type="tns:getWorkerProvisioningQueueItemRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getWorkerProvisioningQueueItemRequest">
+                <xsd:sequence>
+                    <xsd:element name="LocationCd" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getWorkerProvisioningQueueItemResponse">
+                <xsd:sequence>
+                    <xsd:element name="getWorkerProvisioningQueueItemResponse" nillable="true" type="tns:getWorkerProvisioningQueueItemResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getWorkerProvisioningQueueItemResponse2">
+                <xsd:sequence>
+                    <xsd:element name="EventId" type="xsd:string"/>
+                    <xsd:element name="OperationMode" type="xsd:string"/>
+                    <xsd:element name="WorkerDID" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ProvisioningTargetId" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="LastNm" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="FirstNm" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="JobTitle" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="EmployeeNo" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="BiometricTemplateURL" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="EnrollmentDtm" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Photo" type="xsd:base64Binary"/>
+                    <xsd:element name="ResponseCd" type="xsd:string"/>
+                    <xsd:element name="ResponseMessage" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="setWorkerProvisioningStatus">
+                <xsd:sequence>
+                    <xsd:element name="setWorkerProvisioningStatusRequest" nillable="true" type="tns:setWorkerProvisioningStatusRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="setWorkerProvisioningStatusRequest">
+                <xsd:sequence>
+                    <xsd:element name="EventId" nillable="true" type="xsd:string"/>
+                    <xsd:element name="ProcessResultCd" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ProcessResultMessage" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="setWorkerProvisioningStatusResponse">
+                <xsd:sequence>
+                    <xsd:element name="setWorkerProvisioningStatusResponse" nillable="true" type="tns:setWorkerProvisioningStatusResponse2"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="setWorkerProvisioningStatusResponse2">
+                <xsd:sequence>
+                    <xsd:element name="ResponseCd" nillable="true" type="xsd:string"/>
+                    <xsd:element name="ResponseMessage" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getProvisionedWorkers">
+                <xsd:sequence>
+                    <xsd:element name="getProvisionedWorkerRequest" nillable="true" type="tns:getProvisionedWorkerRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getProvisionedWorkerRequest">
+                <xsd:sequence>
+                    <xsd:element name="LocationCd" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getProvisionedWorkersResponse">
+                <xsd:sequence>
+                    <xsd:element name="getProvisionedWorkerResponse" nillable="true" type="tns:getProvisionedWorkerResponse"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getProvisionedWorkerResponse">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Workers" type="tns:Workers"/>
+                    <xsd:element name="RecordCount" type="xsd:string"/>
+                    <xsd:element name="ResponseCd" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ResponseMessage" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Workers">
+                <xsd:sequence>
+                    <xsd:element name="DID" type="xsd:string"/>
+                    <xsd:element name="first_nm" nillable="true" type="xsd:string"/>
+                    <xsd:element name="last_nm" nillable="true" type="xsd:string"/>
+                    <xsd:element name="employee_number" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItemResponse">
+        <wsdl:part name="parameters" element="tns:getWorkerProvisioningQueueItemResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_getProvisionedWorkers">
+        <wsdl:part name="parameters" element="tns:getProvisionedWorkers">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatusResponse">
+        <wsdl:part name="parameters" element="tns:setWorkerProvisioningStatusResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatus">
+        <wsdl:part name="parameters" element="tns:setWorkerProvisioningStatus">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItem">
+        <wsdl:part name="parameters" element="tns:getWorkerProvisioningQueueItem">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="StaffNetIdentityProvisioning_PortType_getProvisionedWorkersResponse">
+        <wsdl:part name="parameters" element="tns:getProvisionedWorkersResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="StaffNetIdentityProvisioning_PortType">
+        <wsdl:operation name="setWorkerProvisioningStatus">
+            <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatus">
+            </wsdl:input>
+            <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatusResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getWorkerProvisioningQueueItem">
+            <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItem">
+            </wsdl:input>
+            <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItemResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getProvisionedWorkers">
+            <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_getProvisionedWorkers">
+            </wsdl:input>
+            <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_getProvisionedWorkersResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder" type="tns:StaffNetIdentityProvisioning_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="setWorkerProvisioningStatus">
+            <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_setWorkerProvisioningStatus" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getWorkerProvisioningQueueItem">
+            <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getWorkerProvisioningQueueItem" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getProvisionedWorkers">
+            <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getProvisionedWorkers" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning">
+        <wsdl:port name="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port" binding="tns:StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder">
+            <soap:address location="http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
