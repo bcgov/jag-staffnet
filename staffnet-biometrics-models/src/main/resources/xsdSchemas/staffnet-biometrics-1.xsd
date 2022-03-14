@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics"
+            xmlns:tns="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="finishEnrollmentWithIdCheck">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="finishEnrollmentWithIdCheckRequest" nillable="true"
+                             type="tns:finishEnrollmentWithIdCheckRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="finishEnrollmentWithIdCheckRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="issuanceID" type="xsd:string"/>
+            <xsd:element name="IdentityEventId" nillable="true" type="xsd:string"/>
+            <xsd:element name="individual_id" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="finishEnrollmentWithIdCheckResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="finishEnrollmentWithIdCheckResponse" nillable="true"
+                             type="tns:finishEnrollmentWithIdCheckResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="finishEnrollmentWithIdCheckResponse2">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string"/>
+            <xsd:element name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="did" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="givenNames" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="lastName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="photo" type="xsd:base64Binary"/>
+            <xsd:element name="dateOfBirth" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="biometricTemplateUrl" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="photoTakenDate" type="xsd:dateTime"/>
+            <xsd:element name="imageSetSuccessYN" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="deactivateBiometricCredentialByDID">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="deactivateBiometricCredentialByDIDRequest" nillable="true"
+                             type="tns:deactivateBiometricCredentialByDIDRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="deactivateBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element name="DID" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="deactivateBiometricCredentialByDIDResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="deactivateBiometricCredentialByDIDResponse" nillable="true"
+                             type="tns:deactivateBiometricCredentialByDIDResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="deactivateBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string"/>
+            <xsd:element name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="reactivateBiometricCredentialByDID">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="reactivateBiometricCredentialByDIDRequest" nillable="true"
+                             type="tns:reactivateBiometricCredentialByDIDRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="reactivateBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element name="DID" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="reactivateBiometricCredentialByDIDResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="reactivateBiometricCredentialByDIDResponse" nillable="true"
+                             type="tns:reactivateBiometricCredentialByDIDResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="reactivateBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string"/>
+            <xsd:element name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="startSearchForIdentity">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startSearchForIdentityRequest" nillable="true" type="tns:startSearchForIdentityRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="startSearchForIdentityRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element name="activeOnly" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="startSearchForIdentityResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startSearchForIdentityResponse" nillable="true"
+                             type="tns:startSearchForIdentityResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="startSearchForIdentityResponse2">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+            <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+            <xsd:element name="searchURL" nillable="true" type="xsd:string"/>
+            <xsd:element name="expiryDate" nillable="true" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="refreshIdentityWithIdCheck">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="refreshIdentityWithIdCheckRequest" nillable="true"
+                             type="tns:refreshIdentityWithIdCheckRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="refreshIdentityWithIdCheckRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+            <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="did" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="refreshIdentityWithIdCheckResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="refreshIdentityWithIdCheckResponse" nillable="true"
+                             type="tns:refreshIdentityWithIdCheckResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="refreshIdentityWithIdCheckResponse2">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string"/>
+            <xsd:element name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="issuanceId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="enrollmentURL" type="xsd:string"/>
+            <xsd:element name="expiryDate" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="destroyBiometricCredentialByDID">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="destroyBiometricCredentialByDIDRequest" nillable="true"
+                             type="tns:destroyBiometricCredentialByDIDRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="destroyBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element name="DID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="destroyBiometricCredentialByDIDResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="destroyBiometricCredentialByDIDResponse" nillable="true"
+                             type="tns:destroyBiometricCredentialByDIDResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="destroyBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+            <xsd:element name="code" nillable="true" type="xsd:string"/>
+            <xsd:element name="failureCode" nillable="true" type="xsd:string"/>
+            <xsd:element name="message" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="finishSearchForIdentity">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="finishSearchForIdentityRequest" nillable="true"
+                             type="tns:finishSearchForIdentityRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="finishSearchForIdentityRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+            <xsd:element name="requesterUserGuid" nillable="true" type="xsd:string"/>
+            <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="finishSearchForIdentityResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="finishSearchForIdentityResponse" nillable="true"
+                             type="tns:finishSearchForIdentityResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="finishSearchForIdentityResponse2">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+            <xsd:element name="status" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="DID" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="active" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="startEnrollmentWithIdCheck">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startEnrollmentWithIdCheckRequest" nillable="true"
+                             type="tns:startEnrollmentWithIdCheckRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="startEnrollmentWithIdCheckRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+            <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="did" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="startEnrollmentWithIdCheckResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startEnrollmentWithIdCheckResponse" nillable="true"
+                             type="tns:startEnrollmentWithIdCheckResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="startEnrollmentWithIdCheckResponse2">
+        <xsd:sequence>
+            <xsd:element name="enrollmentURL" type="xsd:string"/>
+            <xsd:element name="issuanceId" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="expiryDate" type="xsd:dateTime"/>
+            <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="biometricReconciliation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="biometricReconciliationRequest" nillable="true"
+                             type="tns:biometricReconciliationRequest"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="biometricReconciliationRequest">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+            <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="biometricReconciliationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="biometricReconciliationResponse" nillable="true"
+                             type="tns:biometricReconciliationResponse2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="biometricReconciliationResponse2">
+        <xsd:sequence>
+            <xsd:element name="responseCd" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="responseTxt" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="getPing">
+        <xsd:complexType>
+            <xsd:sequence/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getPingResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="status" nillable="true" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getHealth">
+        <xsd:complexType>
+            <xsd:sequence/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="getHealthResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="appid" nillable="true" type="xsd:string"/>
+                <xsd:element name="method" nillable="true" type="xsd:string"/>
+                <xsd:element name="status" nillable="true" type="xsd:string"/>
+                <xsd:element name="host" nillable="true" type="xsd:string"/>
+                <xsd:element name="instance" nillable="true" type="xsd:string"/>
+                <xsd:element name="version" nillable="true" type="xsd:string"/>
+                <xsd:element name="compatibility" nillable="true" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
