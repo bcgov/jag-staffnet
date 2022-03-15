@@ -22,9 +22,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -46,7 +43,6 @@ public class HealthController {
     @ResponsePayload
     public GetHealthResponse getHealth(@RequestPayload GetHealth empty)
             throws JsonProcessingException {
-        addEndpointHeader("getHealth");
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
 
         try {
@@ -75,7 +71,6 @@ public class HealthController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getPing")
     @ResponsePayload
     public GetPingResponse getPing(@RequestPayload GetPing empty) throws JsonProcessingException {
-        addEndpointHeader("getPing");
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ping");
         try {
             HttpEntity<GetPingResponse> resp =
@@ -97,16 +92,6 @@ public class HealthController {
                                     ex.getMessage(),
                                     empty)));
             throw new ORDSException();
-        }
-    }
-
-    private void addEndpointHeader(String endpoint) {
-        try {
-            TransportContext context = TransportContextHolder.getTransportContext();
-            HttpServletConnection connection = (HttpServletConnection) context.getConnection();
-            connection.addResponseHeader("Endpoint", endpoint);
-        } catch (Exception ex) {
-            log.warn("Failed to add endpoint response header");
         }
     }
 }

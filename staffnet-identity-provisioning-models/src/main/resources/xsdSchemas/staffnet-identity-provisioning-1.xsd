@@ -79,7 +79,7 @@
     </xsd:complexType>
 
     <xsd:element name="getProvisionedWorkers">
-        <xsd:complexType name="getProvisionedWorkers">
+        <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="getProvisionedWorkerRequest" nillable="true" type="tns:getProvisionedWorkerRequest"/>
             </xsd:sequence>

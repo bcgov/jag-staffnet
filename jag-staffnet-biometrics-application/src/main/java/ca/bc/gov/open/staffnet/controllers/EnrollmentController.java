@@ -1,9 +1,6 @@
 package ca.bc.gov.open.staffnet.controllers;
 
-import ca.bc.gov.open.staffnet.biometrics.one.GetHealth;
-import ca.bc.gov.open.staffnet.biometrics.one.GetHealthResponse;
-import ca.bc.gov.open.staffnet.biometrics.one.GetPing;
-import ca.bc.gov.open.staffnet.biometrics.one.GetPingResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
@@ -25,8 +22,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 @Slf4j
-public class HealthController {
-
+public class EnrollmentController {
     @Value("${staffnet.host}")
     private String host = "https://127.0.0.1/";
 
@@ -34,63 +30,68 @@ public class HealthController {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public HealthController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public EnrollmentController(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getHealth")
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startEnrollmentWithIdCheck")
     @ResponsePayload
-    public GetHealthResponse getHealth(@RequestPayload GetHealth empty)
-            throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
+    public StartEnrollmentWithIdCheckResponse startEnrollmentWithIdCheck(
+            @RequestPayload StartEnrollmentWithIdCheck inner) throws JsonProcessingException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-enrollment");
 
         try {
-            HttpEntity<GetHealthResponse> resp =
+            HttpEntity<StartEnrollmentWithIdCheckResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
-                            HttpMethod.GET,
+                            HttpMethod.POST,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetHealthResponse.class);
+                            StartEnrollmentWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getHealth")));
+                            new RequestSuccessLog(
+                                    "Request Success", "startEnrollmentWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getHealth",
+                                    "startEnrollmentWithIdCheck",
                                     ex.getMessage(),
-                                    empty)));
+                                    inner)));
             throw new ORDSException();
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getPing")
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
-    public GetPingResponse getPing(@RequestPayload GetPing empty) throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ping");
+    public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
+            @RequestPayload FinishEnrollmentWithIdCheckRequest inner)
+            throws JsonProcessingException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-enrollment");
+
         try {
-            HttpEntity<GetPingResponse> resp =
+            HttpEntity<FinishEnrollmentWithIdCheckResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
-                            HttpMethod.GET,
+                            HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetPingResponse.class);
+                            FinishEnrollmentWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getPing")));
+                            new RequestSuccessLog(
+                                    "Request Success", "finishEnrollmentWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getPing",
+                                    "finishEnrollmentWithIdCheck",
                                     ex.getMessage(),
-                                    empty)));
+                                    inner)));
             throw new ORDSException();
         }
     }
