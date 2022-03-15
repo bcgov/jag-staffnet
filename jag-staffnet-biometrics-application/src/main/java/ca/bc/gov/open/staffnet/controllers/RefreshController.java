@@ -1,11 +1,8 @@
 package ca.bc.gov.open.staffnet.controllers;
 
+import ca.bc.gov.open.staffnet.biometrics.one.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetHealth;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetHealthResponse;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetPing;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetPingResponse;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,8 +25,7 @@ import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
-public class HealthController {
-
+public class RefreshController {
     @Value("${staffnet.host}")
     private String host = "https://127.0.0.1/";
 
@@ -37,63 +33,36 @@ public class HealthController {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public HealthController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public RefreshController(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getHealth")
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "refreshIdentityWithIdCheck")
     @ResponsePayload
-    public GetHealthResponse getHealth(@RequestPayload GetHealth empty)
+    public RefreshIdentityWithIdCheckResponse refreshIdentityWithIdCheck(@RequestPayload RefreshIdentityWithIdCheck inner)
             throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "refresh");
 
         try {
-            HttpEntity<GetHealthResponse> resp =
+            HttpEntity<RefreshIdentityWithIdCheckResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
-                            HttpMethod.GET,
+                            HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetHealthResponse.class);
+                            RefreshIdentityWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getHealth")));
+                            new RequestSuccessLog("Request Success", "refreshIdentityWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getHealth",
+                                    "refreshIdentityWithIdCheck",
                                     ex.getMessage(),
-                                    empty)));
-            throw new ORDSException();
-        }
-    }
-
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getPing")
-    @ResponsePayload
-    public GetPingResponse getPing(@RequestPayload GetPing empty) throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ping");
-        try {
-            HttpEntity<GetPingResponse> resp =
-                    restTemplate.exchange(
-                            builder.build().encode().toUri(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
-                            GetPingResponse.class);
-            log.info(
-                    objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getPing")));
-            return resp.getBody();
-        } catch (Exception ex) {
-            log.error(
-                    objectMapper.writeValueAsString(
-                            new OrdsErrorLog(
-                                    "Error received from ORDS",
-                                    "getPing",
-                                    ex.getMessage(),
-                                    empty)));
+                                    inner)));
             throw new ORDSException();
         }
     }

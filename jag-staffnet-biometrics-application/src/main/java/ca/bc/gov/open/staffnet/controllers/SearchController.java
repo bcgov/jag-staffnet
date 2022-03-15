@@ -1,11 +1,8 @@
 package ca.bc.gov.open.staffnet.controllers;
 
+import ca.bc.gov.open.staffnet.biometrics.one.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetHealth;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetHealthResponse;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetPing;
-import ca.bc.gov.open.staffnet.identity_provisioning.one.GetPingResponse;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,8 +25,7 @@ import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
-public class HealthController {
-
+public class SearchController {
     @Value("${staffnet.host}")
     private String host = "https://127.0.0.1/";
 
@@ -37,63 +33,80 @@ public class HealthController {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public HealthController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public SearchController(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getHealth")
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startSearchForIdentity")
     @ResponsePayload
-    public GetHealthResponse getHealth(@RequestPayload GetHealth empty)
+    public StartSearchForIdentityResponse startSearchForIdentity(@RequestPayload StartSearchForIdentity search)
             throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
+        var inner =
+                search.getStartSearchForIdentityRequest() != null
+                        ? search.getStartSearchForIdentityRequest()
+                        : new StartSearchForIdentityRequest();
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-search")
+                .queryParam("requestorUserId", inner.getRequestorUserId())
+                .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
+                .queryParam("activeOnly", inner.getActiveOnly());
 
         try {
-            HttpEntity<GetHealthResponse> resp =
+            HttpEntity<StartSearchForIdentityResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetHealthResponse.class);
+                            StartSearchForIdentityResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getHealth")));
+                            new RequestSuccessLog("Request Success", "startSearchForIdentity")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getHealth",
+                                    "startSearchForIdentity",
                                     ex.getMessage(),
-                                    empty)));
+                                    inner)));
             throw new ORDSException();
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getPing")
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishSearchForIdentity")
     @ResponsePayload
-    public GetPingResponse getPing(@RequestPayload GetPing empty) throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ping");
+    public FinishSearchForIdentityResponse finishSearchForIdentity(@RequestPayload FinishSearchForIdentity search)
+            throws JsonProcessingException {
+        var inner =
+                search.getFinishSearchForIdentityRequest() != null
+                        ? search.getFinishSearchForIdentityRequest()
+                        : new FinishSearchForIdentityRequest();
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-search")
+                .queryParam("requestorUserId", inner.getRequestorUserId())
+                .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
+                .queryParam("requesterUserGuid", inner.getRequesterUserGuid())
+                .queryParam("searchID", inner.getSearchID());
+
         try {
-            HttpEntity<GetPingResponse> resp =
+            HttpEntity<FinishSearchForIdentityResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetPingResponse.class);
+                            FinishSearchForIdentityResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getPing")));
+                            new RequestSuccessLog("Request Success", "finishSearchForIdentity")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getPing",
+                                    "finishSearchForIdentity",
                                     ex.getMessage(),
-                                    empty)));
+                                    inner)));
             throw new ORDSException();
         }
     }
