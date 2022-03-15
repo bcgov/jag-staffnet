@@ -19,9 +19,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -41,14 +38,15 @@ public class ProvisionController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getProvisionedWorkers")
     @ResponsePayload
-    public GetProvisionedWorkersResponse getProvisionedWorkers(@RequestPayload GetProvisionedWorkers search)
-            throws JsonProcessingException {
+    public GetProvisionedWorkersResponse getProvisionedWorkers(
+            @RequestPayload GetProvisionedWorkers search) throws JsonProcessingException {
         var inner =
                 search.getGetProvisionedWorkerRequest() != null
                         ? search.getGetProvisionedWorkerRequest()
                         : new GetProvisionedWorkerRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker")
-                .queryParam("LocationCd", inner.getLocationCd());
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "worker")
+                        .queryParam("LocationCd", inner.getLocationCd());
 
         try {
             HttpEntity<GetProvisionedWorkersResponse> resp =
@@ -73,16 +71,19 @@ public class ProvisionController {
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getWorkerProvisioningQueueItem")
+    @PayloadRoot(
+            namespace = SoapConfig.SOAP_NAMESPACE,
+            localPart = "getWorkerProvisioningQueueItem")
     @ResponsePayload
-    public GetWorkerProvisioningQueueItemResponse getWorkerProvisioningQueueItem(@RequestPayload GetWorkerProvisioningQueueItem search)
-            throws JsonProcessingException {
+    public GetWorkerProvisioningQueueItemResponse getWorkerProvisioningQueueItem(
+            @RequestPayload GetWorkerProvisioningQueueItem search) throws JsonProcessingException {
         var inner =
                 search.getGetWorkerProvisioningQueueItemRequest() != null
                         ? search.getGetWorkerProvisioningQueueItemRequest()
                         : new GetWorkerProvisioningQueueItemRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "queue-item")
-                .queryParam("LocationCd", inner.getLocationCd());
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "queue-item")
+                        .queryParam("LocationCd", inner.getLocationCd());
 
         try {
             HttpEntity<GetWorkerProvisioningQueueItemResponse> resp =
@@ -93,7 +94,8 @@ public class ProvisionController {
                             GetWorkerProvisioningQueueItemResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "getWorkerProvisioningQueueItem")));
+                            new RequestSuccessLog(
+                                    "Request Success", "getWorkerProvisioningQueueItem")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
@@ -109,8 +111,8 @@ public class ProvisionController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "setWorkerProvisioningStatus")
     @ResponsePayload
-    public SetWorkerProvisioningStatusResponse setWorkerProvisioningStatus(@RequestPayload SetWorkerProvisioningStatus inner)
-            throws JsonProcessingException {
+    public SetWorkerProvisioningStatusResponse setWorkerProvisioningStatus(
+            @RequestPayload SetWorkerProvisioningStatus inner) throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker-status");
         try {
             HttpEntity<SetWorkerProvisioningStatusResponse> resp =
@@ -121,7 +123,8 @@ public class ProvisionController {
                             SetWorkerProvisioningStatusResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "setWorkerProvisioningStatus")));
+                            new RequestSuccessLog(
+                                    "Request Success", "setWorkerProvisioningStatus")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(

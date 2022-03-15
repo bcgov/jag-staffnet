@@ -19,9 +19,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -40,16 +37,17 @@ public class SearchController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startSearchForIdentity")
     @ResponsePayload
-    public StartSearchForIdentityResponse startSearchForIdentity(@RequestPayload StartSearchForIdentity search)
-            throws JsonProcessingException {
+    public StartSearchForIdentityResponse startSearchForIdentity(
+            @RequestPayload StartSearchForIdentity search) throws JsonProcessingException {
         var inner =
                 search.getStartSearchForIdentityRequest() != null
                         ? search.getStartSearchForIdentityRequest()
                         : new StartSearchForIdentityRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-search")
-                .queryParam("requestorUserId", inner.getRequestorUserId())
-                .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
-                .queryParam("activeOnly", inner.getActiveOnly());
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "start-search")
+                        .queryParam("requestorUserId", inner.getRequestorUserId())
+                        .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
+                        .queryParam("activeOnly", inner.getActiveOnly());
 
         try {
             HttpEntity<StartSearchForIdentityResponse> resp =
@@ -76,17 +74,18 @@ public class SearchController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishSearchForIdentity")
     @ResponsePayload
-    public FinishSearchForIdentityResponse finishSearchForIdentity(@RequestPayload FinishSearchForIdentity search)
-            throws JsonProcessingException {
+    public FinishSearchForIdentityResponse finishSearchForIdentity(
+            @RequestPayload FinishSearchForIdentity search) throws JsonProcessingException {
         var inner =
                 search.getFinishSearchForIdentityRequest() != null
                         ? search.getFinishSearchForIdentityRequest()
                         : new FinishSearchForIdentityRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-search")
-                .queryParam("requestorUserId", inner.getRequestorUserId())
-                .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
-                .queryParam("requesterUserGuid", inner.getRequesterUserGuid())
-                .queryParam("searchID", inner.getSearchID());
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "finish-search")
+                        .queryParam("requestorUserId", inner.getRequestorUserId())
+                        .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
+                        .queryParam("requesterUserGuid", inner.getRequesterUserGuid())
+                        .queryParam("searchID", inner.getSearchID());
 
         try {
             HttpEntity<FinishSearchForIdentityResponse> resp =

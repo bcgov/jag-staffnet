@@ -19,9 +19,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -40,8 +37,8 @@ public class EnrollmentController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startEnrollmentWithIdCheck")
     @ResponsePayload
-    public StartEnrollmentWithIdCheckResponse startEnrollmentWithIdCheck(@RequestPayload StartEnrollmentWithIdCheck inner)
-            throws JsonProcessingException {
+    public StartEnrollmentWithIdCheckResponse startEnrollmentWithIdCheck(
+            @RequestPayload StartEnrollmentWithIdCheck inner) throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-enrollment");
 
         try {
@@ -53,7 +50,8 @@ public class EnrollmentController {
                             StartEnrollmentWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "startEnrollmentWithIdCheck")));
+                            new RequestSuccessLog(
+                                    "Request Success", "startEnrollmentWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
@@ -69,7 +67,8 @@ public class EnrollmentController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
-    public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(@RequestPayload FinishEnrollmentWithIdCheckRequest inner)
+    public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
+            @RequestPayload FinishEnrollmentWithIdCheckRequest inner)
             throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-enrollment");
 
@@ -82,7 +81,8 @@ public class EnrollmentController {
                             FinishEnrollmentWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "finishEnrollmentWithIdCheck")));
+                            new RequestSuccessLog(
+                                    "Request Success", "finishEnrollmentWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(

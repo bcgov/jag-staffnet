@@ -19,9 +19,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -40,8 +37,8 @@ public class RefreshController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "refreshIdentityWithIdCheck")
     @ResponsePayload
-    public RefreshIdentityWithIdCheckResponse refreshIdentityWithIdCheck(@RequestPayload RefreshIdentityWithIdCheck inner)
-            throws JsonProcessingException {
+    public RefreshIdentityWithIdCheckResponse refreshIdentityWithIdCheck(
+            @RequestPayload RefreshIdentityWithIdCheck inner) throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "refresh");
 
         try {
@@ -53,7 +50,8 @@ public class RefreshController {
                             RefreshIdentityWithIdCheckResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "refreshIdentityWithIdCheck")));
+                            new RequestSuccessLog(
+                                    "Request Success", "refreshIdentityWithIdCheck")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(

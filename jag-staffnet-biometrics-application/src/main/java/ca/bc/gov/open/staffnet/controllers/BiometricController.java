@@ -19,9 +19,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.transport.context.TransportContext;
-import org.springframework.ws.transport.context.TransportContextHolder;
-import org.springframework.ws.transport.http.HttpServletConnection;
 
 @Endpoint
 @Slf4j
@@ -40,9 +37,10 @@ public class BiometricController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "biometricReconciliation")
     @ResponsePayload
-    public BiometricReconciliationResponse biometricReconciliation(@RequestPayload BiometricReconciliation inner)
-            throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-reconciliation");
+    public BiometricReconciliationResponse biometricReconciliation(
+            @RequestPayload BiometricReconciliation inner) throws JsonProcessingException {
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "bio-reconciliation");
 
         try {
             HttpEntity<BiometricReconciliationResponse> resp =
@@ -67,9 +65,12 @@ public class BiometricController {
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "deactivateBiometricCredentialByDID")
+    @PayloadRoot(
+            namespace = SoapConfig.SOAP_NAMESPACE,
+            localPart = "deactivateBiometricCredentialByDID")
     @ResponsePayload
-    public DeactivateBiometricCredentialByDIDResponse deactivateBiometricCredentialByDID(@RequestPayload DeactivateBiometricCredentialByDID inner)
+    public DeactivateBiometricCredentialByDIDResponse deactivateBiometricCredentialByDID(
+            @RequestPayload DeactivateBiometricCredentialByDID inner)
             throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-deactivate");
 
@@ -82,7 +83,8 @@ public class BiometricController {
                             DeactivateBiometricCredentialByDIDResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "deactivateBiometricCredentialByDID")));
+                            new RequestSuccessLog(
+                                    "Request Success", "deactivateBiometricCredentialByDID")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
@@ -96,10 +98,12 @@ public class BiometricController {
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "destroyBiometricCredentialByDID")
+    @PayloadRoot(
+            namespace = SoapConfig.SOAP_NAMESPACE,
+            localPart = "destroyBiometricCredentialByDID")
     @ResponsePayload
-    public DestroyBiometricCredentialByDIDResponse destroyBiometricCredentialByDID(@RequestPayload DestroyBiometricCredentialByDID inner)
-            throws JsonProcessingException {
+    public DestroyBiometricCredentialByDIDResponse destroyBiometricCredentialByDID(
+            @RequestPayload DestroyBiometricCredentialByDID inner) throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-destroy");
 
         try {
@@ -111,7 +115,8 @@ public class BiometricController {
                             DestroyBiometricCredentialByDIDResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "destroyBiometricCredentialByDID")));
+                            new RequestSuccessLog(
+                                    "Request Success", "destroyBiometricCredentialByDID")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
@@ -125,9 +130,12 @@ public class BiometricController {
         }
     }
 
-    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "reactivateBiometricCredentialByDID")
+    @PayloadRoot(
+            namespace = SoapConfig.SOAP_NAMESPACE,
+            localPart = "reactivateBiometricCredentialByDID")
     @ResponsePayload
-    public ReactivateBiometricCredentialByDIDResponse reactivateBiometricCredentialByDID(@RequestPayload ReactivateBiometricCredentialByDID inner)
+    public ReactivateBiometricCredentialByDIDResponse reactivateBiometricCredentialByDID(
+            @RequestPayload ReactivateBiometricCredentialByDID inner)
             throws JsonProcessingException {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-reactivate");
 
@@ -140,7 +148,8 @@ public class BiometricController {
                             ReactivateBiometricCredentialByDIDResponse.class);
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "reactivateBiometricCredentialByDID")));
+                            new RequestSuccessLog(
+                                    "Request Success", "reactivateBiometricCredentialByDID")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
