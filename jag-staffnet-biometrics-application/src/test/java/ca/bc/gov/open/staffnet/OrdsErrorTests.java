@@ -1,8 +1,7 @@
 package ca.bc.gov.open.staffnet;
 
-import ca.bc.gov.open.staffnet.biometrics.one.GetHealth;
-import ca.bc.gov.open.staffnet.biometrics.one.GetPing;
-import ca.bc.gov.open.staffnet.controllers.HealthController;
+import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.controllers.*;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -38,5 +37,86 @@ public class OrdsErrorTests {
 
         Assertions.assertThrows(
                 ORDSException.class, () -> healthController.getHealth(new GetHealth()));
+    }
+
+    @Test
+    public void testBiometricReconciliationOrdsFail() {
+        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> biometricController.biometricReconciliation(new BiometricReconciliation()));
+    }
+
+    @Test
+    public void testDeactivateBiometricCredentialByDIDOrdsFail() {
+        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> biometricController.deactivateBiometricCredentialByDID(new DeactivateBiometricCredentialByDID()));
+    }
+
+    @Test
+    public void testDestroyBiometricCredentialByDIDOrdsFail() {
+        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> biometricController.destroyBiometricCredentialByDID(new DestroyBiometricCredentialByDID()));
+    }
+
+    @Test
+    public void testReactivateBiometricCredentialByDIDOrdsFail() {
+        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> biometricController.reactivateBiometricCredentialByDID(new ReactivateBiometricCredentialByDID()));
+    }
+
+    @Test
+    public void testStartEnrollmentWithIdCheckOrdsFail() {
+        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> enrollmentController.startEnrollmentWithIdCheck(new StartEnrollmentWithIdCheck()));
+    }
+
+    @Test
+    public void testFinishEnrollmentWithIdCheckOrdsFail() {
+        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> enrollmentController.finishEnrollmentWithIdCheck(new FinishEnrollmentWithIdCheck()));
+    }
+
+    @Test
+    public void testRefreshIdentityWithIdCheckOrdsFail() {
+        RefreshController refreshController = new RefreshController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> refreshController.refreshIdentityWithIdCheck(new RefreshIdentityWithIdCheck()));
+    }
+
+    @Test
+    public void testStartSearchForIdentityOrdsFail() {
+        SearchController searchController = new SearchController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> searchController.startSearchForIdentity(new StartSearchForIdentity()));
+    }
+
+    @Test
+    public void testFinishSearchForIdentityOrdsFail() {
+        SearchController searchController = new SearchController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> searchController.finishSearchForIdentity(new FinishSearchForIdentity()));
     }
 }
