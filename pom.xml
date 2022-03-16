@@ -11,7 +11,7 @@
     </parent>
     <groupId>ca.bc.gov.open</groupId>
     <artifactId>jag-staffnet</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <name>jag-staffnet</name>
     <description>STAFF-NET Application</description>
     <properties>
@@ -32,6 +32,7 @@
         <module>staffnet-biometrics-models</module>
         <module>jag-staffnet-identity-provisioning-application</module>
         <module>staffnet-identity-provisioning-models</module>
+        <module>staffnet-code-coverage</module>
     </modules>
 
     <build>
