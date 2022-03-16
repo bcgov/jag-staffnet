@@ -112,8 +112,13 @@ public class ProvisionController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "setWorkerProvisioningStatus")
     @ResponsePayload
     public SetWorkerProvisioningStatusResponse setWorkerProvisioningStatus(
-            @RequestPayload SetWorkerProvisioningStatus inner) throws JsonProcessingException {
+            @RequestPayload SetWorkerProvisioningStatus search) throws JsonProcessingException {
+        var inner =
+                search.getSetWorkerProvisioningStatusRequest() != null
+                        ? search.getSetWorkerProvisioningStatusRequest()
+                        : new SetWorkerProvisioningStatusRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker-status");
+
         try {
             HttpEntity<SetWorkerProvisioningStatusResponse> resp =
                     restTemplate.exchange(

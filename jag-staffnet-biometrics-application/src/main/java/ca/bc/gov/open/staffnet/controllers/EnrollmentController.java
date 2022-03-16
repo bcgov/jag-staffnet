@@ -38,7 +38,11 @@ public class EnrollmentController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startEnrollmentWithIdCheck")
     @ResponsePayload
     public StartEnrollmentWithIdCheckResponse startEnrollmentWithIdCheck(
-            @RequestPayload StartEnrollmentWithIdCheck inner) throws JsonProcessingException {
+            @RequestPayload StartEnrollmentWithIdCheck search) throws JsonProcessingException {
+        var inner =
+                search.getStartEnrollmentWithIdCheckRequest() != null
+                        ? search.getStartEnrollmentWithIdCheckRequest()
+                        : new StartEnrollmentWithIdCheckRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-enrollment");
 
         try {
@@ -68,8 +72,11 @@ public class EnrollmentController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
     public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
-            @RequestPayload FinishEnrollmentWithIdCheckRequest inner)
-            throws JsonProcessingException {
+            @RequestPayload FinishEnrollmentWithIdCheck search) throws JsonProcessingException {
+        var inner =
+                search.getFinishEnrollmentWithIdCheckRequest() != null
+                        ? search.getFinishEnrollmentWithIdCheckRequest()
+                        : new FinishEnrollmentWithIdCheckRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-enrollment");
 
         try {

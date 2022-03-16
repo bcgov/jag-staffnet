@@ -38,7 +38,11 @@ public class RefreshController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "refreshIdentityWithIdCheck")
     @ResponsePayload
     public RefreshIdentityWithIdCheckResponse refreshIdentityWithIdCheck(
-            @RequestPayload RefreshIdentityWithIdCheck inner) throws JsonProcessingException {
+            @RequestPayload RefreshIdentityWithIdCheck search) throws JsonProcessingException {
+        var inner =
+                search.getRefreshIdentityWithIdCheckRequest() != null
+                        ? search.getRefreshIdentityWithIdCheckRequest()
+                        : new RefreshIdentityWithIdCheckRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "refresh");
 
         try {

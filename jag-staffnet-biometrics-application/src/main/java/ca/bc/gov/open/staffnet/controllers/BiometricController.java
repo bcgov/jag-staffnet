@@ -38,7 +38,11 @@ public class BiometricController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "biometricReconciliation")
     @ResponsePayload
     public BiometricReconciliationResponse biometricReconciliation(
-            @RequestPayload BiometricReconciliation inner) throws JsonProcessingException {
+            @RequestPayload BiometricReconciliation search) throws JsonProcessingException {
+        var inner =
+                search.getBiometricReconciliationRequest() != null
+                        ? search.getBiometricReconciliationRequest()
+                        : new BiometricReconciliationRequest();
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "bio-reconciliation");
 
@@ -70,8 +74,12 @@ public class BiometricController {
             localPart = "deactivateBiometricCredentialByDID")
     @ResponsePayload
     public DeactivateBiometricCredentialByDIDResponse deactivateBiometricCredentialByDID(
-            @RequestPayload DeactivateBiometricCredentialByDID inner)
+            @RequestPayload DeactivateBiometricCredentialByDID search)
             throws JsonProcessingException {
+        var inner =
+                search.getDeactivateBiometricCredentialByDIDRequest() != null
+                        ? search.getDeactivateBiometricCredentialByDIDRequest()
+                        : new DeactivateBiometricCredentialByDIDRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-deactivate");
 
         try {
@@ -103,14 +111,18 @@ public class BiometricController {
             localPart = "destroyBiometricCredentialByDID")
     @ResponsePayload
     public DestroyBiometricCredentialByDIDResponse destroyBiometricCredentialByDID(
-            @RequestPayload DestroyBiometricCredentialByDID inner) throws JsonProcessingException {
+            @RequestPayload DestroyBiometricCredentialByDID search) throws JsonProcessingException {
+        var inner =
+                search.getDestroyBiometricCredentialByDIDRequest() != null
+                        ? search.getDestroyBiometricCredentialByDIDRequest()
+                        : new DestroyBiometricCredentialByDIDRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-destroy");
 
         try {
             HttpEntity<DestroyBiometricCredentialByDIDResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
-                            HttpMethod.PUT,
+                            HttpMethod.DELETE,
                             new HttpEntity<>(new HttpHeaders()),
                             DestroyBiometricCredentialByDIDResponse.class);
             log.info(
@@ -135,8 +147,12 @@ public class BiometricController {
             localPart = "reactivateBiometricCredentialByDID")
     @ResponsePayload
     public ReactivateBiometricCredentialByDIDResponse reactivateBiometricCredentialByDID(
-            @RequestPayload ReactivateBiometricCredentialByDID inner)
+            @RequestPayload ReactivateBiometricCredentialByDID search)
             throws JsonProcessingException {
+        var inner =
+                search.getReactivateBiometricCredentialByDIDRequest() != null
+                        ? search.getReactivateBiometricCredentialByDIDRequest()
+                        : new ReactivateBiometricCredentialByDIDRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-reactivate");
 
         try {
