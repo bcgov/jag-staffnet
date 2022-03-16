@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.time.Instant;
+import java.util.Collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -37,7 +38,12 @@ public class ProvisionControllerTests {
         one.setRecordCount("A");
         one.setResponseCd("A");
         one.setResponseMessage("A");
-        one.setWorkers(null);
+        Workers workers = new Workers();
+        workers.setDID("A");
+        workers.setFirstNm("A");
+        workers.setLastNm("A");
+        workers.setEmployeeNumber("A");
+        one.setWorkers(Collections.singletonList(workers));
         resp.setGetProvisionedWorkerResponse(one);
 
         ResponseEntity<GetProvisionedWorkersResponse> responseEntity =

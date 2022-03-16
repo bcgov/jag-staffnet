@@ -1,5 +1,8 @@
 package ca.bc.gov.open.staffnet;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import ca.bc.gov.open.staffnet.controllers.HealthController;
 import ca.bc.gov.open.staffnet.controllers.ProvisionController;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
@@ -11,6 +14,8 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
@@ -72,5 +77,15 @@ public class OrdsErrorTests {
                 () ->
                         provisionController.setWorkerProvisioningStatus(
                                 new SetWorkerProvisioningStatus()));
+    }
+
+    @Test
+    public void securityTestFail_Then401() throws Exception {
+        var response =
+                mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
+                        .andExpect(status().is4xxClientError())
+                        .andReturn();
+        Assertions.assertEquals(
+                HttpStatus.UNAUTHORIZED.value(), response.getResponse().getStatus());
     }
 }
