@@ -72,8 +72,7 @@ public class EnrollmentController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
     public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
-            @RequestPayload FinishEnrollmentWithIdCheck search)
-            throws JsonProcessingException {
+            @RequestPayload FinishEnrollmentWithIdCheck search) throws JsonProcessingException {
         var inner =
                 search.getFinishEnrollmentWithIdCheckRequest() != null
                         ? search.getFinishEnrollmentWithIdCheckRequest()

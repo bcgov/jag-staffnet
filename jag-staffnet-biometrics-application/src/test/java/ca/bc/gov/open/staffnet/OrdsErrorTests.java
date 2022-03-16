@@ -41,7 +41,8 @@ public class OrdsErrorTests {
 
     @Test
     public void testBiometricReconciliationOrdsFail() {
-        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -50,47 +51,62 @@ public class OrdsErrorTests {
 
     @Test
     public void testDeactivateBiometricCredentialByDIDOrdsFail() {
-        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> biometricController.deactivateBiometricCredentialByDID(new DeactivateBiometricCredentialByDID()));
+                () ->
+                        biometricController.deactivateBiometricCredentialByDID(
+                                new DeactivateBiometricCredentialByDID()));
     }
 
     @Test
     public void testDestroyBiometricCredentialByDIDOrdsFail() {
-        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> biometricController.destroyBiometricCredentialByDID(new DestroyBiometricCredentialByDID()));
+                () ->
+                        biometricController.destroyBiometricCredentialByDID(
+                                new DestroyBiometricCredentialByDID()));
     }
 
     @Test
     public void testReactivateBiometricCredentialByDIDOrdsFail() {
-        BiometricController biometricController = new BiometricController(restTemplate, objectMapper);
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> biometricController.reactivateBiometricCredentialByDID(new ReactivateBiometricCredentialByDID()));
+                () ->
+                        biometricController.reactivateBiometricCredentialByDID(
+                                new ReactivateBiometricCredentialByDID()));
     }
 
     @Test
     public void testStartEnrollmentWithIdCheckOrdsFail() {
-        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+        EnrollmentController enrollmentController =
+                new EnrollmentController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> enrollmentController.startEnrollmentWithIdCheck(new StartEnrollmentWithIdCheck()));
+                () ->
+                        enrollmentController.startEnrollmentWithIdCheck(
+                                new StartEnrollmentWithIdCheck()));
     }
 
     @Test
     public void testFinishEnrollmentWithIdCheckOrdsFail() {
-        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+        EnrollmentController enrollmentController =
+                new EnrollmentController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> enrollmentController.finishEnrollmentWithIdCheck(new FinishEnrollmentWithIdCheck()));
+                () ->
+                        enrollmentController.finishEnrollmentWithIdCheck(
+                                new FinishEnrollmentWithIdCheck()));
     }
 
     @Test
@@ -99,7 +115,9 @@ public class OrdsErrorTests {
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> refreshController.refreshIdentityWithIdCheck(new RefreshIdentityWithIdCheck()));
+                () ->
+                        refreshController.refreshIdentityWithIdCheck(
+                                new RefreshIdentityWithIdCheck()));
     }
 
     @Test

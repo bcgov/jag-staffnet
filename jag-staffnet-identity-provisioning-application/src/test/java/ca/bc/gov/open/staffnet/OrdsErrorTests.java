@@ -11,14 +11,9 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -47,7 +42,8 @@ public class OrdsErrorTests {
 
     @Test
     public void testGetProvisionedWorkersOrdsFail() {
-        ProvisionController provisionController = new ProvisionController(restTemplate, objectMapper);
+        ProvisionController provisionController =
+                new ProvisionController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -56,19 +52,25 @@ public class OrdsErrorTests {
 
     @Test
     public void testGetWorkerProvisioningQueueItemOrdsFail() {
-        ProvisionController provisionController = new ProvisionController(restTemplate, objectMapper);
+        ProvisionController provisionController =
+                new ProvisionController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> provisionController.getWorkerProvisioningQueueItem(new GetWorkerProvisioningQueueItem()));
+                () ->
+                        provisionController.getWorkerProvisioningQueueItem(
+                                new GetWorkerProvisioningQueueItem()));
     }
 
     @Test
     public void testSetWorkerProvisioningStatusOrdsFail() {
-        ProvisionController provisionController = new ProvisionController(restTemplate, objectMapper);
+        ProvisionController provisionController =
+                new ProvisionController(restTemplate, objectMapper);
 
         Assertions.assertThrows(
                 ORDSException.class,
-                () -> provisionController.setWorkerProvisioningStatus(new SetWorkerProvisioningStatus()));
+                () ->
+                        provisionController.setWorkerProvisioningStatus(
+                                new SetWorkerProvisioningStatus()));
     }
 }

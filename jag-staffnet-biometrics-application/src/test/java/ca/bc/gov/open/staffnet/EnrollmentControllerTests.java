@@ -1,10 +1,13 @@
 package ca.bc.gov.open.staffnet;
 
+import static org.mockito.Mockito.when;
+
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.controllers.BiometricController;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
+import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,11 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
-import java.time.Instant;
-
-import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -43,7 +41,8 @@ public class EnrollmentControllerTests {
         two.setExpiryDate(Instant.now());
         two.setIssuanceId("A");
         resp.setStartEnrollmentWithIdCheckResponse(two);
-        ResponseEntity<StartEnrollmentWithIdCheckResponse> responseEntity = new ResponseEntity<>(resp, HttpStatus.OK);
+        ResponseEntity<StartEnrollmentWithIdCheckResponse> responseEntity =
+                new ResponseEntity<>(resp, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
@@ -53,7 +52,8 @@ public class EnrollmentControllerTests {
                         Mockito.<Class<StartEnrollmentWithIdCheckResponse>>any()))
                 .thenReturn(responseEntity);
 
-        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+        EnrollmentController enrollmentController =
+                new EnrollmentController(restTemplate, objectMapper);
         var out = enrollmentController.startEnrollmentWithIdCheck(req);
         Assertions.assertNotNull(out);
     }
@@ -76,17 +76,19 @@ public class EnrollmentControllerTests {
         two.setDid("A");
         two.setDateOfBirth("A");
         resp.setFinishEnrollmentWithIdCheckResponse(two);
-        ResponseEntity<FinishEnrollmentWithIdCheckResponse> responseEntity = new ResponseEntity<>(resp, HttpStatus.OK);
+        ResponseEntity<FinishEnrollmentWithIdCheckResponse> responseEntity =
+                new ResponseEntity<>(resp, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
-                Mockito.any(URI.class),
-                Mockito.eq(HttpMethod.PUT),
-                Mockito.<HttpEntity<String>>any(),
-                Mockito.<Class<FinishEnrollmentWithIdCheckResponse>>any()))
+                        Mockito.any(URI.class),
+                        Mockito.eq(HttpMethod.PUT),
+                        Mockito.<HttpEntity<String>>any(),
+                        Mockito.<Class<FinishEnrollmentWithIdCheckResponse>>any()))
                 .thenReturn(responseEntity);
 
-        EnrollmentController enrollmentController = new EnrollmentController(restTemplate, objectMapper);
+        EnrollmentController enrollmentController =
+                new EnrollmentController(restTemplate, objectMapper);
         var out = enrollmentController.finishEnrollmentWithIdCheck(req);
         Assertions.assertNotNull(out);
     }
