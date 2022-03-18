@@ -44,7 +44,7 @@ public class SearchController {
                         ? search.getStartSearchForIdentityRequest()
                         : new StartSearchForIdentityRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "start-search")
+                UriComponentsBuilder.fromHttpUrl(host + "search/start")
                         .queryParam("requestorUserId", inner.getRequestorUserId())
                         .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
                         .queryParam("activeOnly", inner.getActiveOnly());
@@ -81,7 +81,7 @@ public class SearchController {
                         ? search.getFinishSearchForIdentityRequest()
                         : new FinishSearchForIdentityRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "finish-search")
+                UriComponentsBuilder.fromHttpUrl(host + "search/finish")
                         .queryParam("requestorUserId", inner.getRequestorUserId())
                         .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
                         .queryParam("requesterUserGuid", inner.getRequesterUserGuid())

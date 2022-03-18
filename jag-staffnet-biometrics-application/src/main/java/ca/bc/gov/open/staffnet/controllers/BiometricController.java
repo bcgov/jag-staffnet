@@ -44,7 +44,7 @@ public class BiometricController {
                         ? search.getBiometricReconciliationRequest()
                         : new BiometricReconciliationRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "bio-reconciliation");
+                UriComponentsBuilder.fromHttpUrl(host + "bio/reconciliation");
 
         try {
             HttpEntity<BiometricReconciliationResponse> resp =
@@ -80,7 +80,7 @@ public class BiometricController {
                 search.getDeactivateBiometricCredentialByDIDRequest() != null
                         ? search.getDeactivateBiometricCredentialByDIDRequest()
                         : new DeactivateBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-deactivate");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/deactivate");
 
         try {
             HttpEntity<DeactivateBiometricCredentialByDIDResponse> resp =
@@ -116,7 +116,7 @@ public class BiometricController {
                 search.getDestroyBiometricCredentialByDIDRequest() != null
                         ? search.getDestroyBiometricCredentialByDIDRequest()
                         : new DestroyBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-destroy");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/destroy");
 
         try {
             HttpEntity<DestroyBiometricCredentialByDIDResponse> resp =
@@ -153,7 +153,7 @@ public class BiometricController {
                 search.getReactivateBiometricCredentialByDIDRequest() != null
                         ? search.getReactivateBiometricCredentialByDIDRequest()
                         : new ReactivateBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio-reactivate");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/reactivate");
 
         try {
             HttpEntity<ReactivateBiometricCredentialByDIDResponse> resp =

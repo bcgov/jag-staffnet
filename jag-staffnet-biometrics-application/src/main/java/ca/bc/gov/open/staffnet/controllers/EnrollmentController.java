@@ -43,7 +43,7 @@ public class EnrollmentController {
                 search.getStartEnrollmentWithIdCheckRequest() != null
                         ? search.getStartEnrollmentWithIdCheckRequest()
                         : new StartEnrollmentWithIdCheckRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "start-enrollment");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/start");
 
         try {
             HttpEntity<StartEnrollmentWithIdCheckResponse> resp =
@@ -77,7 +77,7 @@ public class EnrollmentController {
                 search.getFinishEnrollmentWithIdCheckRequest() != null
                         ? search.getFinishEnrollmentWithIdCheckRequest()
                         : new FinishEnrollmentWithIdCheckRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "finish-enrollment");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/finish");
 
         try {
             HttpEntity<FinishEnrollmentWithIdCheckResponse> resp =

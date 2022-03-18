@@ -45,7 +45,7 @@ public class ProvisionController {
                         ? search.getGetProvisionedWorkerRequest()
                         : new GetProvisionedWorkerRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "worker")
+                UriComponentsBuilder.fromHttpUrl(host + "workers")
                         .queryParam("LocationCd", inner.getLocationCd());
 
         try {
@@ -82,7 +82,7 @@ public class ProvisionController {
                         ? search.getGetWorkerProvisioningQueueItemRequest()
                         : new GetWorkerProvisioningQueueItemRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "queue-item")
+                UriComponentsBuilder.fromHttpUrl(host + "worker/queueitem")
                         .queryParam("LocationCd", inner.getLocationCd());
 
         try {
@@ -117,7 +117,7 @@ public class ProvisionController {
                 search.getSetWorkerProvisioningStatusRequest() != null
                         ? search.getSetWorkerProvisioningStatusRequest()
                         : new SetWorkerProvisioningStatusRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker-status");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker/status");
 
         try {
             HttpEntity<SetWorkerProvisioningStatusResponse> resp =
