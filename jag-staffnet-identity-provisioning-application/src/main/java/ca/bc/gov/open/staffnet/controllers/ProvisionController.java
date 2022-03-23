@@ -46,19 +46,23 @@ public class ProvisionController {
                         : new GetProvisionedWorkerRequest();
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "workers")
-                        .queryParam("LocationCd", inner.getLocationCd());
+                        .queryParam("locationCd", inner.getLocationCd());
 
         try {
-            HttpEntity<GetProvisionedWorkersResponse> resp =
+            HttpEntity<GetProvisionedWorkerResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetProvisionedWorkersResponse.class);
+                            GetProvisionedWorkerResponse.class);
+
+            var out = new GetProvisionedWorkersResponse();
+            out.setGetProvisionedWorkerResponse(resp.getBody());
+
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "getProvisionedWorkers")));
-            return resp.getBody();
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -83,20 +87,22 @@ public class ProvisionController {
                         : new GetWorkerProvisioningQueueItemRequest();
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "worker/queueitem")
-                        .queryParam("LocationCd", inner.getLocationCd());
+                        .queryParam("locationCd", inner.getLocationCd());
 
         try {
-            HttpEntity<GetWorkerProvisioningQueueItemResponse> resp =
+            HttpEntity<GetWorkerProvisioningQueueItemResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            GetWorkerProvisioningQueueItemResponse.class);
+                            GetWorkerProvisioningQueueItemResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "getWorkerProvisioningQueueItem")));
-            return resp.getBody();
+            var out = new GetWorkerProvisioningQueueItemResponse();
+            out.setGetWorkerProvisioningQueueItemResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
