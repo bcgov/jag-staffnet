@@ -47,16 +47,19 @@ public class BiometricController {
                 UriComponentsBuilder.fromHttpUrl(host + "bio/reconciliation");
 
         try {
-            HttpEntity<BiometricReconciliationResponse> resp =
+            HttpEntity<BiometricReconciliationResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            BiometricReconciliationResponse.class);
+                            BiometricReconciliationResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "biometricReconciliation")));
-            return resp.getBody();
+
+            BiometricReconciliationResponse out = new BiometricReconciliationResponse();
+            out.setBiometricReconciliationResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(

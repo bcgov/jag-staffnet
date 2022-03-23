@@ -35,16 +35,16 @@ public class BiometricControllerTests {
         BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
         two.setResponseCd("A");
         two.setResponseTxt("A");
-        resp.setBiometricReconciliationResponse(two);
-        ResponseEntity<BiometricReconciliationResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<BiometricReconciliationResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<BiometricReconciliationResponse>>any()))
+                        Mockito.<Class<BiometricReconciliationResponse2>>any()))
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =

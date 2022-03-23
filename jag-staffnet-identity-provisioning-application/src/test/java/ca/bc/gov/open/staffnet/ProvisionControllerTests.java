@@ -44,17 +44,16 @@ public class ProvisionControllerTests {
         workers.setLastNm("A");
         workers.setEmployeeNumber("A");
         one.setWorkers(Collections.singletonList(workers));
-        resp.setGetProvisionedWorkerResponse(one);
 
-        ResponseEntity<GetProvisionedWorkersResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+        ResponseEntity<GetProvisionedWorkerResponse> responseEntity =
+                new ResponseEntity<>(one, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<GetProvisionedWorkersResponse>>any()))
+                        Mockito.<Class<GetProvisionedWorkerResponse>>any()))
                 .thenReturn(responseEntity);
 
         ProvisionController provisionController =
@@ -82,17 +81,16 @@ public class ProvisionControllerTests {
         two.setPhoto(null);
         two.setProvisioningTargetId("A");
         two.setWorkerDID("A");
-        resp.setGetWorkerProvisioningQueueItemResponse(two);
 
-        ResponseEntity<GetWorkerProvisioningQueueItemResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+        ResponseEntity<GetWorkerProvisioningQueueItemResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<GetWorkerProvisioningQueueItemResponse>>any()))
+                        Mockito.<Class<GetWorkerProvisioningQueueItemResponse2>>any()))
                 .thenReturn(responseEntity);
 
         ProvisionController provisionController =
