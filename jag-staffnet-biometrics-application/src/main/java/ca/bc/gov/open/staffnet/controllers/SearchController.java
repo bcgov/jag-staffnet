@@ -50,16 +50,18 @@ public class SearchController {
                         .queryParam("activeOnly", inner.getActiveOnly());
 
         try {
-            HttpEntity<StartSearchForIdentityResponse> resp =
+            HttpEntity<StartSearchForIdentityResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            StartSearchForIdentityResponse.class);
+                            StartSearchForIdentityResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "startSearchForIdentity")));
-            return resp.getBody();
+            var out = new StartSearchForIdentityResponse();
+            out.setStartSearchForIdentityResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -88,16 +90,18 @@ public class SearchController {
                         .queryParam("searchID", inner.getSearchID());
 
         try {
-            HttpEntity<FinishSearchForIdentityResponse> resp =
+            HttpEntity<FinishSearchForIdentityResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            FinishSearchForIdentityResponse.class);
+                            FinishSearchForIdentityResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "finishSearchForIdentity")));
-            return resp.getBody();
+            var out = new FinishSearchForIdentityResponse();
+            out.setFinishSearchForIdentityResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(

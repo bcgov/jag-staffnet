@@ -31,7 +31,6 @@ public class RefreshControllerTests {
     @Test
     public void testRefreshIdentityWithIdCheck() throws JsonProcessingException {
         var req = new RefreshIdentityWithIdCheck();
-        var resp = new RefreshIdentityWithIdCheckResponse();
 
         RefreshIdentityWithIdCheckResponse2 two = new RefreshIdentityWithIdCheckResponse2();
         two.setCode("A");
@@ -40,16 +39,16 @@ public class RefreshControllerTests {
         two.setFailureCode("A");
         two.setExpiryDate(Instant.now());
         two.setIssuanceId("A");
-        resp.setRefreshIdentityWithIdCheckResponse(two);
-        ResponseEntity<RefreshIdentityWithIdCheckResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<RefreshIdentityWithIdCheckResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<RefreshIdentityWithIdCheckResponse>>any()))
+                        Mockito.<Class<RefreshIdentityWithIdCheckResponse2>>any()))
                 .thenReturn(responseEntity);
 
         RefreshController refreshController = new RefreshController(restTemplate, objectMapper);

@@ -86,17 +86,19 @@ public class BiometricController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/deactivate");
 
         try {
-            HttpEntity<DeactivateBiometricCredentialByDIDResponse> resp =
+            HttpEntity<DeactivateBiometricCredentialByDIDResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            DeactivateBiometricCredentialByDIDResponse.class);
+                            DeactivateBiometricCredentialByDIDResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "deactivateBiometricCredentialByDID")));
-            return resp.getBody();
+            var out = new DeactivateBiometricCredentialByDIDResponse();
+            out.setDeactivateBiometricCredentialByDIDResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -122,17 +124,19 @@ public class BiometricController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/destroy");
 
         try {
-            HttpEntity<DestroyBiometricCredentialByDIDResponse> resp =
+            HttpEntity<DestroyBiometricCredentialByDIDResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.DELETE,
                             new HttpEntity<>(new HttpHeaders()),
-                            DestroyBiometricCredentialByDIDResponse.class);
+                            DestroyBiometricCredentialByDIDResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "destroyBiometricCredentialByDID")));
-            return resp.getBody();
+            var out = new DestroyBiometricCredentialByDIDResponse();
+            out.setDestroyBiometricCredentialByDIDResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(

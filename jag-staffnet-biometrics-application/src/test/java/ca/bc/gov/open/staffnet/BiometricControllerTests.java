@@ -56,23 +56,22 @@ public class BiometricControllerTests {
     @Test
     public void testDeactivateBiometricCredentialByDID() throws JsonProcessingException {
         var req = new DeactivateBiometricCredentialByDID();
-        var resp = new DeactivateBiometricCredentialByDIDResponse();
 
         DeactivateBiometricCredentialByDIDResponse2 two =
                 new DeactivateBiometricCredentialByDIDResponse2();
         two.setCode("A");
         two.setFailureCode("A");
         two.setMessage("A");
-        resp.setDeactivateBiometricCredentialByDIDResponse(two);
-        ResponseEntity<DeactivateBiometricCredentialByDIDResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<DeactivateBiometricCredentialByDIDResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<DeactivateBiometricCredentialByDIDResponse>>any()))
+                        Mockito.<Class<DeactivateBiometricCredentialByDIDResponse2>>any()))
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =
@@ -84,23 +83,22 @@ public class BiometricControllerTests {
     @Test
     public void testDestroyBiometricCredentialByDID() throws JsonProcessingException {
         var req = new DestroyBiometricCredentialByDID();
-        var resp = new DestroyBiometricCredentialByDIDResponse();
 
         DestroyBiometricCredentialByDIDResponse2 two =
                 new DestroyBiometricCredentialByDIDResponse2();
         two.setCode("A");
         two.setFailureCode("A");
         two.setMessage("A");
-        resp.setDestroyBiometricCredentialByDIDResponse(two);
-        ResponseEntity<DestroyBiometricCredentialByDIDResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<DestroyBiometricCredentialByDIDResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.DELETE),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<DestroyBiometricCredentialByDIDResponse>>any()))
+                        Mockito.<Class<DestroyBiometricCredentialByDIDResponse2>>any()))
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =
