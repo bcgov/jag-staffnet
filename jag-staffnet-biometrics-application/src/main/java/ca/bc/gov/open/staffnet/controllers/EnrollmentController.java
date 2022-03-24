@@ -46,17 +46,19 @@ public class EnrollmentController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/start");
 
         try {
-            HttpEntity<StartEnrollmentWithIdCheckResponse> resp =
+            HttpEntity<StartEnrollmentWithIdCheckResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.POST,
                             new HttpEntity<>(new HttpHeaders()),
-                            StartEnrollmentWithIdCheckResponse.class);
+                            StartEnrollmentWithIdCheckResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "startEnrollmentWithIdCheck")));
-            return resp.getBody();
+            var out = new StartEnrollmentWithIdCheckResponse();
+            out.setStartEnrollmentWithIdCheckResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -80,17 +82,19 @@ public class EnrollmentController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/finish");
 
         try {
-            HttpEntity<FinishEnrollmentWithIdCheckResponse> resp =
+            HttpEntity<FinishEnrollmentWithIdCheckResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            FinishEnrollmentWithIdCheckResponse.class);
+                            FinishEnrollmentWithIdCheckResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "finishEnrollmentWithIdCheck")));
-            return resp.getBody();
+            var out = new FinishEnrollmentWithIdCheckResponse();
+            out.setFinishEnrollmentWithIdCheckResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(

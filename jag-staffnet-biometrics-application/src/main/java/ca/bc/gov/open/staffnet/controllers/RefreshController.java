@@ -46,17 +46,19 @@ public class RefreshController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "refresh");
 
         try {
-            HttpEntity<RefreshIdentityWithIdCheckResponse> resp =
+            HttpEntity<RefreshIdentityWithIdCheckResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.PUT,
                             new HttpEntity<>(new HttpHeaders()),
-                            RefreshIdentityWithIdCheckResponse.class);
+                            RefreshIdentityWithIdCheckResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "refreshIdentityWithIdCheck")));
-            return resp.getBody();
+            var out = new RefreshIdentityWithIdCheckResponse();
+            out.setRefreshIdentityWithIdCheckResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(

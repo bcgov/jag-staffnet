@@ -31,7 +31,6 @@ public class SearchControllerTests {
     @Test
     public void testStartSearchForIdentity() throws JsonProcessingException {
         var req = new StartSearchForIdentity();
-        var resp = new StartSearchForIdentityResponse();
 
         StartSearchForIdentityResponse2 two = new StartSearchForIdentityResponse2();
         two.setCode("A");
@@ -40,16 +39,16 @@ public class SearchControllerTests {
         two.setExpiryDate(Instant.now());
         two.setSearchID("A");
         two.setSearchURL("A");
-        resp.setStartSearchForIdentityResponse(two);
-        ResponseEntity<StartSearchForIdentityResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<StartSearchForIdentityResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<StartSearchForIdentityResponse>>any()))
+                        Mockito.<Class<StartSearchForIdentityResponse2>>any()))
                 .thenReturn(responseEntity);
 
         SearchController searchController = new SearchController(restTemplate, objectMapper);
@@ -60,7 +59,6 @@ public class SearchControllerTests {
     @Test
     public void testFinishSearchForIdentity() throws JsonProcessingException {
         var req = new FinishSearchForIdentity();
-        var resp = new FinishSearchForIdentityResponse();
 
         FinishSearchForIdentityResponse2 two = new FinishSearchForIdentityResponse2();
         two.setCode("A");
@@ -69,16 +67,16 @@ public class SearchControllerTests {
         two.setActive("A");
         two.setStatus("A");
         two.setDID("A");
-        resp.setFinishSearchForIdentityResponse(two);
-        ResponseEntity<FinishSearchForIdentityResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<FinishSearchForIdentityResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<FinishSearchForIdentityResponse>>any()))
+                        Mockito.<Class<FinishSearchForIdentityResponse2>>any()))
                 .thenReturn(responseEntity);
 
         SearchController searchController = new SearchController(restTemplate, objectMapper);

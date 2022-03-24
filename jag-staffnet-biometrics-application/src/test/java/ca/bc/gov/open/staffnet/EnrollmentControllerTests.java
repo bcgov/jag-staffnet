@@ -31,7 +31,6 @@ public class EnrollmentControllerTests {
     @Test
     public void testStartEnrollmentWithIdCheck() throws JsonProcessingException {
         var req = new StartEnrollmentWithIdCheck();
-        var resp = new StartEnrollmentWithIdCheckResponse();
 
         StartEnrollmentWithIdCheckResponse2 two = new StartEnrollmentWithIdCheckResponse2();
         two.setCode("A");
@@ -40,16 +39,16 @@ public class EnrollmentControllerTests {
         two.setFailureCode("A");
         two.setExpiryDate(Instant.now());
         two.setIssuanceId("A");
-        resp.setStartEnrollmentWithIdCheckResponse(two);
-        ResponseEntity<StartEnrollmentWithIdCheckResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<StartEnrollmentWithIdCheckResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.POST),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<StartEnrollmentWithIdCheckResponse>>any()))
+                        Mockito.<Class<StartEnrollmentWithIdCheckResponse2>>any()))
                 .thenReturn(responseEntity);
 
         EnrollmentController enrollmentController =
@@ -61,7 +60,6 @@ public class EnrollmentControllerTests {
     @Test
     public void testFinishEnrollmentWithIdCheck() throws JsonProcessingException {
         var req = new FinishEnrollmentWithIdCheck();
-        var resp = new FinishEnrollmentWithIdCheckResponse();
 
         FinishEnrollmentWithIdCheckResponse2 two = new FinishEnrollmentWithIdCheckResponse2();
         two.setCode("A");
@@ -75,16 +73,16 @@ public class EnrollmentControllerTests {
         two.setImageSetSuccessYN("A");
         two.setDid("A");
         two.setDateOfBirth("A");
-        resp.setFinishEnrollmentWithIdCheckResponse(two);
-        ResponseEntity<FinishEnrollmentWithIdCheckResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+
+        ResponseEntity<FinishEnrollmentWithIdCheckResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<FinishEnrollmentWithIdCheckResponse>>any()))
+                        Mockito.<Class<FinishEnrollmentWithIdCheckResponse2>>any()))
                 .thenReturn(responseEntity);
 
         EnrollmentController enrollmentController =
