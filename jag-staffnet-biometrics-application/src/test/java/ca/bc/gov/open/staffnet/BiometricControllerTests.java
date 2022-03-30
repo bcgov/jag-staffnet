@@ -57,7 +57,7 @@ public class BiometricControllerTests {
     }
 
     @Test
-    public void testDeactivateBiometricCredentialByDID() throws JsonProcessingException {
+    public void testDeactivateBiometricCredentialByDID() throws Exception {
         var req = new DeactivateBiometricCredentialByDID();
 
         DeactivateBiometricCredentialByDIDResponse2 two =
