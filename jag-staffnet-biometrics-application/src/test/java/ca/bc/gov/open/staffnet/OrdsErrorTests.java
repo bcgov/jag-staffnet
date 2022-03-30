@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.WebServiceTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -27,7 +28,10 @@ public class OrdsErrorTests {
 
     @Autowired private ObjectMapper objectMapper;
 
+    @Autowired private WebServiceTemplate webServiceTemplate;
+
     @Mock private RestTemplate restTemplate;
+
 
     @Test
     public void testPingOrdsFail() {
@@ -47,7 +51,7 @@ public class OrdsErrorTests {
     @Test
     public void testBiometricReconciliationOrdsFail() {
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -57,7 +61,7 @@ public class OrdsErrorTests {
     @Test
     public void testDeactivateBiometricCredentialByDIDOrdsFail() {
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -69,7 +73,7 @@ public class OrdsErrorTests {
     @Test
     public void testDestroyBiometricCredentialByDIDOrdsFail() {
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -81,7 +85,7 @@ public class OrdsErrorTests {
     @Test
     public void testReactivateBiometricCredentialByDIDOrdsFail() {
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,

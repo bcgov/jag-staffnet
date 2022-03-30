@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.soap.SoapVersion;
@@ -70,6 +72,19 @@ public class SoapConfig extends WsConfigurerAdapter {
         messageFactory.setMessageProperties(props);
         messageFactory.setSoapVersion(SoapVersion.SOAP_11);
         return messageFactory;
+    }
+
+    @Bean
+    public WebServiceTemplate webServiceTemplate() {
+        WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
+        Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
+
+        webServiceTemplate.setMessageFactory(messageFactory());
+        jaxb2Marshaller.setContextPaths("ca.bc.gov.open.staffnet.biometrics.one", "ca.bc.gov.open.staffnet.biometrics.two", "ca.bc.gov.open.staffnet.biometrics.three");
+        webServiceTemplate.setMarshaller(jaxb2Marshaller);
+        webServiceTemplate.setUnmarshaller(jaxb2Marshaller);
+        webServiceTemplate.afterPropertiesSet();
+        return webServiceTemplate;
     }
 
     @Bean(name = "StaffNet_Biometrics.ws.provider:SNBiometrics")

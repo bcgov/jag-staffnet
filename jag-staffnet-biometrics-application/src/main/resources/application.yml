@@ -4,6 +4,7 @@ security:
     username: ${BASIC_AUTH_USER}
 staffnet:
   host: ${ORDS_HOST}
+  online-service-id: ${ONLINE_SERVICE_ID}
 management:
   endpoints:
     web:

@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
 import ca.bc.gov.open.staffnet.controllers.BiometricController;
+import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
@@ -19,18 +20,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.WebServiceTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class BiometricControllerTests {
     @Autowired private ObjectMapper objectMapper;
 
+    @Autowired private WebServiceTemplate webServiceTemplate;
+
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
     public void testBiometricReconciliation() throws JsonProcessingException {
         var req = new BiometricReconciliation();
-        var resp = new BiometricReconciliationResponse();
 
         BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
         two.setResponseCd("A");
@@ -42,13 +45,13 @@ public class BiometricControllerTests {
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
-                        Mockito.eq(HttpMethod.PUT),
+                        Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
                         Mockito.<Class<BiometricReconciliationResponse2>>any()))
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
         var out = biometricController.biometricReconciliation(req);
         Assertions.assertNotNull(out);
     }
@@ -75,7 +78,7 @@ public class BiometricControllerTests {
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
         var out = biometricController.deactivateBiometricCredentialByDID(req);
         Assertions.assertNotNull(out);
     }
@@ -102,7 +105,7 @@ public class BiometricControllerTests {
                 .thenReturn(responseEntity);
 
         BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper);
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
         var out = biometricController.destroyBiometricCredentialByDID(req);
         Assertions.assertNotNull(out);
     }

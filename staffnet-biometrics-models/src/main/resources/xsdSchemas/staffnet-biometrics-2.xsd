@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.bceid.ca/webservices/BCS/V4/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bceid.ca/models/BCS/V4/">
+    <s:element name="StartEnrollment">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:StartEnrollmentRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartEnrollmentResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="StartEnrollmentResult" type="tns:StartEnrollmentResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartSearch">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:StartSearchRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartSearchResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="StartSearchResult" type="tns:StartSearchResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishEnrollment">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:FinishEnrollmentRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishEnrollmentResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="FinishEnrollmentResult" type="tns:FinishEnrollmentResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RebindCredential">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:RebindCredentialRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RebindCredentialResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="RebindCredentialResult" type="tns:RebindCredentialResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DestroyCredential">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:DestroyCredentialRequest"/>
+                <s:element maxOccurs="1" minOccurs="0" name="issuance" type="tns:IssuanceToken"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DestroyCredentialResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="DestroyCredentialResult" type="tns:DestroyCredentialResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReactivateCredential">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:ReactivateCredentialRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReactivateCredentialResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="ReactivateCredentialResult" type="tns:ReactivateCredentialResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeactivateCredential">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:DeactivateCredentialRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeactivateCredentialResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="DeactivateCredentialResult" type="tns:DeactivateCredentialResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishSearch">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:FinishSearchRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishSearchResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="FinishSearchResult" type="tns:FinishSearchResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="CheckEnrollmentStatus">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:FinishSearchRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="CheckEnrollmentStatusResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="CheckEnrollmentStatusResult" type="tns:FinishSearchResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartEnrollmentWithIdCheck">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:StartEnrollmentWithIdCheckRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartEnrollmentWithIdCheckResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="StartEnrollmentWithIdCheckResult" type="tns:StartEnrollmentWithIdCheckResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RefreshIdentityWithIdCheck">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:RefreshIdentityWithIdCheckRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RefreshIdentityWithIdCheckResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="RefreshIdentityWithIdCheckResult" type="tns:RefreshIdentityWithIdCheckResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishEnrollmentWithIdCheck">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:FinishEnrollmentWithIdCheckRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishEnrollmentWithIdCheckResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="FinishEnrollmentWithIdCheckResult" type="tns:FinishEnrollmentWithIdCheckResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReactivateBiometricCredentialByDID">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:ReactivateBiometricCredentialByDIDRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReactivateBiometricCredentialByDIDResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="ReactivateBiometricCredentialByDIDResult" type="tns:ReactivateBiometricCredentialByDIDResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeactivateBiometricCredentialByDID">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:DeactivateBiometricCredentialByDIDRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeactivateBiometricCredentialByDIDResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="DeactivateBiometricCredentialByDIDResult" type="tns:DeactivateBiometricCredentialByDIDResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DestroyBiometricCredentialByDID">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:DestroyBiometricCredentialByDIDRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DestroyBiometricCredentialByDIDResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="DestroyBiometricCredentialByDIDResult" type="tns:DestroyBiometricCredentialByDIDResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeleteAllBiometricCredentials">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:DeleteAllBiometricCredentialsRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="DeleteAllBiometricCredentialsResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="DeleteAllBiometricCredentialsResult" type="tns:DeleteAllBiometricCredentialsResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReconciliationService">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:ReconciliationServiceRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="ReconciliationServiceResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="ReconciliationServiceResult" type="tns:ReconciliationServiceResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartSearchForIdentity">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:StartSearchForIdentityRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="StartSearchForIdentityResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="StartSearchForIdentityResult" type="tns:StartSearchForIdentityResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishSearchForIdentity">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:FinishSearchForIdentityRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="FinishSearchForIdentityResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="FinishSearchForIdentityResult" type="tns:FinishSearchForIdentityResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="Revoke">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:RevokeRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RevokeResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="RevokeResult" type="tns:RevokeResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="Renew">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="request" type="tns:RenewRequest"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+
+    <s:element name="RenewResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element maxOccurs="1" minOccurs="0" name="RenewResult" type="tns:RenewResponse"/>
+            </s:sequence>
+        </s:complexType>
+    </s:element>
+</s:schema>
