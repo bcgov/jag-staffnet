@@ -32,7 +32,6 @@ public class OrdsErrorTests {
 
     @Mock private RestTemplate restTemplate;
 
-
     @Test
     public void testPingOrdsFail() {
         HealthController healthController = new HealthController(restTemplate, objectMapper);
@@ -59,7 +58,17 @@ public class OrdsErrorTests {
     }
 
     @Test
-    public void testDeactivateBiometricCredentialByDIDOrdsFail() {
+    public void testBiometricReconciliationSoapServiceFail() {
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
+
+        Assertions.assertThrows(
+                ORDSException.class,
+                () -> biometricController.biometricReconciliation(new BiometricReconciliation()));
+    }
+
+    @Test
+    public void testDeactivateBiometricCredentialByDIDSoapServiceFail() {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
@@ -71,7 +80,7 @@ public class OrdsErrorTests {
     }
 
     @Test
-    public void testDestroyBiometricCredentialByDIDOrdsFail() {
+    public void testDestroyBiometricCredentialByDIDSoapServiceFail() {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
@@ -83,7 +92,7 @@ public class OrdsErrorTests {
     }
 
     @Test
-    public void testReactivateBiometricCredentialByDIDOrdsFail() {
+    public void testReactivateBiometricCredentialByDIDSoapServiceFail() {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
@@ -97,7 +106,7 @@ public class OrdsErrorTests {
     @Test
     public void testStartEnrollmentWithIdCheckOrdsFail() {
         EnrollmentController enrollmentController =
-                new EnrollmentController(restTemplate, objectMapper);
+                new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -109,7 +118,7 @@ public class OrdsErrorTests {
     @Test
     public void testFinishEnrollmentWithIdCheckOrdsFail() {
         EnrollmentController enrollmentController =
-                new EnrollmentController(restTemplate, objectMapper);
+                new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,

@@ -3,8 +3,8 @@ package ca.bc.gov.open.staffnet;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.three.BCeIDAccountTypeCode;
 import ca.bc.gov.open.staffnet.controllers.BiometricController;
-import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
@@ -34,6 +34,13 @@ public class BiometricControllerTests {
     @Test
     public void testBiometricReconciliation() throws JsonProcessingException {
         var req = new BiometricReconciliation();
+        BiometricReconciliationRequest biometricReconciliationRequest =
+                new BiometricReconciliationRequest();
+        biometricReconciliationRequest.setIndividualID("A");
+        biometricReconciliationRequest.setRequestorUserId("A");
+        biometricReconciliationRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.BUSINESS.value());
+        req.setBiometricReconciliationRequest(biometricReconciliationRequest);
 
         BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
         two.setResponseCd("A");

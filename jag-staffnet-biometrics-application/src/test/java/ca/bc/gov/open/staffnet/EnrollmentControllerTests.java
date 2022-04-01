@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.WebServiceTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -27,6 +28,8 @@ public class EnrollmentControllerTests {
     @Autowired private ObjectMapper objectMapper;
 
     @Mock private RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired private WebServiceTemplate webServiceTemplate;
 
     @Test
     public void testStartEnrollmentWithIdCheck() throws JsonProcessingException {
@@ -52,7 +55,7 @@ public class EnrollmentControllerTests {
                 .thenReturn(responseEntity);
 
         EnrollmentController enrollmentController =
-                new EnrollmentController(restTemplate, objectMapper);
+                new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
         var out = enrollmentController.startEnrollmentWithIdCheck(req);
         Assertions.assertNotNull(out);
     }
@@ -86,7 +89,7 @@ public class EnrollmentControllerTests {
                 .thenReturn(responseEntity);
 
         EnrollmentController enrollmentController =
-                new EnrollmentController(restTemplate, objectMapper);
+                new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
         var out = enrollmentController.finishEnrollmentWithIdCheck(req);
         Assertions.assertNotNull(out);
     }

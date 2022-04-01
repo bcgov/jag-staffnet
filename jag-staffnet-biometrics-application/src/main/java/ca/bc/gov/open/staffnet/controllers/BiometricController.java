@@ -74,12 +74,13 @@ public class BiometricController {
                             GetEnrolledWorkersOutput.class);
 
             BiometricReconciliationResponse out = new BiometricReconciliationResponse();
-            BiometricReconciliationResponse2 biometricReconciliationResponse2 =
-                    new BiometricReconciliationResponse2();
-            out.setBiometricReconciliationResponse(biometricReconciliationResponse2);
+            BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
+            out.setBiometricReconciliationResponse(two);
 
-            if (!resp.getBody().getResponseCd().equals("0")) {
-                return out;
+            if (resp != null && resp.getBody() != null) {
+                if (!resp.getBody().getResponseCd().equals("0")) {
+                    return out;
+                }
             }
 
             ReconciliationServiceRequest reconciliationServiceRequest =
@@ -88,8 +89,7 @@ public class BiometricController {
             reconciliationServiceRequest.setRequesterUserId(inner.getRequestorUserId());
             reconciliationServiceRequest.setRequesterAccountTypeCode(
                     BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-            ArrayOfReconciliationItem arrayOfReconciliationItem =
-                    new ArrayOfReconciliationItem();
+            ArrayOfReconciliationItem arrayOfReconciliationItem = new ArrayOfReconciliationItem();
 
             List<ReconciliationItem> workers = new ArrayList();
             for (var worker : resp.getBody().getWorkers()) {
@@ -103,17 +103,20 @@ public class BiometricController {
 
             // Invoke Soap Service
             try {
-                var soapSvcResp =
-                        webServiceTemplate.marshalSendAndReceive(
-                                "http://www.bceid.ca/webservices/BCS/V4/ReconciliationService",
-                                reconciliationService);
+                ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
+                        (ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse)
+                                webServiceTemplate.marshalSendAndReceive(
+                                        "http://www.bceid.ca/webservices/BCS/V4/ReconciliationService",
+                                        reconciliationService);
+                two.setResponseCd(soapSvcResp.getReconciliationServiceResult().getCode().value());
+                two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
                 log.info(
                         objectMapper.writeValueAsString(
-                                new RequestSuccessLog("Request Success", "biometricReconciliation")));
+                                new RequestSuccessLog(
+                                        "Request Success", "biometricReconciliation")));
             } catch (Exception ex) {
-                biometricReconciliationResponse2.setResponseCd("Failed");
-                biometricReconciliationResponse2.setResponseTxt(
-                        "Unable to connect to Backend Database");
+                two.setResponseCd(ResponseCode.FAILED.value());
+                two.setResponseTxt("Unable to connect to Backend Database");
                 log.error(
                         objectMapper.writeValueAsString(
                                 new OrdsErrorLog(
@@ -140,46 +143,54 @@ public class BiometricController {
             localPart = "deactivateBiometricCredentialByDID")
     @ResponsePayload
     public DeactivateBiometricCredentialByDIDResponse deactivateBiometricCredentialByDID(
-            @RequestPayload DeactivateBiometricCredentialByDID search)
-            throws Exception {
+            @RequestPayload DeactivateBiometricCredentialByDID search) throws Exception {
         var inner =
                 search.getDeactivateBiometricCredentialByDIDRequest() != null
                         ? search.getDeactivateBiometricCredentialByDIDRequest()
                         : new DeactivateBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/deactivate");
 
-        DeactivateBiometricCredentialByDID deactivateBiometricCredentialByDID = new DeactivateBiometricCredentialByDID();
-        DeactivateBiometricCredentialByDIDRequest deactivateBiometricCredentialByDIDRequest = new DeactivateBiometricCredentialByDIDRequest();
+        DeactivateBiometricCredentialByDID deactivateBiometricCredentialByDID =
+                new DeactivateBiometricCredentialByDID();
+        DeactivateBiometricCredentialByDIDRequest deactivateBiometricCredentialByDIDRequest =
+                new DeactivateBiometricCredentialByDIDRequest();
         deactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
-        deactivateBiometricCredentialByDIDRequest.setRequestorAccountTypeCode(inner.getRequestorAccountTypeCode());
+        deactivateBiometricCredentialByDIDRequest.setRequestorAccountTypeCode(
+                inner.getRequestorAccountTypeCode());
         deactivateBiometricCredentialByDIDRequest.setRequestorUserId(inner.getRequestorUserId());
-        deactivateBiometricCredentialByDID.setDeactivateBiometricCredentialByDIDRequest(deactivateBiometricCredentialByDIDRequest);
+        deactivateBiometricCredentialByDID.setDeactivateBiometricCredentialByDIDRequest(
+                deactivateBiometricCredentialByDIDRequest);
 
-        DeactivateBiometricCredentialByDIDResponse out = new DeactivateBiometricCredentialByDIDResponse();
-        DeactivateBiometricCredentialByDIDResponse2 two = new DeactivateBiometricCredentialByDIDResponse2();
+        DeactivateBiometricCredentialByDIDResponse out =
+                new DeactivateBiometricCredentialByDIDResponse();
+        DeactivateBiometricCredentialByDIDResponse2 two =
+                new DeactivateBiometricCredentialByDIDResponse2();
 
         // Invoke Soap Service
         try {
-            ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDResponse soapSvcResp =
-                    (ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDResponse) webServiceTemplate.marshalSendAndReceive(
-                            "http://www.bceid.ca/webservices/BCS/V4/DeactivateBiometricCredentialByDID",
-                            deactivateBiometricCredentialByDID);
-            soapSvcResp.getDeactivateBiometricCredentialByDIDResult();
+            ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDResponse
+                    soapSvcResp =
+                            (ca.bc.gov.open.staffnet.biometrics.two
+                                            .DeactivateBiometricCredentialByDIDResponse)
+                                    webServiceTemplate.marshalSendAndReceive(
+                                            "http://www.bceid.ca/webservices/BCS/V4/DeactivateBiometricCredentialByDID",
+                                            deactivateBiometricCredentialByDID);
 
             two.setMessage(soapSvcResp.getDeactivateBiometricCredentialByDIDResult().getMessage());
-            two.setCode(soapSvcResp.getDeactivateBiometricCredentialByDIDResult().getCode().value());
-            two.setFailureCode(soapSvcResp.getDeactivateBiometricCredentialByDIDResult().getFailureCode().value());
+            two.setCode(
+                    soapSvcResp.getDeactivateBiometricCredentialByDIDResult().getCode().value());
+            two.setFailureCode(
+                    soapSvcResp
+                            .getDeactivateBiometricCredentialByDIDResult()
+                            .getFailureCode()
+                            .value());
 
-            out.setDeactivateBiometricCredentialByDIDResponse(two);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "deactivateBiometricCredentialByDID")));
         } catch (Exception ex) {
-            two.setCode("Failed");
-            two.setFailureCode("Unable to connect to Backend Database");
-
-            out.setDeactivateBiometricCredentialByDIDResponse(two);
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
@@ -187,8 +198,9 @@ public class BiometricController {
                                     "deactivateBiometricCredentialByDID",
                                     ex.getMessage(),
                                     inner)));
-            throw new Exception();
         }
+
+        out.setDeactivateBiometricCredentialByDIDResponse(two);
         return out;
     }
 
@@ -202,32 +214,58 @@ public class BiometricController {
                 search.getDestroyBiometricCredentialByDIDRequest() != null
                         ? search.getDestroyBiometricCredentialByDIDRequest()
                         : new DestroyBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/destroy");
+
+        ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDID
+                destroyBiometricCredentialByDID =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DestroyBiometricCredentialByDID();
+        ca.bc.gov.open.staffnet.biometrics.three.DestroyBiometricCredentialByDIDRequest three =
+                new ca.bc.gov.open.staffnet.biometrics.three
+                        .DestroyBiometricCredentialByDIDRequest();
+        three.setDID(inner.getDID());
+        three.setOnlineServiceId(onlineServiceId);
+        three.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        three.setRequesterUserId(inner.getRequestorUserId());
+        destroyBiometricCredentialByDID.setRequest(three);
+
+        DestroyBiometricCredentialByDIDResponse out = new DestroyBiometricCredentialByDIDResponse();
+        DestroyBiometricCredentialByDIDResponse2 two =
+                new DestroyBiometricCredentialByDIDResponse2();
+        out.setDestroyBiometricCredentialByDIDResponse(two);
 
         try {
-            HttpEntity<DestroyBiometricCredentialByDIDResponse2> resp =
-                    restTemplate.exchange(
-                            builder.build().encode().toUri(),
-                            HttpMethod.DELETE,
-                            new HttpEntity<>(new HttpHeaders()),
-                            DestroyBiometricCredentialByDIDResponse2.class);
+            ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDResponse
+                    soapSvcResp =
+                            (ca.bc.gov.open.staffnet.biometrics.two
+                                            .DestroyBiometricCredentialByDIDResponse)
+                                    webServiceTemplate.marshalSendAndReceive(
+                                            "http://www.bceid.ca/webservices/BCS/V4/DestroyBiometricCredentialByDID",
+                                            destroyBiometricCredentialByDID);
+            two.setCode(soapSvcResp.getDestroyBiometricCredentialByDIDResult().getCode().value());
+            two.setMessage(soapSvcResp.getDestroyBiometricCredentialByDIDResult().getMessage());
+            two.setFailureCode(
+                    soapSvcResp
+                            .getDestroyBiometricCredentialByDIDResult()
+                            .getFailureCode()
+                            .value());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "destroyBiometricCredentialByDID")));
-            var out = new DestroyBiometricCredentialByDIDResponse();
-            out.setDestroyBiometricCredentialByDIDResponse(resp.getBody());
-            return out;
+
         } catch (Exception ex) {
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from ORDS",
+                                    "Error received from SOAP SERVICE - DestroyBiometricCredentialByDID",
                                     "destroyBiometricCredentialByDID",
                                     ex.getMessage(),
                                     inner)));
-            throw new ORDSException();
         }
+        return out;
     }
 
     @PayloadRoot(
@@ -241,29 +279,60 @@ public class BiometricController {
                 search.getReactivateBiometricCredentialByDIDRequest() != null
                         ? search.getReactivateBiometricCredentialByDIDRequest()
                         : new ReactivateBiometricCredentialByDIDRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "bio/reactivate");
-        // TODO: No ORDS call, SoapService needed
+
+        ca.bc.gov.open.staffnet.biometrics.two.ReactivateBiometricCredentialByDID
+                reactivateBiometricCredentialByDID =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .ReactivateBiometricCredentialByDID();
+        ca.bc.gov.open.staffnet.biometrics.three.ReactivateBiometricCredentialByDIDRequest
+                reactivateBiometricCredentialByDIDRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .ReactivateBiometricCredentialByDIDRequest();
+        reactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
+        reactivateBiometricCredentialByDIDRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        reactivateBiometricCredentialByDIDRequest.setRequesterUserId(inner.getRequestorUserId());
+        reactivateBiometricCredentialByDIDRequest.setOnlineServiceId(onlineServiceId);
+        reactivateBiometricCredentialByDID.setRequest(reactivateBiometricCredentialByDIDRequest);
+
+        ReactivateBiometricCredentialByDIDResponse out =
+                new ReactivateBiometricCredentialByDIDResponse();
+        ReactivateBiometricCredentialByDIDResponse2 two =
+                new ReactivateBiometricCredentialByDIDResponse2();
+        out.setReactivateBiometricCredentialByDIDResponse(two);
+
         try {
-            HttpEntity<ReactivateBiometricCredentialByDIDResponse> resp =
-                    restTemplate.exchange(
-                            builder.build().encode().toUri(),
-                            HttpMethod.PUT,
-                            new HttpEntity<>(new HttpHeaders()),
-                            ReactivateBiometricCredentialByDIDResponse.class);
+            ca.bc.gov.open.staffnet.biometrics.two.ReactivateBiometricCredentialByDIDResponse
+                    soapSvcResp =
+                            (ca.bc.gov.open.staffnet.biometrics.two
+                                            .ReactivateBiometricCredentialByDIDResponse)
+                                    webServiceTemplate.marshalSendAndReceive(
+                                            "http://www.bceid.ca/webservices/BCS/V4/ReactivateBiometricCredentialByDID",
+                                            reactivateBiometricCredentialByDID);
+            two.setCode(
+                    soapSvcResp.getReactivateBiometricCredentialByDIDResult().getCode().value());
+            two.setMessage(soapSvcResp.getReactivateBiometricCredentialByDIDResult().getMessage());
+            two.setFailureCode(
+                    soapSvcResp
+                            .getReactivateBiometricCredentialByDIDResult()
+                            .getFailureCode()
+                            .value());
+
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "reactivateBiometricCredentialByDID")));
-            return resp.getBody();
         } catch (Exception ex) {
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from ORDS",
+                                    "Error received from SOAP SERVICE - ReactivateBiometricCredentialByDID",
                                     "reactivateBiometricCredentialByDID",
                                     ex.getMessage(),
                                     inner)));
-            throw new ORDSException();
         }
+        return out;
     }
 }
