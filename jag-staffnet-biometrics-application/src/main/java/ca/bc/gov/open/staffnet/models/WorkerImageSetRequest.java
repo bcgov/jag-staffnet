@@ -1,9 +1,8 @@
 package ca.bc.gov.open.staffnet.models;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.Instant;
+import lombok.Data;
 
 @Data
 public class WorkerImageSetRequest implements Serializable {

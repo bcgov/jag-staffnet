@@ -125,8 +125,7 @@ public class BiometricController {
             two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog(
-                                    "Request Success", "biometricReconciliation")));
+                            new RequestSuccessLog("Request Success", "biometricReconciliation")));
         } catch (Exception ex) {
             two.setResponseCd(ResponseCode.FAILED.value());
             two.setResponseTxt("Unable to connect to Backend Database");
@@ -167,7 +166,7 @@ public class BiometricController {
                 new DeactivateBiometricCredentialByDIDResponse();
         DeactivateBiometricCredentialByDIDResponse2 two =
                 new DeactivateBiometricCredentialByDIDResponse2();
-
+        out.setDeactivateBiometricCredentialByDIDResponse(two);
         // Invoke Soap Service
         try {
             ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDResponse
@@ -202,8 +201,6 @@ public class BiometricController {
                                     ex.getMessage(),
                                     inner)));
         }
-
-        out.setDeactivateBiometricCredentialByDIDResponse(two);
         return out;
     }
 
@@ -236,7 +233,7 @@ public class BiometricController {
         DestroyBiometricCredentialByDIDResponse2 two =
                 new DestroyBiometricCredentialByDIDResponse2();
         out.setDestroyBiometricCredentialByDIDResponse(two);
-
+        // Invoke Soap Service
         try {
             ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDResponse
                     soapSvcResp =
@@ -303,7 +300,7 @@ public class BiometricController {
         ReactivateBiometricCredentialByDIDResponse2 two =
                 new ReactivateBiometricCredentialByDIDResponse2();
         out.setReactivateBiometricCredentialByDIDResponse(two);
-
+        // Invoke Soap Service
         try {
             ca.bc.gov.open.staffnet.biometrics.two.ReactivateBiometricCredentialByDIDResponse
                     soapSvcResp =

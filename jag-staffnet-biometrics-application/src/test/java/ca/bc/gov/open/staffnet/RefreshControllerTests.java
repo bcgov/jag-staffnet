@@ -54,7 +54,8 @@ public class RefreshControllerTests {
                         Mockito.<Class<RefreshIdentityWithIdCheckResponse2>>any()))
                 .thenReturn(responseEntity);
 
-        RefreshController refreshController = new RefreshController(restTemplate, objectMapper, webServiceTemplate);
+        RefreshController refreshController =
+                new RefreshController(restTemplate, objectMapper, webServiceTemplate);
         var out = refreshController.refreshIdentityWithIdCheck(req);
         Assertions.assertNotNull(out);
     }

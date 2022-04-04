@@ -20,11 +20,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.WebServiceTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class SearchControllerTests {
     @Autowired private ObjectMapper objectMapper;
+
+    @Autowired private WebServiceTemplate webServiceTemplate;
 
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
@@ -51,7 +54,8 @@ public class SearchControllerTests {
                         Mockito.<Class<StartSearchForIdentityResponse2>>any()))
                 .thenReturn(responseEntity);
 
-        SearchController searchController = new SearchController(restTemplate, objectMapper);
+        SearchController searchController =
+                new SearchController(restTemplate, objectMapper, webServiceTemplate);
         var out = searchController.startSearchForIdentity(req);
         Assertions.assertNotNull(out);
     }
@@ -79,7 +83,8 @@ public class SearchControllerTests {
                         Mockito.<Class<FinishSearchForIdentityResponse2>>any()))
                 .thenReturn(responseEntity);
 
-        SearchController searchController = new SearchController(restTemplate, objectMapper);
+        SearchController searchController =
+                new SearchController(restTemplate, objectMapper, webServiceTemplate);
         var out = searchController.finishSearchForIdentity(req);
         Assertions.assertNotNull(out);
     }

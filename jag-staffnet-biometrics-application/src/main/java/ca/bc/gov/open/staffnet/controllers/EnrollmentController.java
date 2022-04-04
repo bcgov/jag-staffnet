@@ -8,11 +8,10 @@ import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.*;
-import ca.bc.gov.open.staffnet.models.serializers.InstantDeserializer;
-import ca.bc.gov.open.staffnet.models.serializers.InstantSerializer;
 import ca.bc.gov.open.staffnet.models.serializers.InstantSoapConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +25,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
-import java.util.List;
 
 @Endpoint
 @Slf4j
@@ -60,17 +57,18 @@ public class EnrollmentController {
                 search.getStartEnrollmentWithIdCheckRequest() != null
                         ? search.getStartEnrollmentWithIdCheckRequest()
                         : new StartEnrollmentWithIdCheckRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/start")
-                .queryParam("individualID", inner.getIndividualID());
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "enrollment/start")
+                        .queryParam("individualID", inner.getIndividualID());
 
         HttpEntity<WorkerInfoResponse> resp = null;
         try {
             resp =
-                restTemplate.exchange(
-                        builder.build().encode().toUri(),
-                        HttpMethod.GET,
-                        new HttpEntity<>(new HttpHeaders()),
-                        WorkerInfoResponse.class);
+                    restTemplate.exchange(
+                            builder.build().encode().toUri(),
+                            HttpMethod.GET,
+                            new HttpEntity<>(new HttpHeaders()),
+                            WorkerInfoResponse.class);
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -84,17 +82,18 @@ public class EnrollmentController {
 
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
                 startEnrollmentWithIdCheck =
-                new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
+                        new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
         ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
                 startEnrollmentWithIdCheckRequest =
-                new ca.bc.gov.open.staffnet.biometrics.three
-                        .StartEnrollmentWithIdCheckRequest();
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .StartEnrollmentWithIdCheckRequest();
         startEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
         startEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
         startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
                 BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
         startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
-        startEnrollmentWithIdCheckRequest.setDateOfBirth(InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
+        startEnrollmentWithIdCheckRequest.setDateOfBirth(
+                InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
         startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
         List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
         ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
@@ -106,10 +105,8 @@ public class EnrollmentController {
         out.setStartEnrollmentWithIdCheckResponse(two);
         // Invoke Soap Service
         try {
-            ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse
-                    soapSvcResp =
-                    (ca.bc.gov.open.staffnet.biometrics.two
-                            .StartEnrollmentWithIdCheckResponse)
+            ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse soapSvcResp =
+                    (ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
                                     "http://www.bceid.ca/webservices/BCS/V4/StartEnrollmentWithIdCheck",
                                     startEnrollmentWithIdCheck);
@@ -123,10 +120,7 @@ public class EnrollmentController {
                             .getIssuance()
                             .getIssuanceID());
             two.setExpiryDate(
-                    soapSvcResp
-                            .getStartEnrollmentWithIdCheckResult()
-                            .getIssuance()
-                            .getExpiry());
+                    soapSvcResp.getStartEnrollmentWithIdCheckResult().getIssuance().getExpiry());
             two.setEnrollmentURL(
                     soapSvcResp
                             .getStartEnrollmentWithIdCheckResult()
@@ -160,17 +154,24 @@ public class EnrollmentController {
                         ? search.getFinishEnrollmentWithIdCheckRequest()
                         : new FinishEnrollmentWithIdCheckRequest();
 
-        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck finishEnrollmentWithIdCheck = new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckRequest finishEnrollmentWithIdCheckRequest = new ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckRequest();
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
+                finishEnrollmentWithIdCheck =
+                        new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck();
+        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckRequest
+                finishEnrollmentWithIdCheckRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .FinishEnrollmentWithIdCheckRequest();
         finishEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
         finishEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
-        finishEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        finishEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
         finishEnrollmentWithIdCheckRequest.setIssuanceID(inner.getIssuanceID());
         finishEnrollmentWithIdCheck.setRequest(finishEnrollmentWithIdCheckRequest);
 
         FinishEnrollmentWithIdCheckResponse2 out = new FinishEnrollmentWithIdCheckResponse2();
 
-        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp = null;
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
+                null;
         // Invoke Soap Service
         try {
             soapSvcResp =
@@ -202,9 +203,10 @@ public class EnrollmentController {
         req.setUserId(inner.getRequestorUserId());
         req.setCallingModule("StaffNet");
         req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
-        req.setPhotoTakenDate(InstantSoapConverter.parse(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate()));
-        HttpEntity<WorkerImageSetRequest> body =
-                new HttpEntity<>(req, new HttpHeaders());
+        req.setPhotoTakenDate(
+                InstantSoapConverter.parse(
+                        soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate()));
+        HttpEntity<WorkerImageSetRequest> body = new HttpEntity<>(req, new HttpHeaders());
         try {
             HttpEntity<WorkerImageSetResponse> resp =
                     restTemplate.exchange(

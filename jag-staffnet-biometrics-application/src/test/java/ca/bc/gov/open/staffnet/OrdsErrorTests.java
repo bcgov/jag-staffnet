@@ -129,7 +129,8 @@ public class OrdsErrorTests {
 
     @Test
     public void testRefreshIdentityWithIdCheckOrdsFail() {
-        RefreshController refreshController = new RefreshController(restTemplate, objectMapper, webServiceTemplate);
+        RefreshController refreshController =
+                new RefreshController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -140,7 +141,8 @@ public class OrdsErrorTests {
 
     @Test
     public void testStartSearchForIdentityOrdsFail() {
-        SearchController searchController = new SearchController(restTemplate, objectMapper);
+        SearchController searchController =
+                new SearchController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -149,7 +151,8 @@ public class OrdsErrorTests {
 
     @Test
     public void testFinishSearchForIdentityOrdsFail() {
-        SearchController searchController = new SearchController(restTemplate, objectMapper);
+        SearchController searchController =
+                new SearchController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,

@@ -1,8 +1,10 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.three.ActiveCodeRequest;
+import ca.bc.gov.open.staffnet.biometrics.three.BCeIDAccountTypeCode;
+import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
-import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,11 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -26,13 +25,21 @@ public class SearchController {
     @Value("${staffnet.host}")
     private String host = "https://127.0.0.1/";
 
+    @Value("${staffnet.online-service-id}")
+    private String onlineServiceId;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final WebServiceTemplate webServiceTemplate;
 
     @Autowired
-    public SearchController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public SearchController(
+            RestTemplate restTemplate,
+            ObjectMapper objectMapper,
+            WebServiceTemplate webServiceTemplate) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.webServiceTemplate = webServiceTemplate;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startSearchForIdentity")
@@ -43,35 +50,56 @@ public class SearchController {
                 search.getStartSearchForIdentityRequest() != null
                         ? search.getStartSearchForIdentityRequest()
                         : new StartSearchForIdentityRequest();
-        UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "search/start")
-                        .queryParam("requestorUserId", inner.getRequestorUserId())
-                        .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
-                        .queryParam("activeOnly", inner.getActiveOnly());
 
+        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity startSearchForIdentity =
+                new ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity();
+        ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityRequest
+                startSearchForIdentityRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .StartSearchForIdentityRequest();
+        startSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
+        startSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
+        startSearchForIdentityRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        startSearchForIdentityRequest.setActiveOnly(
+                ActiveCodeRequest.fromValue(inner.getActiveOnly()));
+        startSearchForIdentity.setRequest(startSearchForIdentityRequest);
+
+        StartSearchForIdentityResponse out = new StartSearchForIdentityResponse();
+        StartSearchForIdentityResponse2 two = new StartSearchForIdentityResponse2();
+        out.setStartSearchForIdentityResponse(two);
+        // Invoke Soap Service
         try {
-            HttpEntity<StartSearchForIdentityResponse2> resp =
-                    restTemplate.exchange(
-                            builder.build().encode().toUri(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
-                            StartSearchForIdentityResponse2.class);
+            ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse soapSvcResp =
+                    (ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse)
+                            webServiceTemplate.marshalSendAndReceive(
+                                    "http://www.bceid.ca/webservices/BCS/V4/StartSearchForIdentity",
+                                    startSearchForIdentity);
+            two.setCode(soapSvcResp.getStartSearchForIdentityResult().getCode().value());
+            two.setFailureCode(
+                    soapSvcResp.getStartSearchForIdentityResult().getFailureCode().value());
+            two.setMessage(soapSvcResp.getStartSearchForIdentityResult().getMessage());
+            two.setSearchID(
+                    soapSvcResp.getStartSearchForIdentityResult().getSearch().getSearchID());
+            two.setSearchURL(
+                    soapSvcResp.getStartSearchForIdentityResult().getSearch().getSearchURL());
+            two.setExpiryDate(
+                    soapSvcResp.getStartSearchForIdentityResult().getSearch().getExpiry());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "startSearchForIdentity")));
-            var out = new StartSearchForIdentityResponse();
-            out.setStartSearchForIdentityResponse(resp.getBody());
-            return out;
         } catch (Exception ex) {
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from ORDS",
+                                    "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
                                     "startSearchForIdentity",
                                     ex.getMessage(),
                                     inner)));
-            throw new ORDSException();
         }
+        return out;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishSearchForIdentity")
@@ -82,35 +110,51 @@ public class SearchController {
                 search.getFinishSearchForIdentityRequest() != null
                         ? search.getFinishSearchForIdentityRequest()
                         : new FinishSearchForIdentityRequest();
-        UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "search/finish")
-                        .queryParam("requestorUserId", inner.getRequestorUserId())
-                        .queryParam("requestorAccountTypeCode", inner.getRequestorAccountTypeCode())
-                        .queryParam("requesterUserGuid", inner.getRequesterUserGuid())
-                        .queryParam("searchID", inner.getSearchID());
 
+        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity finishSearchForIdentity =
+                new ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity();
+        ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityRequest
+                finishSearchForIdentityRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .FinishSearchForIdentityRequest();
+        finishSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
+        finishSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
+        finishSearchForIdentityRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        finishSearchForIdentityRequest.setSearchID(inner.getSearchID());
+        finishSearchForIdentity.setRequest(finishSearchForIdentityRequest);
+
+        FinishSearchForIdentityResponse out = new FinishSearchForIdentityResponse();
+        FinishSearchForIdentityResponse2 two = new FinishSearchForIdentityResponse2();
+        out.setFinishSearchForIdentityResponse(two);
+        // Invoke Soap Service
         try {
-            HttpEntity<FinishSearchForIdentityResponse2> resp =
-                    restTemplate.exchange(
-                            builder.build().encode().toUri(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
-                            FinishSearchForIdentityResponse2.class);
+            ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse soapSvcResp =
+                    (ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse)
+                            webServiceTemplate.marshalSendAndReceive(
+                                    "http://www.bceid.ca/webservices/BCS/V4/FinishSearchForIdentity",
+                                    finishSearchForIdentity);
+            two.setCode(soapSvcResp.getFinishSearchForIdentityResult().getDID());
+            two.setFailureCode(
+                    soapSvcResp.getFinishSearchForIdentityResult().getFailureCode().value());
+            two.setMessage(soapSvcResp.getFinishSearchForIdentityResult().getMessage());
+            two.setStatus(soapSvcResp.getFinishSearchForIdentityResult().getStatus().value());
+            two.setDID(soapSvcResp.getFinishSearchForIdentityResult().getDID());
+            two.setActive(soapSvcResp.getFinishSearchForIdentityResult().getActive().value());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "finishSearchForIdentity")));
-            var out = new FinishSearchForIdentityResponse();
-            out.setFinishSearchForIdentityResponse(resp.getBody());
-            return out;
         } catch (Exception ex) {
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from ORDS",
+                                    "Error received from SOAP SERVICE - FinishSearchForIdentity",
                                     "finishSearchForIdentity",
                                     ex.getMessage(),
                                     inner)));
-            throw new ORDSException();
         }
+        return out;
     }
 }
