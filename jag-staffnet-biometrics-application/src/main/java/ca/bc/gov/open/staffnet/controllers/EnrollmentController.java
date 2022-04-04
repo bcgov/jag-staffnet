@@ -63,81 +63,14 @@ public class EnrollmentController {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/start")
                 .queryParam("individualID", inner.getIndividualID());
 
+        HttpEntity<WorkerInfoResponse> resp = null;
         try {
-            HttpEntity<WorkerInfoResponse>
-                    resp =
-                            restTemplate.exchange(
-                                    builder.build().encode().toUri(),
-                                    HttpMethod.GET,
-                                    new HttpEntity<>(new HttpHeaders()),
-                                    WorkerInfoResponse.class);
-            ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
-                    startEnrollmentWithIdCheck =
-                            new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
-            ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
-                    startEnrollmentWithIdCheckRequest =
-                            new ca.bc.gov.open.staffnet.biometrics.three
-                                    .StartEnrollmentWithIdCheckRequest();
-            startEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
-            startEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
-            startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
-                    BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-            startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
-            startEnrollmentWithIdCheckRequest.setDateOfBirth(InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
-            startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
-            List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
-            ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-            arrayOfIdentityName.setIdentityName(identityNameList);
-            startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
-
-            StartEnrollmentWithIdCheckResponse out = new StartEnrollmentWithIdCheckResponse();
-            StartEnrollmentWithIdCheckResponse2 two = new StartEnrollmentWithIdCheckResponse2();
-            out.setStartEnrollmentWithIdCheckResponse(two);
-            // Invoke Soap Service
-            try {
-                ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse
-                        soapSvcResp =
-                                (ca.bc.gov.open.staffnet.biometrics.two
-                                                .StartEnrollmentWithIdCheckResponse)
-                                        webServiceTemplate.marshalSendAndReceive(
-                                                "http://www.bceid.ca/webservices/BCS/V4/StartEnrollmentWithIdCheck",
-                                                startEnrollmentWithIdCheck);
-                two.setCode(soapSvcResp.getStartEnrollmentWithIdCheckResult().getCode().value());
-                two.setMessage(soapSvcResp.getStartEnrollmentWithIdCheckResult().getMessage());
-                two.setFailureCode(
-                        soapSvcResp.getStartEnrollmentWithIdCheckResult().getFailureCode().value());
-                two.setIssuanceId(
-                        soapSvcResp
-                                .getStartEnrollmentWithIdCheckResult()
-                                .getIssuance()
-                                .getIssuanceID());
-                two.setExpiryDate(
-                        soapSvcResp
-                                .getStartEnrollmentWithIdCheckResult()
-                                .getIssuance()
-                                .getExpiry());
-                two.setEnrollmentURL(
-                        soapSvcResp
-                                .getStartEnrollmentWithIdCheckResult()
-                                .getIssuance()
-                                .getEnrollmentURL());
-
-                log.info(
-                        objectMapper.writeValueAsString(
-                                new RequestSuccessLog(
-                                        "Request Success", "startEnrollmentWithIdCheck")));
-            } catch (Exception ex) {
-                two.setCode(ResponseCode.FAILED.value());
-                two.setMessage("Unable to connect to Backend Database");
-                log.error(
-                        objectMapper.writeValueAsString(
-                                new OrdsErrorLog(
-                                        "Error received from SOAP SERVICE - StartEnrollmentWithIdCheck",
-                                        "startEnrollmentWithIdCheck",
-                                        ex.getMessage(),
-                                        inner)));
-            }
-            return out;
+            resp =
+                restTemplate.exchange(
+                        builder.build().encode().toUri(),
+                        HttpMethod.GET,
+                        new HttpEntity<>(new HttpHeaders()),
+                        WorkerInfoResponse.class);
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -148,6 +81,74 @@ public class EnrollmentController {
                                     inner)));
             throw new ORDSException();
         }
+
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
+                startEnrollmentWithIdCheck =
+                new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
+        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
+                startEnrollmentWithIdCheckRequest =
+                new ca.bc.gov.open.staffnet.biometrics.three
+                        .StartEnrollmentWithIdCheckRequest();
+        startEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
+        startEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
+        startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
+        startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
+        startEnrollmentWithIdCheckRequest.setDateOfBirth(InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
+        startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
+        List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
+        ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
+        arrayOfIdentityName.setIdentityName(identityNameList);
+        startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
+
+        StartEnrollmentWithIdCheckResponse out = new StartEnrollmentWithIdCheckResponse();
+        StartEnrollmentWithIdCheckResponse2 two = new StartEnrollmentWithIdCheckResponse2();
+        out.setStartEnrollmentWithIdCheckResponse(two);
+        // Invoke Soap Service
+        try {
+            ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse
+                    soapSvcResp =
+                    (ca.bc.gov.open.staffnet.biometrics.two
+                            .StartEnrollmentWithIdCheckResponse)
+                            webServiceTemplate.marshalSendAndReceive(
+                                    "http://www.bceid.ca/webservices/BCS/V4/StartEnrollmentWithIdCheck",
+                                    startEnrollmentWithIdCheck);
+            two.setCode(soapSvcResp.getStartEnrollmentWithIdCheckResult().getCode().value());
+            two.setMessage(soapSvcResp.getStartEnrollmentWithIdCheckResult().getMessage());
+            two.setFailureCode(
+                    soapSvcResp.getStartEnrollmentWithIdCheckResult().getFailureCode().value());
+            two.setIssuanceId(
+                    soapSvcResp
+                            .getStartEnrollmentWithIdCheckResult()
+                            .getIssuance()
+                            .getIssuanceID());
+            two.setExpiryDate(
+                    soapSvcResp
+                            .getStartEnrollmentWithIdCheckResult()
+                            .getIssuance()
+                            .getExpiry());
+            two.setEnrollmentURL(
+                    soapSvcResp
+                            .getStartEnrollmentWithIdCheckResult()
+                            .getIssuance()
+                            .getEnrollmentURL());
+
+            log.info(
+                    objectMapper.writeValueAsString(
+                            new RequestSuccessLog(
+                                    "Request Success", "startEnrollmentWithIdCheck")));
+        } catch (Exception ex) {
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
+            log.error(
+                    objectMapper.writeValueAsString(
+                            new OrdsErrorLog(
+                                    "Error received from SOAP SERVICE - StartEnrollmentWithIdCheck",
+                                    "startEnrollmentWithIdCheck",
+                                    ex.getMessage(),
+                                    inner)));
+        }
+        return out;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")

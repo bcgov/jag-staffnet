@@ -65,16 +65,19 @@ public class BiometricController {
                         : new BiometricReconciliationRequest();
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "bio/reconciliation");
+
+        BiometricReconciliationResponse out = new BiometricReconciliationResponse();
+        BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
+
+        HttpEntity<GetEnrolledWorkersOutput> resp = null;
         try {
-            HttpEntity<GetEnrolledWorkersOutput> resp =
+            resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetEnrolledWorkersOutput.class);
 
-            BiometricReconciliationResponse out = new BiometricReconciliationResponse();
-            BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
             out.setBiometricReconciliationResponse(two);
 
             if (resp != null && resp.getBody() != null) {
@@ -82,50 +85,6 @@ public class BiometricController {
                     return out;
                 }
             }
-
-            ReconciliationServiceRequest reconciliationServiceRequest =
-                    new ReconciliationServiceRequest();
-            reconciliationServiceRequest.setOnlineServiceId(onlineServiceId);
-            reconciliationServiceRequest.setRequesterUserId(inner.getRequestorUserId());
-            reconciliationServiceRequest.setRequesterAccountTypeCode(
-                    BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-            ArrayOfReconciliationItem arrayOfReconciliationItem = new ArrayOfReconciliationItem();
-
-            List<ReconciliationItem> workers = new ArrayList();
-            for (var worker : resp.getBody().getWorkers()) {
-                workers.add(worker);
-            }
-            arrayOfReconciliationItem.setReconciliationItem(workers);
-
-            reconciliationServiceRequest.setReconciliationItems(arrayOfReconciliationItem);
-            ReconciliationService reconciliationService = new ReconciliationService();
-            reconciliationService.setRequest(reconciliationServiceRequest);
-
-            // Invoke Soap Service
-            try {
-                ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
-                        (ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse)
-                                webServiceTemplate.marshalSendAndReceive(
-                                        "http://www.bceid.ca/webservices/BCS/V4/ReconciliationService",
-                                        reconciliationService);
-                two.setResponseCd(soapSvcResp.getReconciliationServiceResult().getCode().value());
-                two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
-                log.info(
-                        objectMapper.writeValueAsString(
-                                new RequestSuccessLog(
-                                        "Request Success", "biometricReconciliation")));
-            } catch (Exception ex) {
-                two.setResponseCd(ResponseCode.FAILED.value());
-                two.setResponseTxt("Unable to connect to Backend Database");
-                log.error(
-                        objectMapper.writeValueAsString(
-                                new OrdsErrorLog(
-                                        "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
-                                        "deactivateBiometricCredentialByDID",
-                                        ex.getMessage(),
-                                        inner)));
-            }
-            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -136,6 +95,50 @@ public class BiometricController {
                                     inner)));
             throw new ORDSException();
         }
+
+        ReconciliationServiceRequest reconciliationServiceRequest =
+                new ReconciliationServiceRequest();
+        reconciliationServiceRequest.setOnlineServiceId(onlineServiceId);
+        reconciliationServiceRequest.setRequesterUserId(inner.getRequestorUserId());
+        reconciliationServiceRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
+        ArrayOfReconciliationItem arrayOfReconciliationItem = new ArrayOfReconciliationItem();
+
+        List<ReconciliationItem> workers = new ArrayList();
+        for (var worker : resp.getBody().getWorkers()) {
+            workers.add(worker);
+        }
+        arrayOfReconciliationItem.setReconciliationItem(workers);
+
+        reconciliationServiceRequest.setReconciliationItems(arrayOfReconciliationItem);
+        ReconciliationService reconciliationService = new ReconciliationService();
+        reconciliationService.setRequest(reconciliationServiceRequest);
+
+        // Invoke Soap Service
+        try {
+            ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
+                    (ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse)
+                            webServiceTemplate.marshalSendAndReceive(
+                                    "http://www.bceid.ca/webservices/BCS/V4/ReconciliationService",
+                                    reconciliationService);
+            two.setResponseCd(soapSvcResp.getReconciliationServiceResult().getCode().value());
+            two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
+            log.info(
+                    objectMapper.writeValueAsString(
+                            new RequestSuccessLog(
+                                    "Request Success", "biometricReconciliation")));
+        } catch (Exception ex) {
+            two.setResponseCd(ResponseCode.FAILED.value());
+            two.setResponseTxt("Unable to connect to Backend Database");
+            log.error(
+                    objectMapper.writeValueAsString(
+                            new OrdsErrorLog(
+                                    "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
+                                    "deactivateBiometricCredentialByDID",
+                                    ex.getMessage(),
+                                    inner)));
+        }
+        return out;
     }
 
     @PayloadRoot(

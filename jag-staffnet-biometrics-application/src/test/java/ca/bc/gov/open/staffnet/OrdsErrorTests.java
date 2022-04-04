@@ -129,7 +129,7 @@ public class OrdsErrorTests {
 
     @Test
     public void testRefreshIdentityWithIdCheckOrdsFail() {
-        RefreshController refreshController = new RefreshController(restTemplate, objectMapper);
+        RefreshController refreshController = new RefreshController(restTemplate, objectMapper, webServiceTemplate);
 
         Assertions.assertThrows(
                 ORDSException.class,
