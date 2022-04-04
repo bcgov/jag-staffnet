@@ -116,4 +116,31 @@ public class BiometricControllerTests {
         var out = biometricController.destroyBiometricCredentialByDID(req);
         Assertions.assertNotNull(out);
     }
+
+    @Test
+    public void testReactivateBiometricCredentialByDID() throws JsonProcessingException {
+        var req = new ReactivateBiometricCredentialByDID();
+
+        ReactivateBiometricCredentialByDIDResponse2 two =
+                new ReactivateBiometricCredentialByDIDResponse2();
+        two.setCode("A");
+        two.setFailureCode("A");
+        two.setMessage("A");
+
+        ResponseEntity<ReactivateBiometricCredentialByDIDResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
+
+        // Set up to mock ords response
+        when(restTemplate.exchange(
+                Mockito.any(URI.class),
+                Mockito.eq(HttpMethod.DELETE),
+                Mockito.<HttpEntity<String>>any(),
+                Mockito.<Class<ReactivateBiometricCredentialByDIDResponse2>>any()))
+                .thenReturn(responseEntity);
+
+        BiometricController biometricController =
+                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
+        var out = biometricController.reactivateBiometricCredentialByDID(req);
+        Assertions.assertNotNull(out);
+    }
 }

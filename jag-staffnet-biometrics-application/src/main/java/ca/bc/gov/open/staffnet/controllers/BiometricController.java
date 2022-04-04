@@ -132,8 +132,8 @@ public class BiometricController {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
-                                    "deactivateBiometricCredentialByDID",
+                                    "Error received from SOAP SERVICE - ReconciliationService",
+                                    "biometricReconciliation",
                                     ex.getMessage(),
                                     inner)));
         }
