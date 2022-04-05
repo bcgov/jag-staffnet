@@ -63,6 +63,14 @@ public class RefreshController {
                 UriComponentsBuilder.fromHttpUrl(host + "refresh")
                         .queryParam("individualID", inner.getIndividualID());
 
+        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
+                refreshIdentityWithIdCheck =
+                new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck();
+        ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckRequest
+                refreshIdentityWithIdCheckRequest =
+                new ca.bc.gov.open.staffnet.biometrics.three
+                        .RefreshIdentityWithIdCheckRequest();
+
         HttpEntity<WorkerInfoResponse> resp = null;
         try {
             resp =
@@ -71,6 +79,24 @@ public class RefreshController {
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             WorkerInfoResponse.class);
+
+            refreshIdentityWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
+            refreshIdentityWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
+            if (inner.getRequesterAccountTypeCode() != null) {
+                refreshIdentityWithIdCheckRequest.setRequesterAccountTypeCode(
+                        BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
+            }
+            refreshIdentityWithIdCheckRequest.setDid(inner.getDid());
+            refreshIdentityWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
+            if (resp.getBody().getDateOfBirth() != null) {
+                refreshIdentityWithIdCheckRequest.setDateOfBirth(
+                        InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
+            }
+            List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
+            ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
+            arrayOfIdentityName.setIdentityName(identityNameList);
+            refreshIdentityWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
+            refreshIdentityWithIdCheck.setRequest(refreshIdentityWithIdCheckRequest);
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -82,29 +108,6 @@ public class RefreshController {
             throw new ORDSException();
         }
 
-        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
-                refreshIdentityWithIdCheck =
-                        new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckRequest
-                refreshIdentityWithIdCheckRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .RefreshIdentityWithIdCheckRequest();
-
-        refreshIdentityWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
-        refreshIdentityWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
-        refreshIdentityWithIdCheckRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-        refreshIdentityWithIdCheckRequest.setDid(inner.getDid());
-        refreshIdentityWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
-        refreshIdentityWithIdCheckRequest.setDateOfBirth(
-                InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
-        List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
-        ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-        arrayOfIdentityName.setIdentityName(identityNameList);
-        refreshIdentityWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
-
-        refreshIdentityWithIdCheck.setRequest(refreshIdentityWithIdCheckRequest);
-
         RefreshIdentityWithIdCheckResponse out = new RefreshIdentityWithIdCheckResponse();
         RefreshIdentityWithIdCheckResponse2 two = new RefreshIdentityWithIdCheckResponse2();
         out.setRefreshIdentityWithIdCheckResponse(two);
@@ -115,6 +118,12 @@ public class RefreshController {
                             webServiceTemplate.marshalSendAndReceive(
                                     "http://www.bceid.ca/webservices/BCS/V4/RefreshIdentityWithIdCheck",
                                     refreshIdentityWithIdCheck);
+            two.setCode(soapSvcResp.getRefreshIdentityWithIdCheckResult().getCode().value());
+            two.setMessage(soapSvcResp.getRefreshIdentityWithIdCheckResult().getMessage());
+            two.setEnrollmentURL(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getEnrollmentURL());
+            two.setExpiryDate(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getExpiry());
+            two.setIssuanceId(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getIssuanceID());
+            two.setFailureCode(soapSvcResp.getRefreshIdentityWithIdCheckResult().getFailureCode().value());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(

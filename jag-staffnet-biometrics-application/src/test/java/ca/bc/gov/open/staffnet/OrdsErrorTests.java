@@ -1,24 +1,31 @@
 package ca.bc.gov.open.staffnet;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
 import ca.bc.gov.open.staffnet.controllers.*;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
+import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
+
+import java.net.URI;
+import java.time.Instant;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -28,9 +35,9 @@ public class OrdsErrorTests {
 
     @Autowired private ObjectMapper objectMapper;
 
-    @Autowired private WebServiceTemplate webServiceTemplate;
+    @Mock private WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
 
-    @Mock private RestTemplate restTemplate;
+    @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
     public void testPingOrdsFail() {
@@ -58,52 +65,6 @@ public class OrdsErrorTests {
     }
 
     @Test
-    public void testBiometricReconciliationSoapServiceFail() {
-        BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () -> biometricController.biometricReconciliation(new BiometricReconciliation()));
-    }
-
-    @Test
-    public void testDeactivateBiometricCredentialByDIDSoapServiceFail() {
-        BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () ->
-                        biometricController.deactivateBiometricCredentialByDID(
-                                new DeactivateBiometricCredentialByDID()));
-    }
-
-    @Test
-    public void testDestroyBiometricCredentialByDIDSoapServiceFail() {
-        BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () ->
-                        biometricController.destroyBiometricCredentialByDID(
-                                new DestroyBiometricCredentialByDID()));
-    }
-
-    @Test
-    public void testReactivateBiometricCredentialByDIDSoapServiceFail() {
-        BiometricController biometricController =
-                new BiometricController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () ->
-                        biometricController.reactivateBiometricCredentialByDID(
-                                new ReactivateBiometricCredentialByDID()));
-    }
-
-    @Test
     public void testStartEnrollmentWithIdCheckOrdsFail() {
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
@@ -119,6 +80,40 @@ public class OrdsErrorTests {
     public void testFinishEnrollmentWithIdCheckOrdsFail() {
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
+
+        // Set up to mock soap service response
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
+                new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse();
+        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckResponse
+                finishEnrollmentWithIdCheckResponse =
+                new ca.bc.gov.open.staffnet.biometrics.three
+                        .FinishEnrollmentWithIdCheckResponse();
+        finishEnrollmentWithIdCheckResponse.setMessage("A");
+        finishEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
+        finishEnrollmentWithIdCheckResponse.setDid("A");
+        finishEnrollmentWithIdCheckResponse.setPhoto(new byte[0]);
+        finishEnrollmentWithIdCheckResponse.setDateOfBirth(Instant.now());
+        finishEnrollmentWithIdCheckResponse.setBiometricTemplateUrl("A");
+        finishEnrollmentWithIdCheckResponse.setGivenNames("A");
+        finishEnrollmentWithIdCheckResponse.setLastName("A");
+        finishEnrollmentWithIdCheckResponse.setPhotoTakenDate(Instant.now());
+        soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse);
+        when(webServiceTemplate.marshalSendAndReceive(
+                anyString(),
+                Mockito.any(
+                        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
+                                .class)))
+                .thenReturn(soapSvcResp);
+
+        WorkerImageSetResponse workerImageSetResponse = new WorkerImageSetResponse();
+
+        // Set up to mock ords response
+        when(restTemplate.exchange(
+                Mockito.any(URI.class),
+                Mockito.eq(HttpMethod.PUT),
+                Mockito.<HttpEntity<String>>any(),
+                Mockito.<Class<WorkerImageSetResponse>>any()))
+                .thenThrow(new ORDSException());
 
         Assertions.assertThrows(
                 ORDSException.class,
@@ -137,26 +132,6 @@ public class OrdsErrorTests {
                 () ->
                         refreshController.refreshIdentityWithIdCheck(
                                 new RefreshIdentityWithIdCheck()));
-    }
-
-    @Test
-    public void testStartSearchForIdentityOrdsFail() {
-        SearchController searchController =
-                new SearchController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () -> searchController.startSearchForIdentity(new StartSearchForIdentity()));
-    }
-
-    @Test
-    public void testFinishSearchForIdentityOrdsFail() {
-        SearchController searchController =
-                new SearchController(restTemplate, objectMapper, webServiceTemplate);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () -> searchController.finishSearchForIdentity(new FinishSearchForIdentity()));
     }
 
     @Test

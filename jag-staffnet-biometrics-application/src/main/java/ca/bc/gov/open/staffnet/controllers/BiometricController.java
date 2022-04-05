@@ -66,6 +66,10 @@ public class BiometricController {
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "bio/reconciliation");
 
+        ReconciliationService reconciliationService = new ReconciliationService();
+        ReconciliationServiceRequest reconciliationServiceRequest =
+                new ReconciliationServiceRequest();
+
         BiometricReconciliationResponse out = new BiometricReconciliationResponse();
         BiometricReconciliationResponse2 two = new BiometricReconciliationResponse2();
 
@@ -80,11 +84,24 @@ public class BiometricController {
 
             out.setBiometricReconciliationResponse(two);
 
-            if (resp != null && resp.getBody() != null) {
-                if (!resp.getBody().getResponseCd().equals("0")) {
-                    return out;
-                }
+            if (!resp.getBody().getResponseCd().equals("0")) {
+                return out;
             }
+
+            reconciliationServiceRequest.setOnlineServiceId(onlineServiceId);
+            reconciliationServiceRequest.setRequesterUserId(inner.getRequestorUserId());
+            reconciliationServiceRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
+            ArrayOfReconciliationItem arrayOfReconciliationItem = new ArrayOfReconciliationItem();
+
+            List<ReconciliationItem> workers = new ArrayList();
+            for (var worker : resp.getBody().getWorkers()) {
+                workers.add(worker);
+            }
+            arrayOfReconciliationItem.setReconciliationItem(workers);
+
+            reconciliationServiceRequest.setReconciliationItems(arrayOfReconciliationItem);
+            reconciliationService.setRequest(reconciliationServiceRequest);
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -95,24 +112,6 @@ public class BiometricController {
                                     inner)));
             throw new ORDSException();
         }
-
-        ReconciliationServiceRequest reconciliationServiceRequest =
-                new ReconciliationServiceRequest();
-        reconciliationServiceRequest.setOnlineServiceId(onlineServiceId);
-        reconciliationServiceRequest.setRequesterUserId(inner.getRequestorUserId());
-        reconciliationServiceRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-        ArrayOfReconciliationItem arrayOfReconciliationItem = new ArrayOfReconciliationItem();
-
-        List<ReconciliationItem> workers = new ArrayList();
-        for (var worker : resp.getBody().getWorkers()) {
-            workers.add(worker);
-        }
-        arrayOfReconciliationItem.setReconciliationItem(workers);
-
-        reconciliationServiceRequest.setReconciliationItems(arrayOfReconciliationItem);
-        ReconciliationService reconciliationService = new ReconciliationService();
-        reconciliationService.setRequest(reconciliationServiceRequest);
 
         // Invoke Soap Service
         try {
@@ -224,8 +223,10 @@ public class BiometricController {
                         .DestroyBiometricCredentialByDIDRequest();
         three.setDID(inner.getDID());
         three.setOnlineServiceId(onlineServiceId);
-        three.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        if (inner.getRequestorAccountTypeCode() != null) {
+            three.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
         three.setRequesterUserId(inner.getRequestorUserId());
         destroyBiometricCredentialByDID.setRequest(three);
 
@@ -289,8 +290,10 @@ public class BiometricController {
                         new ca.bc.gov.open.staffnet.biometrics.three
                                 .ReactivateBiometricCredentialByDIDRequest();
         reactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
-        reactivateBiometricCredentialByDIDRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        if (inner.getRequestorAccountTypeCode() != null) {
+            reactivateBiometricCredentialByDIDRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
         reactivateBiometricCredentialByDIDRequest.setRequesterUserId(inner.getRequestorUserId());
         reactivateBiometricCredentialByDIDRequest.setOnlineServiceId(onlineServiceId);
         reactivateBiometricCredentialByDID.setRequest(reactivateBiometricCredentialByDIDRequest);

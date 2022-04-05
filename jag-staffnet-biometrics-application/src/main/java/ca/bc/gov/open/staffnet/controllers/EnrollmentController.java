@@ -61,6 +61,14 @@ public class EnrollmentController {
                 UriComponentsBuilder.fromHttpUrl(host + "enrollment/start")
                         .queryParam("individualID", inner.getIndividualID());
 
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
+                startEnrollmentWithIdCheck =
+                new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
+        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
+                startEnrollmentWithIdCheckRequest =
+                new ca.bc.gov.open.staffnet.biometrics.three
+                        .StartEnrollmentWithIdCheckRequest();
+
         HttpEntity<WorkerInfoResponse> resp = null;
         try {
             resp =
@@ -69,6 +77,20 @@ public class EnrollmentController {
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             WorkerInfoResponse.class);
+            startEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
+            startEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
+            startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
+            startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
+            if (resp.getBody().getDateOfBirth() != null) {
+                startEnrollmentWithIdCheckRequest.setDateOfBirth(
+                        InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
+            }
+            startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
+            List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
+            ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
+            arrayOfIdentityName.setIdentityName(identityNameList);
+            startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
@@ -79,26 +101,6 @@ public class EnrollmentController {
                                     inner)));
             throw new ORDSException();
         }
-
-        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
-                startEnrollmentWithIdCheck =
-                        new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
-                startEnrollmentWithIdCheckRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .StartEnrollmentWithIdCheckRequest();
-        startEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
-        startEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
-        startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
-        startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
-        startEnrollmentWithIdCheckRequest.setDateOfBirth(
-                InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
-        startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
-        List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
-        ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-        arrayOfIdentityName.setIdentityName(identityNameList);
-        startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
 
         StartEnrollmentWithIdCheckResponse out = new StartEnrollmentWithIdCheckResponse();
         StartEnrollmentWithIdCheckResponse2 two = new StartEnrollmentWithIdCheckResponse2();
@@ -163,12 +165,19 @@ public class EnrollmentController {
                                 .FinishEnrollmentWithIdCheckRequest();
         finishEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
         finishEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
-        finishEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        if (inner.getRequestorAccountTypeCode() != null) {
+            finishEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
         finishEnrollmentWithIdCheckRequest.setIssuanceID(inner.getIssuanceID());
         finishEnrollmentWithIdCheck.setRequest(finishEnrollmentWithIdCheckRequest);
 
         FinishEnrollmentWithIdCheckResponse2 out = new FinishEnrollmentWithIdCheckResponse2();
+
+        WorkerImageSetRequest req = new WorkerImageSetRequest();
+        req.setIndiId(inner.getIndividualId());
+        req.setUserId(inner.getRequestorUserId());
+        req.setCallingModule("StaffNet");
 
         ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
                 null;
@@ -179,6 +188,9 @@ public class EnrollmentController {
                             webServiceTemplate.marshalSendAndReceive(
                                     "http://www.bceid.ca/webservices/BCS/V4/FinishEnrollmentWithIdCheck",
                                     finishEnrollmentWithIdCheck);
+            req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
+            req.setPhotoTakenDate(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
@@ -198,14 +210,6 @@ public class EnrollmentController {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/finish");
 
-        WorkerImageSetRequest req = new WorkerImageSetRequest();
-        req.setIndiId(inner.getIndividualId());
-        req.setUserId(inner.getRequestorUserId());
-        req.setCallingModule("StaffNet");
-        req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
-        req.setPhotoTakenDate(
-                InstantSoapConverter.parse(
-                        soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate()));
         HttpEntity<WorkerImageSetRequest> body = new HttpEntity<>(req, new HttpHeaders());
         try {
             HttpEntity<WorkerImageSetResponse> resp =
@@ -218,7 +222,6 @@ public class EnrollmentController {
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "finishEnrollmentWithIdCheck")));
-
             out.setImageSetSuccessYN(resp.getBody().getSuccessYN());
             return out;
         } catch (Exception ex) {

@@ -59,10 +59,14 @@ public class SearchController {
                                 .StartSearchForIdentityRequest();
         startSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
         startSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
-        startSearchForIdentityRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
-        startSearchForIdentityRequest.setActiveOnly(
-                ActiveCodeRequest.fromValue(inner.getActiveOnly()));
+        if (inner.getRequestorAccountTypeCode() != null) {
+            startSearchForIdentityRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
+        if (inner.getActiveOnly() != null) {
+            startSearchForIdentityRequest.setActiveOnly(
+                    ActiveCodeRequest.fromValue(inner.getActiveOnly()));
+        }
         startSearchForIdentity.setRequest(startSearchForIdentityRequest);
 
         StartSearchForIdentityResponse out = new StartSearchForIdentityResponse();
@@ -94,7 +98,7 @@ public class SearchController {
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
-                                    "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
+                                    "Error received from SOAP SERVICE - StartSearchForIdentity",
                                     "startSearchForIdentity",
                                     ex.getMessage(),
                                     inner)));
@@ -119,8 +123,10 @@ public class SearchController {
                                 .FinishSearchForIdentityRequest();
         finishSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
         finishSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
-        finishSearchForIdentityRequest.setRequesterAccountTypeCode(
-                BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        if (inner.getRequestorAccountTypeCode() != null) {
+            finishSearchForIdentityRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
         finishSearchForIdentityRequest.setSearchID(inner.getSearchID());
         finishSearchForIdentity.setRequest(finishSearchForIdentityRequest);
 

@@ -1,13 +1,23 @@
 package ca.bc.gov.open.staffnet;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.three.*;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
+import ca.bc.gov.open.staffnet.models.WorkerImageSetRequest;
+import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
+import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -29,30 +39,65 @@ public class EnrollmentControllerTests {
 
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
-    @Autowired private WebServiceTemplate webServiceTemplate;
+    @Mock private WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
 
     @Test
     public void testStartEnrollmentWithIdCheck() throws JsonProcessingException {
         var req = new StartEnrollmentWithIdCheck();
+        StartEnrollmentWithIdCheckRequest startEnrollmentWithIdCheckRequest =
+                new StartEnrollmentWithIdCheckRequest();
+        startEnrollmentWithIdCheckRequest.setDid("A");
+        startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
+                BCeIDAccountTypeCode.VERIFIED_INDIVIDUAL.value());
+        startEnrollmentWithIdCheckRequest.setIndividualID("A");
+        startEnrollmentWithIdCheckRequest.setRequestorUserId("A");
+        req.setStartEnrollmentWithIdCheckRequest(startEnrollmentWithIdCheckRequest);
 
-        StartEnrollmentWithIdCheckResponse2 two = new StartEnrollmentWithIdCheckResponse2();
-        two.setCode("A");
-        two.setMessage("A");
-        two.setEnrollmentURL("A");
-        two.setFailureCode("A");
-        two.setExpiryDate(Instant.now());
-        two.setIssuanceId("A");
-
-        ResponseEntity<StartEnrollmentWithIdCheckResponse2> responseEntity =
-                new ResponseEntity<>(two, HttpStatus.OK);
+        WorkerInfoResponse workerInfoResponse = new WorkerInfoResponse();
+        workerInfoResponse.setDid("A");
+        workerInfoResponse.setResponseCode(ResponseCode.SUCCESS);
+        workerInfoResponse.setDateOfBirth("A");
+        workerInfoResponse.setPhotoBase64(new byte[0]);
+        List<IdentityName> identityNameList = new ArrayList<>();
+        IdentityName identityName = new IdentityName();
+        identityName.setGivenName("A");
+        identityName.setLastName("A");
+        identityName.setMiddleName("A");
+        identityName.setType(MatchIdentityNameType.LEGAL);
+        identityNameList.add(identityName);
+        workerInfoResponse.setIdentityNames(identityNameList);
+        ResponseEntity<WorkerInfoResponse> responseEntity =
+                new ResponseEntity<>(workerInfoResponse, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
-                        Mockito.eq(HttpMethod.POST),
+                        Mockito.eq(HttpMethod.GET),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<StartEnrollmentWithIdCheckResponse2>>any()))
+                        Mockito.<Class<WorkerInfoResponse>>any()))
                 .thenReturn(responseEntity);
+
+        // Set up to mock soap service response
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse soapSvcResp =
+                new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse();
+        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckResponse
+                startEnrollmentWithIdCheckResponse =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .StartEnrollmentWithIdCheckResponse();
+        startEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
+        startEnrollmentWithIdCheckResponse.setMessage("A");
+        IssuanceToken issuanceToken = new IssuanceToken();
+        issuanceToken.setIssuanceID("A");
+        issuanceToken.setEnrollmentURL("A");
+        issuanceToken.setExpiry(Instant.now());
+        startEnrollmentWithIdCheckResponse.setIssuance(issuanceToken);
+        soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse);
+        when(webServiceTemplate.marshalSendAndReceive(
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two
+                                        .ReactivateBiometricCredentialByDID.class)))
+                .thenReturn(soapSvcResp);
 
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
@@ -63,29 +108,51 @@ public class EnrollmentControllerTests {
     @Test
     public void testFinishEnrollmentWithIdCheck() throws JsonProcessingException {
         var req = new FinishEnrollmentWithIdCheck();
+        FinishEnrollmentWithIdCheckRequest finishEnrollmentWithIdCheckRequest =
+                new FinishEnrollmentWithIdCheckRequest();
+        finishEnrollmentWithIdCheckRequest.setIssuanceID("A");
+        finishEnrollmentWithIdCheckRequest.setRequestorUserId("A");
+        finishEnrollmentWithIdCheckRequest.setIdentityEventId("A");
+        finishEnrollmentWithIdCheckRequest.setRequestorAccountTypeCode(
+                BCeIDAccountTypeCode.BUSINESS.value());
+        finishEnrollmentWithIdCheckRequest.setIndividualId("A");
+        req.setFinishEnrollmentWithIdCheckRequest(finishEnrollmentWithIdCheckRequest);
 
-        FinishEnrollmentWithIdCheckResponse2 two = new FinishEnrollmentWithIdCheckResponse2();
-        two.setCode("A");
-        two.setMessage("A");
-        two.setPhoto(null);
-        two.setBiometricTemplateUrl("A");
-        two.setFailureCode("A");
-        two.setPhotoTakenDate(Instant.now());
-        two.setGivenNames("A");
-        two.setLastName("A");
-        two.setImageSetSuccessYN("A");
-        two.setDid("A");
-        two.setDateOfBirth("A");
+        // Set up to mock soap service response
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
+                new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse();
+        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckResponse
+                finishEnrollmentWithIdCheckResponse =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .FinishEnrollmentWithIdCheckResponse();
+        finishEnrollmentWithIdCheckResponse.setMessage("A");
+        finishEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
+        finishEnrollmentWithIdCheckResponse.setDid("A");
+        finishEnrollmentWithIdCheckResponse.setPhoto(new byte[0]);
+        finishEnrollmentWithIdCheckResponse.setDateOfBirth(Instant.now());
+        finishEnrollmentWithIdCheckResponse.setBiometricTemplateUrl("A");
+        finishEnrollmentWithIdCheckResponse.setGivenNames("A");
+        finishEnrollmentWithIdCheckResponse.setLastName("A");
+        finishEnrollmentWithIdCheckResponse.setPhotoTakenDate(Instant.now());
+        soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse);
+        when(webServiceTemplate.marshalSendAndReceive(
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
+                                        .class)))
+                .thenReturn(soapSvcResp);
 
-        ResponseEntity<FinishEnrollmentWithIdCheckResponse2> responseEntity =
-                new ResponseEntity<>(two, HttpStatus.OK);
+        WorkerImageSetResponse workerImageSetResponse = new WorkerImageSetResponse();
+        workerImageSetResponse.setSuccessYN("A");
+        ResponseEntity<WorkerImageSetResponse> responseEntity =
+                new ResponseEntity<>(workerImageSetResponse, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<FinishEnrollmentWithIdCheckResponse2>>any()))
+                        Mockito.<Class<WorkerImageSetResponse>>any()))
                 .thenReturn(responseEntity);
 
         EnrollmentController enrollmentController =
