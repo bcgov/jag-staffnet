@@ -28,6 +28,9 @@ public class SearchController {
     @Value("${staffnet.online-service-id}")
     private String onlineServiceId;
 
+    @Value("${staffnet.web-service-url}")
+    private String wsUrl;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
@@ -76,9 +79,7 @@ public class SearchController {
         try {
             ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse)
-                            webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/StartSearchForIdentity",
-                                    startSearchForIdentity);
+                            webServiceTemplate.marshalSendAndReceive(wsUrl, startSearchForIdentity);
             two.setCode(soapSvcResp.getStartSearchForIdentityResult().getCode().value());
             two.setFailureCode(
                     soapSvcResp.getStartSearchForIdentityResult().getFailureCode().value());
@@ -138,8 +139,7 @@ public class SearchController {
             ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse)
                             webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/FinishSearchForIdentity",
-                                    finishSearchForIdentity);
+                                    wsUrl, finishSearchForIdentity);
             two.setCode(soapSvcResp.getFinishSearchForIdentityResult().getDID());
             two.setFailureCode(
                     soapSvcResp.getFinishSearchForIdentityResult().getFailureCode().value());

@@ -2,9 +2,13 @@ security:
   basic-auth:
     password: ${BASIC_AUTH_PASS}
     username: ${BASIC_AUTH_USER}
+  web-service:
+    password: ${WS_AUTH_PASS}
+    username: ${WS_AUTH_USER}
 staffnet:
   host: ${ORDS_HOST}
   online-service-id: ${ONLINE_SERVICE_ID}
+  web-service-url: ${WS_URL}
 management:
   endpoints:
     web:

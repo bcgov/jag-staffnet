@@ -41,6 +41,9 @@ public class BiometricController {
     @Value("${staffnet.online-service-id}")
     private String onlineServiceId;
 
+    @Value("${staffnet.web-service-url}")
+    private String wsUrl;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
@@ -117,9 +120,7 @@ public class BiometricController {
         try {
             ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse)
-                            webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/ReconciliationService",
-                                    reconciliationService);
+                            webServiceTemplate.marshalSendAndReceive(wsUrl, reconciliationService);
             two.setResponseCd(soapSvcResp.getReconciliationServiceResult().getCode().value());
             two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
             log.info(
@@ -173,8 +174,7 @@ public class BiometricController {
                             (ca.bc.gov.open.staffnet.biometrics.two
                                             .DeactivateBiometricCredentialByDIDResponse)
                                     webServiceTemplate.marshalSendAndReceive(
-                                            "http://www.bceid.ca/webservices/BCS/V4/DeactivateBiometricCredentialByDID",
-                                            deactivateBiometricCredentialByDID);
+                                            wsUrl, deactivateBiometricCredentialByDID);
 
             two.setMessage(soapSvcResp.getDeactivateBiometricCredentialByDIDResult().getMessage());
             two.setCode(
@@ -241,8 +241,7 @@ public class BiometricController {
                             (ca.bc.gov.open.staffnet.biometrics.two
                                             .DestroyBiometricCredentialByDIDResponse)
                                     webServiceTemplate.marshalSendAndReceive(
-                                            "http://www.bceid.ca/webservices/BCS/V4/DestroyBiometricCredentialByDID",
-                                            destroyBiometricCredentialByDID);
+                                            wsUrl, destroyBiometricCredentialByDID);
             two.setCode(soapSvcResp.getDestroyBiometricCredentialByDIDResult().getCode().value());
             two.setMessage(soapSvcResp.getDestroyBiometricCredentialByDIDResult().getMessage());
             two.setFailureCode(
@@ -310,8 +309,7 @@ public class BiometricController {
                             (ca.bc.gov.open.staffnet.biometrics.two
                                             .ReactivateBiometricCredentialByDIDResponse)
                                     webServiceTemplate.marshalSendAndReceive(
-                                            "http://www.bceid.ca/webservices/BCS/V4/ReactivateBiometricCredentialByDID",
-                                            reactivateBiometricCredentialByDID);
+                                            wsUrl, reactivateBiometricCredentialByDID);
             two.setCode(
                     soapSvcResp.getReactivateBiometricCredentialByDIDResult().getCode().value());
             two.setMessage(soapSvcResp.getReactivateBiometricCredentialByDIDResult().getMessage());
