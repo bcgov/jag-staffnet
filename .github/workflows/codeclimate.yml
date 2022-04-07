@@ -4,11 +4,9 @@ name: CodeClimate Workflow
 # Triggers that controls when the workflow will run
 on:
   push:
-    branches: [ main ]
+    branches: [release/*,main]
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-    branches: [main]
+    branches: [release/*,main]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,7 +18,7 @@ jobs:
 
     env:
       FILE_COUNTER: 0
-      CC_TEST_REPORTER_ID: a1ce840b0db5fa40f0181ddbfedf001c41e5046fab430a9faeab3cfcbcb42c12
+      CC_TEST_REPORTER_ID: <REPLACE ME>
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
       ACTION_DEBUG: true
@@ -70,32 +68,27 @@ jobs:
       # Trimming the ref to main in order to publish correct report
       - name: Set ref/head/main to main
         run: |
-          echo "GIT_BRANCH=master" >> $GITHUB_ENV
+          echo "GIT_BRANCH=main" >> $GITHUB_ENV
           #echo "::set-env name=GIT_BRANCH::main"
         if: env.GIT_BRANCH == 'refs/heads/main'
 
       - name: Check Code Style
         run: mvn -ntp spotless:check
 
-      - name: Generate Code Coverage
+      - name: Run Maven Test
         run: mvn -ntp verify
-
-      - name: Fix Jacoco Report Format for CC
-        run: sed -e 's/<[\/]\?group[^>]*>//g' pcss-code-coverage/target/site/jacoco-aggregate/jacoco.xml > pcss-code-coverage/target/site/jacoco-aggregate/jacoco-codeclimatecompat.xml
 
         # Formatting the Code Coverage Report
       - name: Format the coverage report
-        run: JACOCO_SOURCE_PATH="pcss-common-application/src/main/java pcss-common-models/target/generated-sources/xjc pcss-common-models/target/generated-sources/xjc  pcss-reports-models/src/main/java  pcss-reports-models/target/generated-sources/xjc  pcss-common-models/src/main/java pcss-common-secure-models/src/main/java pcss-common-secure-models/target/generated-sources/xjc" ./cc-test-reporter format-coverage pcss-code-coverage/target/site/jacoco-aggregate/jacoco-codeclimatecompat.xml --input-type jacoco -o ./target/site/jacoco/codeclimate.json
+        run: JACOCO_SOURCE_PATH="jag-staffnet-biometrics-application/src/main/java jag-staffnet-identity-provisioning-application/src/main/java staffnet-biometrics-models/target/generated-sources/xjc staffnet-identity-provisioning-models/target/generated-sources/xjc staffnet-common-models/src/main/java" ./cc-test-reporter format-coverage staffnet-code-coverage/target/site/jacoco-aggregate/jacoco-codeclimatecompat.xml --input-type jacoco -o ./target/site/jacoco/codeclimate.json
 
-
-# Upload JSON for debugging purposes
+        # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
         uses: actions/upload-artifact@v2
         with:
-          name: pcss-common-coverage-report
+          name: staffnet-coverage-report
           path: ./target/site/jacoco/codeclimate.json
 
       # Upload total coverage report to Code Climate
       - name: Upload coverage report to Code Climate
         run: ./cc-test-reporter upload-coverage -i ./target/site/jacoco/codeclimate.json
-        
