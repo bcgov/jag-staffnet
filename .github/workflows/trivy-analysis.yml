@@ -19,17 +19,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       # Set up JDK build environment
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
-        
+
       # Runs build steps
       - name: Maven Package
         run: mvn -ntp clean package
-        
+
       - name: Maven Verify
         run: mvn -ntp clean verify
 
@@ -38,13 +38,14 @@ jobs:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t jag-pcss-common:${{ github.sha }} .
-      #Run Vulnerability Scan usinig Trivy scanner
+          docker build -t jag-staffnet:${{ github.sha }} .
+
+      # Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: jag-pcss-common:${{ github.sha }}
+          image-ref: jag-staffnet:${{ github.sha }}
           format: template
           template: '@/contrib/sarif.tpl'
           output: trivy-results.sarif
@@ -52,7 +53,7 @@ jobs:
           ignore-unfixed: true
           severity: HIGH,CRITICAL
 
-      #Upload results to the Github security tab.
+      # Upload results to the Github security tab.
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v1
         if: always()
