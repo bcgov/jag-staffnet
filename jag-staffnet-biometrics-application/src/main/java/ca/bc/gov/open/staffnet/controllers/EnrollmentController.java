@@ -35,6 +35,9 @@ public class EnrollmentController {
     @Value("${staffnet.online-service-id}")
     private String onlineServiceId;
 
+    @Value("${staffnet.web-service-url}")
+    private String wsUrl;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
@@ -110,8 +113,7 @@ public class EnrollmentController {
             ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/StartEnrollmentWithIdCheck",
-                                    startEnrollmentWithIdCheck);
+                                    wsUrl, startEnrollmentWithIdCheck);
             two.setCode(soapSvcResp.getStartEnrollmentWithIdCheckResult().getCode().value());
             two.setMessage(soapSvcResp.getStartEnrollmentWithIdCheckResult().getMessage());
             two.setFailureCode(
@@ -186,8 +188,7 @@ public class EnrollmentController {
             soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/FinishEnrollmentWithIdCheck",
-                                    finishEnrollmentWithIdCheck);
+                                    wsUrl, finishEnrollmentWithIdCheck);
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
             req.setPhotoTakenDate(
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());

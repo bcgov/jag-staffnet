@@ -37,6 +37,9 @@ public class RefreshController {
     @Value("${staffnet.online-service-id}")
     private String onlineServiceId;
 
+    @Value("${staffnet.web-service-url}")
+    private String wsUrl;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
@@ -116,8 +119,7 @@ public class RefreshController {
             ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
-                                    "http://www.bceid.ca/webservices/BCS/V4/RefreshIdentityWithIdCheck",
-                                    refreshIdentityWithIdCheck);
+                                    wsUrl, refreshIdentityWithIdCheck);
             two.setCode(soapSvcResp.getRefreshIdentityWithIdCheckResult().getCode().value());
             two.setMessage(soapSvcResp.getRefreshIdentityWithIdCheckResult().getMessage());
             two.setEnrollmentURL(
