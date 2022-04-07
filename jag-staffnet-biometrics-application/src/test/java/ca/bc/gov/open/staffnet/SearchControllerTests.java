@@ -11,7 +11,6 @@ import ca.bc.gov.open.staffnet.biometrics.three.SearchToken;
 import ca.bc.gov.open.staffnet.controllers.SearchController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.net.URI;
 import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
@@ -39,17 +34,20 @@ public class SearchControllerTests {
     @Test
     public void testStartSearchForIdentity() throws JsonProcessingException {
         var req = new StartSearchForIdentity();
-        StartSearchForIdentityRequest startSearchForIdentityRequest = new StartSearchForIdentityRequest();
+        StartSearchForIdentityRequest startSearchForIdentityRequest =
+                new StartSearchForIdentityRequest();
         startSearchForIdentityRequest.setActiveOnly("Y");
         startSearchForIdentityRequest.setRequestorUserId("A");
         startSearchForIdentityRequest.setRequestorAccountTypeCode("Business");
         req.setStartSearchForIdentityRequest(startSearchForIdentityRequest);
 
         // Set up to mock soap service response
-        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse
-                soapSvcResp =
+        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityResponse startSearchForIdentityResponse = new ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityResponse();
+        ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityResponse
+                startSearchForIdentityResponse =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .StartSearchForIdentityResponse();
         startSearchForIdentityResponse.setMessage("A");
         startSearchForIdentityResponse.setCode(ResponseCode.SUCCESS);
         SearchToken searchToken = new SearchToken();
@@ -60,10 +58,10 @@ public class SearchControllerTests {
         soapSvcResp.setStartSearchForIdentityResult(startSearchForIdentityResponse);
 
         when(webServiceTemplate.marshalSendAndReceive(
-                anyString(),
-                Mockito.any(
-                        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity
-                                .class)))
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity
+                                        .class)))
                 .thenReturn(soapSvcResp);
 
         SearchController searchController =
@@ -75,7 +73,8 @@ public class SearchControllerTests {
     @Test
     public void testFinishSearchForIdentity() throws JsonProcessingException {
         var req = new FinishSearchForIdentity();
-        FinishSearchForIdentityRequest finishSearchForIdentityRequest = new FinishSearchForIdentityRequest();
+        FinishSearchForIdentityRequest finishSearchForIdentityRequest =
+                new FinishSearchForIdentityRequest();
         finishSearchForIdentityRequest.setSearchID("A");
         finishSearchForIdentityRequest.setRequestorUserId("A");
         finishSearchForIdentityRequest.setRequestorAccountTypeCode("Business");
@@ -83,10 +82,12 @@ public class SearchControllerTests {
         req.setFinishSearchForIdentityRequest(finishSearchForIdentityRequest);
 
         // Set up to mock soap service response
-        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse
-                soapSvcResp =
+        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityResponse finishSearchForIdentityResponse = new ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityResponse();
+        ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityResponse
+                finishSearchForIdentityResponse =
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .FinishSearchForIdentityResponse();
         finishSearchForIdentityResponse.setDID("A");
         finishSearchForIdentityResponse.setActive(ActiveCodeResponse.Y);
         finishSearchForIdentityResponse.setCode(ResponseCode.SUCCESS);
@@ -94,10 +95,10 @@ public class SearchControllerTests {
         finishSearchForIdentityResponse.setStatus(SearchStatusCode.FOUND);
         soapSvcResp.setFinishSearchForIdentityResult(finishSearchForIdentityResponse);
         when(webServiceTemplate.marshalSendAndReceive(
-                anyString(),
-                Mockito.any(
-                        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity
-                                .class)))
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity
+                                        .class)))
                 .thenReturn(soapSvcResp);
 
         SearchController searchController =

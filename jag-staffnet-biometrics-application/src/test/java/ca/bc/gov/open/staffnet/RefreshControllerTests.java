@@ -16,7 +16,6 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -43,7 +42,8 @@ public class RefreshControllerTests {
     @Test
     public void testRefreshIdentityWithIdCheck() throws JsonProcessingException {
         var req = new RefreshIdentityWithIdCheck();
-        RefreshIdentityWithIdCheckRequest refreshIdentityWithIdCheckRequest = new RefreshIdentityWithIdCheckRequest();
+        RefreshIdentityWithIdCheckRequest refreshIdentityWithIdCheckRequest =
+                new RefreshIdentityWithIdCheckRequest();
         refreshIdentityWithIdCheckRequest.setDid("A");
         refreshIdentityWithIdCheckRequest.setRequesterAccountTypeCode("Business");
         refreshIdentityWithIdCheckRequest.setIndividualID("A");
@@ -80,7 +80,8 @@ public class RefreshControllerTests {
                 new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse();
         ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckResponse
                 refreshIdentityWithIdCheckResponse =
-                new ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckResponse();
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .RefreshIdentityWithIdCheckResponse();
         refreshIdentityWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
         refreshIdentityWithIdCheckResponse.setMessage("A");
         IssuanceToken issuanceToken = new IssuanceToken();
@@ -90,10 +91,10 @@ public class RefreshControllerTests {
         refreshIdentityWithIdCheckResponse.setIssuance(issuanceToken);
         soapSvcResp.setRefreshIdentityWithIdCheckResult(refreshIdentityWithIdCheckResponse);
         when(webServiceTemplate.marshalSendAndReceive(
-                anyString(),
-                Mockito.any(
-                        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
-                                .class)))
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
+                                        .class)))
                 .thenReturn(soapSvcResp);
 
         RefreshController refreshController =

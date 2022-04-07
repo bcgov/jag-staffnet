@@ -65,11 +65,11 @@ public class RefreshController {
 
         ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
                 refreshIdentityWithIdCheck =
-                new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck();
+                        new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck();
         ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckRequest
                 refreshIdentityWithIdCheckRequest =
-                new ca.bc.gov.open.staffnet.biometrics.three
-                        .RefreshIdentityWithIdCheckRequest();
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .RefreshIdentityWithIdCheckRequest();
 
         HttpEntity<WorkerInfoResponse> resp = null;
         try {
@@ -120,10 +120,20 @@ public class RefreshController {
                                     refreshIdentityWithIdCheck);
             two.setCode(soapSvcResp.getRefreshIdentityWithIdCheckResult().getCode().value());
             two.setMessage(soapSvcResp.getRefreshIdentityWithIdCheckResult().getMessage());
-            two.setEnrollmentURL(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getEnrollmentURL());
-            two.setExpiryDate(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getExpiry());
-            two.setIssuanceId(soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getIssuanceID());
-            two.setFailureCode(soapSvcResp.getRefreshIdentityWithIdCheckResult().getFailureCode().value());
+            two.setEnrollmentURL(
+                    soapSvcResp
+                            .getRefreshIdentityWithIdCheckResult()
+                            .getIssuance()
+                            .getEnrollmentURL());
+            two.setExpiryDate(
+                    soapSvcResp.getRefreshIdentityWithIdCheckResult().getIssuance().getExpiry());
+            two.setIssuanceId(
+                    soapSvcResp
+                            .getRefreshIdentityWithIdCheckResult()
+                            .getIssuance()
+                            .getIssuanceID());
+            two.setFailureCode(
+                    soapSvcResp.getRefreshIdentityWithIdCheckResult().getFailureCode().value());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(

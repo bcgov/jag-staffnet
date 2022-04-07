@@ -63,11 +63,11 @@ public class EnrollmentController {
 
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
                 startEnrollmentWithIdCheck =
-                new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
+                        new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
         ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
                 startEnrollmentWithIdCheckRequest =
-                new ca.bc.gov.open.staffnet.biometrics.three
-                        .StartEnrollmentWithIdCheckRequest();
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .StartEnrollmentWithIdCheckRequest();
 
         HttpEntity<WorkerInfoResponse> resp = null;
         try {

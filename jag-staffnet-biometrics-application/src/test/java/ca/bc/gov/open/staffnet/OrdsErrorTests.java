@@ -11,6 +11,8 @@ import ca.bc.gov.open.staffnet.controllers.*;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
+import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,9 +25,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
-
-import java.net.URI;
-import java.time.Instant;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -86,8 +85,8 @@ public class OrdsErrorTests {
                 new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse();
         ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckResponse
                 finishEnrollmentWithIdCheckResponse =
-                new ca.bc.gov.open.staffnet.biometrics.three
-                        .FinishEnrollmentWithIdCheckResponse();
+                        new ca.bc.gov.open.staffnet.biometrics.three
+                                .FinishEnrollmentWithIdCheckResponse();
         finishEnrollmentWithIdCheckResponse.setMessage("A");
         finishEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
         finishEnrollmentWithIdCheckResponse.setDid("A");
@@ -99,20 +98,20 @@ public class OrdsErrorTests {
         finishEnrollmentWithIdCheckResponse.setPhotoTakenDate(Instant.now());
         soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse);
         when(webServiceTemplate.marshalSendAndReceive(
-                anyString(),
-                Mockito.any(
-                        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
-                                .class)))
+                        anyString(),
+                        Mockito.any(
+                                ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
+                                        .class)))
                 .thenReturn(soapSvcResp);
 
         WorkerImageSetResponse workerImageSetResponse = new WorkerImageSetResponse();
 
         // Set up to mock ords response
         when(restTemplate.exchange(
-                Mockito.any(URI.class),
-                Mockito.eq(HttpMethod.PUT),
-                Mockito.<HttpEntity<String>>any(),
-                Mockito.<Class<WorkerImageSetResponse>>any()))
+                        Mockito.any(URI.class),
+                        Mockito.eq(HttpMethod.PUT),
+                        Mockito.<HttpEntity<String>>any(),
+                        Mockito.<Class<WorkerImageSetResponse>>any()))
                 .thenThrow(new ORDSException());
 
         Assertions.assertThrows(

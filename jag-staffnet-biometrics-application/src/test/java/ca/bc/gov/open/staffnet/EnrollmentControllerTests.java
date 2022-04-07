@@ -8,7 +8,6 @@ import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckRequest
 import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
 import ca.bc.gov.open.staffnet.biometrics.three.*;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
-import ca.bc.gov.open.staffnet.models.WorkerImageSetRequest;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,7 +16,6 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
