@@ -75,13 +75,23 @@ public class SoapConfig extends WsConfigurerAdapter {
     }
 
     @Bean
+    public SaajSoapMessageFactory messageFactory12() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(SOAPMessage.WRITE_XML_DECLARATION, "true");
+        SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory();
+        messageFactory.setMessageProperties(props);
+        messageFactory.setSoapVersion(SoapVersion.SOAP_12);
+        return messageFactory;
+    }
+
+    @Bean
     public WebServiceTemplate webServiceTemplate() {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
         WebServiceSenderWithAuth webServiceSenderWithAuth = new WebServiceSenderWithAuth();
 
         webServiceTemplate.setMessageSender(webServiceSenderWithAuth);
-        webServiceTemplate.setMessageFactory(messageFactory());
+        webServiceTemplate.setMessageFactory(messageFactory12());
         jaxb2Marshaller.setContextPaths(
                 "ca.bc.gov.open.staffnet.biometrics.one", "ca.bc.gov.open.staffnet.biometrics.two");
         webServiceTemplate.setMarshaller(jaxb2Marshaller);
