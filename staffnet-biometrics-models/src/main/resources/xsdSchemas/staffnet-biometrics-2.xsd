@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<s:schema elementFormDefault="qualified" targetNamespace="http://www.bceid.ca/webservices/BCS/V4/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bceid.ca/models/BCS/V4/">
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.bceid.ca/webservices/BCS/V4/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bceid.ca/webservices/BCS/V4/">
     <s:element name="StartEnrollment">
         <s:complexType>
             <s:sequence>
@@ -7,7 +7,36 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartEnrollmentRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="IDRef" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:complexType abstract="true" name="RequestBase">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="onlineServiceId" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="requesterUserId" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="requesterAccountTypeCode" type="tns:BCeIDAccountTypeCode"/>
+            <s:element maxOccurs="1" minOccurs="0" name="requesterUserGuid" type="s:string"/>
+        </s:sequence>
+    </s:complexType>
+    <s:simpleType name="BCeIDAccountTypeCode">
+        <s:restriction base="s:string">
+            <s:enumeration value="Void"/>
+            <s:enumeration value="Individual"/>
+            <s:enumeration value="VerifiedIndividual"/>
+            <s:enumeration value="Business"/>
+            <s:enumeration value="Internal"/>
+            <s:enumeration value="LDB"/>
+            <s:enumeration value="EDS"/>
+            <s:enumeration value="THS"/>
+            <s:enumeration value="CORNET"/>
+        </s:restriction>
+    </s:simpleType>
     <s:element name="StartEnrollmentResponse">
         <s:complexType>
             <s:sequence>
@@ -15,7 +44,49 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartEnrollmentResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="issuance" type="tns:IssuanceToken"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:complexType abstract="true" name="ResponseBase">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="1" name="code" type="tns:ResponseCode"/>
+            <s:element maxOccurs="1" minOccurs="1" name="failureCode" type="tns:FailureCode"/>
+            <s:element maxOccurs="1" minOccurs="0" name="message" type="s:string"/>
+        </s:sequence>
+    </s:complexType>
+    <s:simpleType name="ResponseCode">
+        <s:restriction base="s:string">
+            <s:enumeration value="Success"/>
+            <s:enumeration value="Failed"/>
+            <s:enumeration value="UnknownError"/>
+            <s:enumeration value="Warning"/>
+        </s:restriction>
+    </s:simpleType>
+    <s:simpleType name="FailureCode">
+        <s:restriction base="s:string">
+            <s:enumeration value="Void"/>
+            <s:enumeration value="NoResults"/>
+            <s:enumeration value="ExpectedResults"/>
+            <s:enumeration value="ArgumentException"/>
+            <s:enumeration value="AuthenticationException"/>
+            <s:enumeration value="ValidationException"/>
+            <s:enumeration value="AuthorizationException"/>
+            <s:enumeration value="Timeout"/>
+        </s:restriction>
+    </s:simpleType>
+    <s:complexType name="IssuanceToken">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="issuanceID" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="enrollmentURL" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="expiry" type="s:dateTime"/>
+        </s:sequence>
+    </s:complexType>
     <s:element name="StartSearch">
         <s:complexType>
             <s:sequence>
@@ -23,7 +94,22 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartSearchRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="accountType" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="activeOnly" type="tns:ActiveCodeRequest"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:simpleType name="ActiveCodeRequest">
+        <s:restriction base="s:string">
+            <s:enumeration value="N"/>
+            <s:enumeration value="Y"/>
+        </s:restriction>
+    </s:simpleType>
     <s:element name="StartSearchResponse">
         <s:complexType>
             <s:sequence>
@@ -31,7 +117,22 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartSearchResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="search" type="tns:SearchToken"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:complexType name="SearchToken">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="searchID" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="searchURL" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="expiry" type="s:dateTime"/>
+        </s:sequence>
+    </s:complexType>
     <s:element name="FinishEnrollment">
         <s:complexType>
             <s:sequence>
@@ -39,7 +140,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishEnrollmentRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="issuanceID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishEnrollmentResponse">
         <s:complexType>
             <s:sequence>
@@ -47,7 +156,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishEnrollmentResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RebindCredential">
         <s:complexType>
             <s:sequence>
@@ -55,7 +172,16 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RebindCredentialRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="IDRefTo" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RebindCredentialResponse">
         <s:complexType>
             <s:sequence>
@@ -63,7 +189,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RebindCredentialResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DestroyCredential">
         <s:complexType>
             <s:sequence>
@@ -72,7 +202,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DestroyCredentialRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DestroyCredentialResponse">
         <s:complexType>
             <s:sequence>
@@ -80,7 +218,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DestroyCredentialResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="ReactivateCredential">
         <s:complexType>
             <s:sequence>
@@ -88,7 +230,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReactivateCredentialRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="ReactivateCredentialResponse">
         <s:complexType>
             <s:sequence>
@@ -96,7 +246,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReactivateCredentialResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeactivateCredential">
         <s:complexType>
             <s:sequence>
@@ -104,7 +258,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeactivateCredentialRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeactivateCredentialResponse">
         <s:complexType>
             <s:sequence>
@@ -112,7 +274,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeactivateCredentialResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishSearch">
         <s:complexType>
             <s:sequence>
@@ -120,7 +286,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishSearchRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="searchID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishSearchResponse">
         <s:complexType>
             <s:sequence>
@@ -128,7 +302,32 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishSearchResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="status" type="tns:SearchStatusCode"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="DID" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="credentialReference" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="active" type="tns:ActiveCodeResponse"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:simpleType name="SearchStatusCode">
+        <s:restriction base="s:string">
+            <s:enumeration value="NotCompleted"/>
+            <s:enumeration value="Found"/>
+            <s:enumeration value="NotFound"/>
+            <s:enumeration value="Error"/>
+        </s:restriction>
+    </s:simpleType>
+    <s:simpleType name="ActiveCodeResponse">
+        <s:restriction base="s:string">
+            <s:enumeration value="N"/>
+            <s:enumeration value="Y"/>
+        </s:restriction>
+    </s:simpleType>
     <s:element name="CheckEnrollmentStatus">
         <s:complexType>
             <s:sequence>
@@ -136,7 +335,6 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
     <s:element name="CheckEnrollmentStatusResponse">
         <s:complexType>
             <s:sequence>
@@ -144,7 +342,6 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
     <s:element name="StartEnrollmentWithIdCheck">
         <s:complexType>
             <s:sequence>
@@ -152,7 +349,37 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartEnrollmentWithIdCheckRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="did" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="photo" type="s:base64Binary"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="dateOfBirth" type="s:dateTime"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="identityNames" type="tns:ArrayOfIdentityName"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:complexType name="ArrayOfIdentityName">
+        <s:sequence>
+            <s:element maxOccurs="unbounded" minOccurs="0" name="IdentityName" nillable="true" type="tns:IdentityName"/>
+        </s:sequence>
+    </s:complexType>
+    <s:complexType name="IdentityName">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="1" name="type" type="tns:MatchIdentityNameType"/>
+            <s:element maxOccurs="1" minOccurs="0" name="givenName" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="middleName" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="lastName" type="s:string"/>
+        </s:sequence>
+    </s:complexType>
+    <s:simpleType name="MatchIdentityNameType">
+        <s:restriction base="s:string">
+            <s:enumeration value="Legal"/>
+            <s:enumeration value="KnownAs"/>
+        </s:restriction>
+    </s:simpleType>
     <s:element name="StartEnrollmentWithIdCheckResponse">
         <s:complexType>
             <s:sequence>
@@ -160,7 +387,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartEnrollmentWithIdCheckResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="issuance" type="tns:IssuanceToken"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RefreshIdentityWithIdCheck">
         <s:complexType>
             <s:sequence>
@@ -168,7 +403,18 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RefreshIdentityWithIdCheckRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="did" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="photo" type="s:base64Binary"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="dateOfBirth" type="s:dateTime"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="identityNames" type="tns:ArrayOfIdentityName"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RefreshIdentityWithIdCheckResponse">
         <s:complexType>
             <s:sequence>
@@ -176,7 +422,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RefreshIdentityWithIdCheckResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="issuance" type="tns:IssuanceToken"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishEnrollmentWithIdCheck">
         <s:complexType>
             <s:sequence>
@@ -184,7 +438,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishEnrollmentWithIdCheckRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="issuanceID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishEnrollmentWithIdCheckResponse">
         <s:complexType>
             <s:sequence>
@@ -192,7 +454,21 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishEnrollmentWithIdCheckResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="did" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="givenNames" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="lastName" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="photo" type="s:base64Binary"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="dateOfBirth" type="s:dateTime"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="biometricTemplateUrl" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="photoTakenDate" type="s:dateTime"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="ReactivateBiometricCredentialByDID">
         <s:complexType>
             <s:sequence>
@@ -200,7 +476,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReactivateBiometricCredentialByDIDRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="DID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="ReactivateBiometricCredentialByDIDResponse">
         <s:complexType>
             <s:sequence>
@@ -208,7 +492,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReactivateBiometricCredentialByDIDResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeactivateBiometricCredentialByDID">
         <s:complexType>
             <s:sequence>
@@ -216,7 +504,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeactivateBiometricCredentialByDIDRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="DID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeactivateBiometricCredentialByDIDResponse">
         <s:complexType>
             <s:sequence>
@@ -224,7 +520,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeactivateBiometricCredentialByDIDResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DestroyBiometricCredentialByDID">
         <s:complexType>
             <s:sequence>
@@ -232,7 +532,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DestroyBiometricCredentialByDIDRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="DID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DestroyBiometricCredentialByDIDResponse">
         <s:complexType>
             <s:sequence>
@@ -240,7 +548,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DestroyBiometricCredentialByDIDResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeleteAllBiometricCredentials">
         <s:complexType>
             <s:sequence>
@@ -248,7 +560,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeleteAllBiometricCredentialsRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="DeleteAllBiometricCredentialsResponse">
         <s:complexType>
             <s:sequence>
@@ -256,7 +572,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="DeleteAllBiometricCredentialsResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="ReconciliationService">
         <s:complexType>
             <s:sequence>
@@ -264,7 +584,32 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReconciliationServiceRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="reconciliationItems" type="tns:ArrayOfReconciliationItem"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
+    <s:complexType name="ArrayOfReconciliationItem">
+        <s:sequence>
+            <s:element maxOccurs="unbounded" minOccurs="0" name="ReconciliationItem" nillable="true" type="tns:ReconciliationItem"/>
+        </s:sequence>
+    </s:complexType>
+    <s:complexType name="ReconciliationItem">
+        <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="did" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="status" type="tns:ReconciliationItemStatus"/>
+        </s:sequence>
+    </s:complexType>
+    <s:simpleType name="ReconciliationItemStatus">
+        <s:restriction base="s:string">
+            <s:enumeration value="Deactive"/>
+            <s:enumeration value="Active"/>
+        </s:restriction>
+    </s:simpleType>
     <s:element name="ReconciliationServiceResponse">
         <s:complexType>
             <s:sequence>
@@ -272,7 +617,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="ReconciliationServiceResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="StartSearchForIdentity">
         <s:complexType>
             <s:sequence>
@@ -280,7 +629,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartSearchForIdentityRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="activeOnly" type="tns:ActiveCodeRequest"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="StartSearchForIdentityResponse">
         <s:complexType>
             <s:sequence>
@@ -288,7 +645,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="StartSearchForIdentityResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="search" type="tns:SearchToken"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishSearchForIdentity">
         <s:complexType>
             <s:sequence>
@@ -296,7 +661,15 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishSearchForIdentityRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="searchID" type="s:string"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="FinishSearchForIdentityResponse">
         <s:complexType>
             <s:sequence>
@@ -304,7 +677,17 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="FinishSearchForIdentityResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase">
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="status" type="tns:SearchStatusCode"/>
+                    <s:element maxOccurs="1" minOccurs="0" name="DID" type="s:string"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="active" type="tns:ActiveCodeResponse"/>
+                </s:sequence>
+            </s:extension>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="Revoke">
         <s:complexType>
             <s:sequence>
@@ -312,7 +695,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RevokeRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RevokeResponse">
         <s:complexType>
             <s:sequence>
@@ -320,7 +707,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RevokeResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="Renew">
         <s:complexType>
             <s:sequence>
@@ -328,7 +719,11 @@
             </s:sequence>
         </s:complexType>
     </s:element>
-
+    <s:complexType name="RenewRequest">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:RequestBase"/>
+        </s:complexContent>
+    </s:complexType>
     <s:element name="RenewResponse">
         <s:complexType>
             <s:sequence>
@@ -336,4 +731,9 @@
             </s:sequence>
         </s:complexType>
     </s:element>
+    <s:complexType name="RenewResponse">
+        <s:complexContent mixed="false">
+            <s:extension base="tns:ResponseBase"/>
+        </s:complexContent>
+    </s:complexType>
 </s:schema>

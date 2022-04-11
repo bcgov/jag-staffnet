@@ -1,13 +1,19 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDRequest;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDRequest;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDRequest;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse;
-import ca.bc.gov.open.staffnet.biometrics.three.*;
+import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.biometrics.two.ReconciliationService;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
@@ -42,7 +48,7 @@ public class BiometricController {
     private String onlineServiceId;
 
     @Value("${staffnet.web-service-url}")
-    private String wsUrl;
+    private String wsUrl = "";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -218,17 +224,18 @@ public class BiometricController {
                 destroyBiometricCredentialByDID =
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .DestroyBiometricCredentialByDID();
-        ca.bc.gov.open.staffnet.biometrics.three.DestroyBiometricCredentialByDIDRequest three =
-                new ca.bc.gov.open.staffnet.biometrics.three
-                        .DestroyBiometricCredentialByDIDRequest();
-        three.setDID(inner.getDID());
-        three.setOnlineServiceId(onlineServiceId);
+        ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDRequest
+                destroyBiometricCredentialByDIDRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DestroyBiometricCredentialByDIDRequest();
+        destroyBiometricCredentialByDIDRequest.setDID(inner.getDID());
+        destroyBiometricCredentialByDIDRequest.setOnlineServiceId(onlineServiceId);
         if (inner.getRequestorAccountTypeCode() != null) {
-            three.setRequesterAccountTypeCode(
+            destroyBiometricCredentialByDIDRequest.setRequesterAccountTypeCode(
                     BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
         }
-        three.setRequesterUserId(inner.getRequestorUserId());
-        destroyBiometricCredentialByDID.setRequest(three);
+        destroyBiometricCredentialByDIDRequest.setRequesterUserId(inner.getRequestorUserId());
+        destroyBiometricCredentialByDID.setRequest(destroyBiometricCredentialByDIDRequest);
 
         DestroyBiometricCredentialByDIDResponse out = new DestroyBiometricCredentialByDIDResponse();
         DestroyBiometricCredentialByDIDResponse2 two =
@@ -284,9 +291,9 @@ public class BiometricController {
                 reactivateBiometricCredentialByDID =
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .ReactivateBiometricCredentialByDID();
-        ca.bc.gov.open.staffnet.biometrics.three.ReactivateBiometricCredentialByDIDRequest
+        ca.bc.gov.open.staffnet.biometrics.two.ReactivateBiometricCredentialByDIDRequest
                 reactivateBiometricCredentialByDIDRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
+                        new ca.bc.gov.open.staffnet.biometrics.two
                                 .ReactivateBiometricCredentialByDIDRequest();
         reactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
         if (inner.getRequestorAccountTypeCode() != null) {

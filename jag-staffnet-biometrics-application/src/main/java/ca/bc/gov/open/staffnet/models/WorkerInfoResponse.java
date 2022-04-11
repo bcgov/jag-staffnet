@@ -1,7 +1,7 @@
 package ca.bc.gov.open.staffnet.models;
 
-import ca.bc.gov.open.staffnet.biometrics.three.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Data;

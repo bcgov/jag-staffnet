@@ -4,10 +4,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.three.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.IssuanceToken;
-import ca.bc.gov.open.staffnet.biometrics.three.MatchIdentityNameType;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.IssuanceToken;
+import ca.bc.gov.open.staffnet.biometrics.two.MatchIdentityNameType;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.controllers.RefreshController;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -78,18 +78,18 @@ public class RefreshControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckResponse
-                refreshIdentityWithIdCheckResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .RefreshIdentityWithIdCheckResponse();
-        refreshIdentityWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
-        refreshIdentityWithIdCheckResponse.setMessage("A");
+        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse2
+                refreshIdentityWithIdCheckResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .RefreshIdentityWithIdCheckResponse2();
+        refreshIdentityWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
+        refreshIdentityWithIdCheckResponse2.setMessage("A");
         IssuanceToken issuanceToken = new IssuanceToken();
         issuanceToken.setExpiry(Instant.now());
         issuanceToken.setIssuanceID("A");
         issuanceToken.setEnrollmentURL("A");
-        refreshIdentityWithIdCheckResponse.setIssuance(issuanceToken);
-        soapSvcResp.setRefreshIdentityWithIdCheckResult(refreshIdentityWithIdCheckResponse);
+        refreshIdentityWithIdCheckResponse2.setIssuance(issuanceToken);
+        soapSvcResp.setRefreshIdentityWithIdCheckResult(refreshIdentityWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(

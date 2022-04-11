@@ -4,11 +4,13 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDRequest;
-import ca.bc.gov.open.staffnet.biometrics.three.*;
-import ca.bc.gov.open.staffnet.biometrics.three.DeactivateBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.controllers.BiometricController;
 import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
@@ -68,11 +70,11 @@ public class BiometricControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse();
-        ReconciliationServiceResponse reconciliationServiceResponse =
-                new ReconciliationServiceResponse();
-        reconciliationServiceResponse.setCode(ResponseCode.SUCCESS);
-        reconciliationServiceResponse.setMessage("A");
-        soapSvcResp.setReconciliationServiceResult(reconciliationServiceResponse);
+        ReconciliationServiceResponse2 reconciliationServiceResponse2 =
+                new ReconciliationServiceResponse2();
+        reconciliationServiceResponse2.setCode(ResponseCode.SUCCESS);
+        reconciliationServiceResponse2.setMessage("A");
+        soapSvcResp.setReconciliationServiceResult(reconciliationServiceResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(), Mockito.any(ReconciliationServiceRequest.class)))
                 .thenReturn(soapSvcResp);
@@ -99,13 +101,14 @@ public class BiometricControllerTests {
                 soapSvcResp =
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .DeactivateBiometricCredentialByDIDResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.DeactivateBiometricCredentialByDIDResponse
-                deactivateBiometricCredentialByDIDResponse =
-                        new DeactivateBiometricCredentialByDIDResponse();
-        deactivateBiometricCredentialByDIDResponse.setCode(ResponseCode.SUCCESS);
-        deactivateBiometricCredentialByDIDResponse.setMessage("A");
+        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDResponse2
+                deactivateBiometricCredentialByDIDResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DeactivateBiometricCredentialByDIDResponse2();
+        deactivateBiometricCredentialByDIDResponse2.setCode(ResponseCode.SUCCESS);
+        deactivateBiometricCredentialByDIDResponse2.setMessage("A");
         soapSvcResp.setDeactivateBiometricCredentialByDIDResult(
-                deactivateBiometricCredentialByDIDResponse);
+                deactivateBiometricCredentialByDIDResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(), Mockito.any(DeactivateBiometricCredentialByDID.class)))
                 .thenReturn(soapSvcResp);
@@ -130,14 +133,14 @@ public class BiometricControllerTests {
         // Set up to mock soap service response
         DestroyBiometricCredentialByDIDResponse soapSvcResp =
                 new DestroyBiometricCredentialByDIDResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.DestroyBiometricCredentialByDIDResponse
-                destroyBiometricCredentialByDIDResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .DestroyBiometricCredentialByDIDResponse();
-        destroyBiometricCredentialByDIDResponse.setCode(ResponseCode.SUCCESS);
-        destroyBiometricCredentialByDIDResponse.setMessage("A");
+        ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDResponse2
+                destroyBiometricCredentialByDIDResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DestroyBiometricCredentialByDIDResponse2();
+        destroyBiometricCredentialByDIDResponse2.setCode(ResponseCode.SUCCESS);
+        destroyBiometricCredentialByDIDResponse2.setMessage("A");
         soapSvcResp.setDestroyBiometricCredentialByDIDResult(
-                destroyBiometricCredentialByDIDResponse);
+                destroyBiometricCredentialByDIDResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(
@@ -167,14 +170,14 @@ public class BiometricControllerTests {
                 soapSvcResp =
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .ReactivateBiometricCredentialByDIDResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.ReactivateBiometricCredentialByDIDResponse
-                reactivateBiometricCredentialByDIDResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .ReactivateBiometricCredentialByDIDResponse();
-        reactivateBiometricCredentialByDIDResponse.setCode(ResponseCode.SUCCESS);
-        reactivateBiometricCredentialByDIDResponse.setMessage("A");
+        ca.bc.gov.open.staffnet.biometrics.two.ReactivateBiometricCredentialByDIDResponse2
+                reactivateBiometricCredentialByDIDResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .ReactivateBiometricCredentialByDIDResponse2();
+        reactivateBiometricCredentialByDIDResponse2.setCode(ResponseCode.SUCCESS);
+        reactivateBiometricCredentialByDIDResponse2.setMessage("A");
         soapSvcResp.setReactivateBiometricCredentialByDIDResult(
-                reactivateBiometricCredentialByDIDResponse);
+                reactivateBiometricCredentialByDIDResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(

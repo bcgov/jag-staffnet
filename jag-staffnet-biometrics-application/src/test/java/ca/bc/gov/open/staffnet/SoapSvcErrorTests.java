@@ -4,16 +4,25 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheck;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishSearchForIdentity;
 import ca.bc.gov.open.staffnet.biometrics.one.FinishSearchForIdentityResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheck;
 import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheckRequest;
 import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheckResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheck;
 import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
 import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.StartSearchForIdentity;
 import ca.bc.gov.open.staffnet.biometrics.one.StartSearchForIdentityResponse;
-import ca.bc.gov.open.staffnet.biometrics.three.*;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.controllers.BiometricController;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
 import ca.bc.gov.open.staffnet.controllers.RefreshController;
@@ -75,9 +84,10 @@ public class SoapSvcErrorTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse();
-        ReconciliationServiceResponse reconciliationServiceResponse =
-                new ReconciliationServiceResponse();
-        reconciliationServiceResponse.setCode(ResponseCode.FAILED);
+        ReconciliationServiceResponse2 reconciliationServiceResponse2 =
+                new ReconciliationServiceResponse2();
+        reconciliationServiceResponse2.setCode(ResponseCode.FAILED);
+        soapSvcResp.setReconciliationServiceResult(reconciliationServiceResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(), Mockito.any(ReconciliationServiceRequest.class)))
                 .thenReturn(soapSvcResp);
@@ -163,12 +173,12 @@ public class SoapSvcErrorTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckResponse
-                startEnrollmentWithIdCheckResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .StartEnrollmentWithIdCheckResponse();
-        startEnrollmentWithIdCheckResponse.setCode(ResponseCode.FAILED);
-        soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse);
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse2
+                startEnrollmentWithIdCheckResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .StartEnrollmentWithIdCheckResponse2();
+        startEnrollmentWithIdCheckResponse2.setCode(ResponseCode.FAILED);
+        soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(
@@ -249,12 +259,12 @@ public class SoapSvcErrorTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckResponse
-                refreshIdentityWithIdCheckResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .RefreshIdentityWithIdCheckResponse();
-        refreshIdentityWithIdCheckResponse.setCode(ResponseCode.FAILED);
-        soapSvcResp.setRefreshIdentityWithIdCheckResult(refreshIdentityWithIdCheckResponse);
+        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckResponse2
+                refreshIdentityWithIdCheckResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .RefreshIdentityWithIdCheckResponse2();
+        refreshIdentityWithIdCheckResponse2.setCode(ResponseCode.FAILED);
+        soapSvcResp.setRefreshIdentityWithIdCheckResult(refreshIdentityWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(

@@ -4,10 +4,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.three.ActiveCodeResponse;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
-import ca.bc.gov.open.staffnet.biometrics.three.SearchStatusCode;
-import ca.bc.gov.open.staffnet.biometrics.three.SearchToken;
+import ca.bc.gov.open.staffnet.biometrics.two.ActiveCodeResponse;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.SearchStatusCode;
+import ca.bc.gov.open.staffnet.biometrics.two.SearchToken;
 import ca.bc.gov.open.staffnet.controllers.SearchController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,18 +44,18 @@ public class SearchControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityResponse
-                startSearchForIdentityResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .StartSearchForIdentityResponse();
-        startSearchForIdentityResponse.setMessage("A");
-        startSearchForIdentityResponse.setCode(ResponseCode.SUCCESS);
+        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityResponse2
+                startSearchForIdentityResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .StartSearchForIdentityResponse2();
+        startSearchForIdentityResponse2.setMessage("A");
+        startSearchForIdentityResponse2.setCode(ResponseCode.SUCCESS);
         SearchToken searchToken = new SearchToken();
         searchToken.setSearchID("A");
         searchToken.setSearchURL("A");
         searchToken.setExpiry(Instant.now());
-        startSearchForIdentityResponse.setSearch(searchToken);
-        soapSvcResp.setStartSearchForIdentityResult(startSearchForIdentityResponse);
+        startSearchForIdentityResponse2.setSearch(searchToken);
+        soapSvcResp.setStartSearchForIdentityResult(startSearchForIdentityResponse2);
 
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
@@ -84,16 +84,16 @@ public class SearchControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityResponse
-                finishSearchForIdentityResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .FinishSearchForIdentityResponse();
-        finishSearchForIdentityResponse.setDID("A");
-        finishSearchForIdentityResponse.setActive(ActiveCodeResponse.Y);
-        finishSearchForIdentityResponse.setCode(ResponseCode.SUCCESS);
-        finishSearchForIdentityResponse.setMessage("A");
-        finishSearchForIdentityResponse.setStatus(SearchStatusCode.FOUND);
-        soapSvcResp.setFinishSearchForIdentityResult(finishSearchForIdentityResponse);
+        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse2
+                finishSearchForIdentityResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .FinishSearchForIdentityResponse2();
+        finishSearchForIdentityResponse2.setDID("A");
+        finishSearchForIdentityResponse2.setActive(ActiveCodeResponse.Y);
+        finishSearchForIdentityResponse2.setCode(ResponseCode.SUCCESS);
+        finishSearchForIdentityResponse2.setMessage("A");
+        finishSearchForIdentityResponse2.setStatus(SearchStatusCode.FOUND);
+        soapSvcResp.setFinishSearchForIdentityResult(finishSearchForIdentityResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(

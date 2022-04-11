@@ -1,9 +1,9 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.three.ActiveCodeRequest;
-import ca.bc.gov.open.staffnet.biometrics.three.BCeIDAccountTypeCode;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.ActiveCodeRequest;
+import ca.bc.gov.open.staffnet.biometrics.two.BCeIDAccountTypeCode;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
@@ -29,7 +29,7 @@ public class SearchController {
     private String onlineServiceId;
 
     @Value("${staffnet.web-service-url}")
-    private String wsUrl;
+    private String wsUrl = "";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -56,10 +56,9 @@ public class SearchController {
 
         ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity startSearchForIdentity =
                 new ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentity();
-        ca.bc.gov.open.staffnet.biometrics.three.StartSearchForIdentityRequest
+        ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityRequest
                 startSearchForIdentityRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .StartSearchForIdentityRequest();
+                        new ca.bc.gov.open.staffnet.biometrics.two.StartSearchForIdentityRequest();
         startSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
         startSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
         if (inner.getRequestorAccountTypeCode() != null) {
@@ -118,10 +117,9 @@ public class SearchController {
 
         ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity finishSearchForIdentity =
                 new ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentity();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishSearchForIdentityRequest
+        ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityRequest
                 finishSearchForIdentityRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .FinishSearchForIdentityRequest();
+                        new ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityRequest();
         finishSearchForIdentityRequest.setOnlineServiceId(onlineServiceId);
         finishSearchForIdentityRequest.setRequesterUserId(inner.getRequestorUserId());
         if (inner.getRequestorAccountTypeCode() != null) {

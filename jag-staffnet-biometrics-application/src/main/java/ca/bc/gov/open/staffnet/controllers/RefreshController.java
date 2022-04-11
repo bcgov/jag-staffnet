@@ -1,10 +1,10 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.three.ArrayOfIdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.BCeIDAccountTypeCode;
-import ca.bc.gov.open.staffnet.biometrics.three.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.ArrayOfIdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.BCeIDAccountTypeCode;
+import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
@@ -38,7 +38,7 @@ public class RefreshController {
     private String onlineServiceId;
 
     @Value("${staffnet.web-service-url}")
-    private String wsUrl;
+    private String wsUrl = "";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -69,9 +69,9 @@ public class RefreshController {
         ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck
                 refreshIdentityWithIdCheck =
                         new ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.RefreshIdentityWithIdCheckRequest
+        ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheckRequest
                 refreshIdentityWithIdCheckRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
+                        new ca.bc.gov.open.staffnet.biometrics.two
                                 .RefreshIdentityWithIdCheckRequest();
 
         HttpEntity<WorkerInfoResponse> resp = null;

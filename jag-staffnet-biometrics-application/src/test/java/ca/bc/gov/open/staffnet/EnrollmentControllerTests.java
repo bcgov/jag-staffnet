@@ -3,10 +3,11 @@ package ca.bc.gov.open.staffnet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheck;
 import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheck;
 import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
-import ca.bc.gov.open.staffnet.biometrics.three.*;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
@@ -78,18 +79,18 @@ public class EnrollmentControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckResponse
-                startEnrollmentWithIdCheckResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .StartEnrollmentWithIdCheckResponse();
-        startEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
-        startEnrollmentWithIdCheckResponse.setMessage("A");
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckResponse2
+                startEnrollmentWithIdCheckResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .StartEnrollmentWithIdCheckResponse2();
+        startEnrollmentWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
+        startEnrollmentWithIdCheckResponse2.setMessage("A");
         IssuanceToken issuanceToken = new IssuanceToken();
         issuanceToken.setIssuanceID("A");
         issuanceToken.setEnrollmentURL("A");
         issuanceToken.setExpiry(Instant.now());
-        startEnrollmentWithIdCheckResponse.setIssuance(issuanceToken);
-        soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse);
+        startEnrollmentWithIdCheckResponse2.setIssuance(issuanceToken);
+        soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(
@@ -119,20 +120,20 @@ public class EnrollmentControllerTests {
         // Set up to mock soap service response
         ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
                 new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckResponse
-                finishEnrollmentWithIdCheckResponse =
-                        new ca.bc.gov.open.staffnet.biometrics.three
-                                .FinishEnrollmentWithIdCheckResponse();
-        finishEnrollmentWithIdCheckResponse.setMessage("A");
-        finishEnrollmentWithIdCheckResponse.setCode(ResponseCode.SUCCESS);
-        finishEnrollmentWithIdCheckResponse.setDid("A");
-        finishEnrollmentWithIdCheckResponse.setPhoto(new byte[0]);
-        finishEnrollmentWithIdCheckResponse.setDateOfBirth(Instant.now());
-        finishEnrollmentWithIdCheckResponse.setBiometricTemplateUrl("A");
-        finishEnrollmentWithIdCheckResponse.setGivenNames("A");
-        finishEnrollmentWithIdCheckResponse.setLastName("A");
-        finishEnrollmentWithIdCheckResponse.setPhotoTakenDate(Instant.now());
-        soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse);
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse2
+                finishEnrollmentWithIdCheckResponse2 =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .FinishEnrollmentWithIdCheckResponse2();
+        finishEnrollmentWithIdCheckResponse2.setMessage("A");
+        finishEnrollmentWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
+        finishEnrollmentWithIdCheckResponse2.setDid("A");
+        finishEnrollmentWithIdCheckResponse2.setPhoto(new byte[0]);
+        finishEnrollmentWithIdCheckResponse2.setDateOfBirth(Instant.now());
+        finishEnrollmentWithIdCheckResponse2.setBiometricTemplateUrl("A");
+        finishEnrollmentWithIdCheckResponse2.setGivenNames("A");
+        finishEnrollmentWithIdCheckResponse2.setLastName("A");
+        finishEnrollmentWithIdCheckResponse2.setPhotoTakenDate(Instant.now());
+        soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),
                         Mockito.any(

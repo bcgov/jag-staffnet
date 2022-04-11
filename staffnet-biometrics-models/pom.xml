@@ -116,6 +116,7 @@
                         <arg>-Xnamespace-prefix</arg>
                         <arg>-Xsetters</arg>
                         <arg>-Xannotate</arg>
+                        <arg>-XautoNameResolution</arg>
                     </args>
                     <plugins>
                         <plugin>

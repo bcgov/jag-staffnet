@@ -1,10 +1,10 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.three.ArrayOfIdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.BCeIDAccountTypeCode;
-import ca.bc.gov.open.staffnet.biometrics.three.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.three.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.two.ArrayOfIdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.BCeIDAccountTypeCode;
+import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
+import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.*;
@@ -36,7 +36,7 @@ public class EnrollmentController {
     private String onlineServiceId;
 
     @Value("${staffnet.web-service-url}")
-    private String wsUrl;
+    private String wsUrl = "";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -67,9 +67,9 @@ public class EnrollmentController {
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
                 startEnrollmentWithIdCheck =
                         new ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.StartEnrollmentWithIdCheckRequest
+        ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheckRequest
                 startEnrollmentWithIdCheckRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
+                        new ca.bc.gov.open.staffnet.biometrics.two
                                 .StartEnrollmentWithIdCheckRequest();
 
         HttpEntity<WorkerInfoResponse> resp = null;
@@ -161,9 +161,9 @@ public class EnrollmentController {
         ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
                 finishEnrollmentWithIdCheck =
                         new ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck();
-        ca.bc.gov.open.staffnet.biometrics.three.FinishEnrollmentWithIdCheckRequest
+        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckRequest
                 finishEnrollmentWithIdCheckRequest =
-                        new ca.bc.gov.open.staffnet.biometrics.three
+                        new ca.bc.gov.open.staffnet.biometrics.two
                                 .FinishEnrollmentWithIdCheckRequest();
         finishEnrollmentWithIdCheckRequest.setOnlineServiceId(onlineServiceId);
         finishEnrollmentWithIdCheckRequest.setRequesterUserId(inner.getRequestorUserId());
@@ -181,11 +181,9 @@ public class EnrollmentController {
         req.setUserId(inner.getRequestorUserId());
         req.setCallingModule("StaffNet");
 
-        ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
-                null;
         // Invoke Soap Service
         try {
-            soapSvcResp =
+            ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
                                     wsUrl, finishEnrollmentWithIdCheck);

@@ -83,9 +83,7 @@ public class SoapConfig extends WsConfigurerAdapter {
         webServiceTemplate.setMessageSender(webServiceSenderWithAuth);
         webServiceTemplate.setMessageFactory(messageFactory());
         jaxb2Marshaller.setContextPaths(
-                "ca.bc.gov.open.staffnet.biometrics.one",
-                "ca.bc.gov.open.staffnet.biometrics.two",
-                "ca.bc.gov.open.staffnet.biometrics.three");
+                "ca.bc.gov.open.staffnet.biometrics.one", "ca.bc.gov.open.staffnet.biometrics.two");
         webServiceTemplate.setMarshaller(jaxb2Marshaller);
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller);
         webServiceTemplate.afterPropertiesSet();
