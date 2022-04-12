@@ -147,7 +147,7 @@ public class EnrollmentController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
-    public FinishEnrollmentWithIdCheckResponse2 finishEnrollmentWithIdCheck(
+    public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
             @RequestPayload FinishEnrollmentWithIdCheck search) throws JsonProcessingException {
         var inner =
                 search.getFinishEnrollmentWithIdCheckRequest() != null
@@ -170,7 +170,9 @@ public class EnrollmentController {
         finishEnrollmentWithIdCheckRequest.setIssuanceID(inner.getIssuanceID());
         finishEnrollmentWithIdCheck.setRequest(finishEnrollmentWithIdCheckRequest);
 
-        FinishEnrollmentWithIdCheckResponse2 out = new FinishEnrollmentWithIdCheckResponse2();
+        FinishEnrollmentWithIdCheckResponse out = new FinishEnrollmentWithIdCheckResponse();
+        FinishEnrollmentWithIdCheckResponse2 two = new FinishEnrollmentWithIdCheckResponse2();
+        out.setFinishEnrollmentWithIdCheckResponse(two);
 
         WorkerImageSetRequest req = new WorkerImageSetRequest();
         req.setIndiId(inner.getIndividualId());
@@ -191,8 +193,8 @@ public class EnrollmentController {
                             new RequestSuccessLog(
                                     "Request Success", "finishEnrollmentWithIdCheck")));
         } catch (Exception ex) {
-            out.setCode(ResponseCode.FAILED.value());
-            out.setMessage("Unable to connect to Backend Database");
+            two.setCode(ResponseCode.FAILED.value());
+            two.setMessage("Unable to connect to Backend Database");
             log.error(
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
@@ -217,7 +219,7 @@ public class EnrollmentController {
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "finishEnrollmentWithIdCheck")));
-            out.setImageSetSuccessYN(resp.getBody().getSuccessYN());
+            two.setImageSetSuccessYN(resp.getBody().getSuccessYN());
             return out;
         } catch (Exception ex) {
             log.error(

@@ -9,7 +9,7 @@ import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDID
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheck;
-import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.FinishSearchForIdentity;
 import ca.bc.gov.open.staffnet.biometrics.one.FinishSearchForIdentityResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDID;
@@ -201,9 +201,11 @@ public class SoapSvcErrorTests {
     public void testFinishEnrollmentWithIdCheckSoapServiceFail() throws JsonProcessingException {
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
-        FinishEnrollmentWithIdCheckResponse2 out =
+        FinishEnrollmentWithIdCheckResponse out =
                 enrollmentController.finishEnrollmentWithIdCheck(new FinishEnrollmentWithIdCheck());
-        Assertions.assertEquals(ResponseCode.FAILED.value(), out.getCode());
+        Assertions.assertEquals(
+                ResponseCode.FAILED.value(),
+                out.getFinishEnrollmentWithIdCheckResponse().getCode());
     }
 
     @Test
