@@ -91,10 +91,7 @@ public class RefreshController {
             }
             refreshIdentityWithIdCheckRequest.setDid(inner.getDid());
             refreshIdentityWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
-            if (resp.getBody().getDateOfBirth() != null) {
-                refreshIdentityWithIdCheckRequest.setDateOfBirth(
-                        InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
-            }
+            refreshIdentityWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
             List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
             arrayOfIdentityName.setIdentityName(identityNameList);

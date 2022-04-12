@@ -409,7 +409,7 @@
                 <s:sequence>
                     <s:element maxOccurs="1" minOccurs="0" name="did" type="s:string"/>
                     <s:element maxOccurs="1" minOccurs="0" name="photo" type="s:base64Binary"/>
-                    <s:element maxOccurs="1" minOccurs="1" name="dateOfBirth" type="s:dateTime"/>
+                    <s:element maxOccurs="1" minOccurs="1" name="dateOfBirth" type="s:string"/>
                     <s:element maxOccurs="1" minOccurs="0" name="identityNames" type="tns:ArrayOfIdentityName"/>
                 </s:sequence>
             </s:extension>

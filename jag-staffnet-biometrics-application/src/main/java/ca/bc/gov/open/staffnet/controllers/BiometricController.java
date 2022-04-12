@@ -91,6 +91,7 @@ public class BiometricController {
                             new HttpEntity<>(new HttpHeaders()),
                             GetEnrolledWorkersOutput.class);
 
+            two.setResponseCd(resp.getBody().getResponseCd());
             out.setBiometricReconciliationResponse(two);
 
             if (!resp.getBody().getResponseCd().equals("0")) {
@@ -127,8 +128,7 @@ public class BiometricController {
             ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse soapSvcResp =
                     (ca.bc.gov.open.staffnet.biometrics.two.ReconciliationServiceResponse)
                             webServiceTemplate.marshalSendAndReceive(wsUrl, reconciliationService);
-            two.setResponseCd(soapSvcResp.getReconciliationServiceResult().getCode().value());
-            two.setResponseTxt(soapSvcResp.getReconciliationServiceResult().getMessage());
+            // soapSvcResp.getReconciliationServiceResult().getCode() might need a sanity check
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog("Request Success", "biometricReconciliation")));
@@ -157,15 +157,18 @@ public class BiometricController {
                         ? search.getDeactivateBiometricCredentialByDIDRequest()
                         : new DeactivateBiometricCredentialByDIDRequest();
 
-        DeactivateBiometricCredentialByDID deactivateBiometricCredentialByDID =
-                new DeactivateBiometricCredentialByDID();
-        DeactivateBiometricCredentialByDIDRequest deactivateBiometricCredentialByDIDRequest =
-                new DeactivateBiometricCredentialByDIDRequest();
+        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDID deactivateBiometricCredentialByDID =
+                new ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDID();
+        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDRequest deactivateBiometricCredentialByDIDRequest =
+                new ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDRequest();
+        deactivateBiometricCredentialByDIDRequest.setOnlineServiceId(onlineServiceId);
         deactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
-        deactivateBiometricCredentialByDIDRequest.setRequestorAccountTypeCode(
-                inner.getRequestorAccountTypeCode());
-        deactivateBiometricCredentialByDIDRequest.setRequestorUserId(inner.getRequestorUserId());
-        deactivateBiometricCredentialByDID.setDeactivateBiometricCredentialByDIDRequest(
+        if (inner.getRequestorAccountTypeCode() != null) {
+            deactivateBiometricCredentialByDIDRequest.setRequesterAccountTypeCode(
+                    BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
+        }
+        deactivateBiometricCredentialByDIDRequest.setRequesterUserId(inner.getRequestorUserId());
+        deactivateBiometricCredentialByDID.setRequest(
                 deactivateBiometricCredentialByDIDRequest);
 
         DeactivateBiometricCredentialByDIDResponse out =

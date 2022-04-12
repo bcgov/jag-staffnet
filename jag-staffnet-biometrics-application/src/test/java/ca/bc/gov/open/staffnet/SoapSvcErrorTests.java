@@ -69,7 +69,7 @@ public class SoapSvcErrorTests {
 
         GetEnrolledWorkersOutput getEnrolledWorkersOutput = new GetEnrolledWorkersOutput();
         getEnrolledWorkersOutput.setWorkers(new ArrayList<ReconciliationItem>());
-        getEnrolledWorkersOutput.setResponseCd("0");
+        getEnrolledWorkersOutput.setResponseCd(ResponseCode.FAILED.value());
         ResponseEntity<GetEnrolledWorkersOutput> responseEntity =
                 new ResponseEntity<>(getEnrolledWorkersOutput, HttpStatus.OK);
 
