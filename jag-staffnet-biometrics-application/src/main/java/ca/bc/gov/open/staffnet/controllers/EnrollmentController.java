@@ -185,14 +185,17 @@ public class EnrollmentController {
                             webServiceTemplate.marshalSendAndReceive(
                                     wsUrl, finishEnrollmentWithIdCheck);
             two.setCode(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getCode().value());
-            two.setFailureCode(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getFailureCode().value());
+            two.setFailureCode(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getFailureCode().value());
             two.setMessage(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getMessage());
             two.setDateOfBirth(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getDateOfBirth());
             two.setDid(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getDid());
             two.setLastName(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getLastName());
             two.setGivenNames(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getGivenNames());
-            two.setBiometricTemplateUrl(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getBiometricTemplateUrl());
-            two.setPhotoTakenDate(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
+            two.setBiometricTemplateUrl(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getBiometricTemplateUrl());
+            two.setPhotoTakenDate(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
 
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
             req.setPhotoTakenDate(
