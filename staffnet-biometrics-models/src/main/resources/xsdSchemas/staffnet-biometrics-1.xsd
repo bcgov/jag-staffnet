@@ -150,7 +150,7 @@
             <xsd:element name="message" type="xsd:string"/>
             <xsd:element name="searchID" nillable="true" type="xsd:string"/>
             <xsd:element name="searchURL" nillable="true" type="xsd:string"/>
-            <xsd:element name="expiryDate" nillable="true" type="xsd:dateTime"/>
+            <xsd:element name="expiryDate" nillable="true" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -188,7 +188,7 @@
             <xsd:element name="message" type="xsd:string"/>
             <xsd:element name="issuanceId" type="xsd:string"/>
             <xsd:element name="enrollmentURL" type="xsd:string"/>
-            <xsd:element name="expiryDate" type="xsd:dateTime"/>
+            <xsd:element name="expiryDate" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -296,7 +296,7 @@
         <xsd:sequence>
             <xsd:element name="enrollmentURL" type="xsd:string"/>
             <xsd:element name="issuanceId" type="xsd:string"/>
-            <xsd:element name="expiryDate" type="xsd:dateTime"/>
+            <xsd:element name="expiryDate" type="xsd:string"/>
             <xsd:element name="code" type="xsd:string"/>
             <xsd:element name="failureCode" type="xsd:string"/>
             <xsd:element name="message" type="xsd:string"/>

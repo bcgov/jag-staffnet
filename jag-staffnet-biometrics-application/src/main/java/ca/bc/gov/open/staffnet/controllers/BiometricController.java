@@ -157,10 +157,14 @@ public class BiometricController {
                         ? search.getDeactivateBiometricCredentialByDIDRequest()
                         : new DeactivateBiometricCredentialByDIDRequest();
 
-        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDID deactivateBiometricCredentialByDID =
-                new ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDID();
-        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDRequest deactivateBiometricCredentialByDIDRequest =
-                new ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDRequest();
+        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDID
+                deactivateBiometricCredentialByDID =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DeactivateBiometricCredentialByDID();
+        ca.bc.gov.open.staffnet.biometrics.two.DeactivateBiometricCredentialByDIDRequest
+                deactivateBiometricCredentialByDIDRequest =
+                        new ca.bc.gov.open.staffnet.biometrics.two
+                                .DeactivateBiometricCredentialByDIDRequest();
         deactivateBiometricCredentialByDIDRequest.setOnlineServiceId(onlineServiceId);
         deactivateBiometricCredentialByDIDRequest.setDID(inner.getDID());
         if (inner.getRequestorAccountTypeCode() != null) {
@@ -168,8 +172,7 @@ public class BiometricController {
                     BCeIDAccountTypeCode.fromValue(inner.getRequestorAccountTypeCode()));
         }
         deactivateBiometricCredentialByDIDRequest.setRequesterUserId(inner.getRequestorUserId());
-        deactivateBiometricCredentialByDID.setRequest(
-                deactivateBiometricCredentialByDIDRequest);
+        deactivateBiometricCredentialByDID.setRequest(deactivateBiometricCredentialByDIDRequest);
 
         DeactivateBiometricCredentialByDIDResponse out =
                 new DeactivateBiometricCredentialByDIDResponse();

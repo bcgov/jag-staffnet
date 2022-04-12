@@ -1,6 +1,5 @@
 package ca.bc.gov.open.staffnet;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,7 +23,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -91,7 +89,7 @@ public class OrdsErrorTests {
         finishEnrollmentWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
         finishEnrollmentWithIdCheckResponse2.setDid("A");
         finishEnrollmentWithIdCheckResponse2.setPhoto(new byte[0]);
-        finishEnrollmentWithIdCheckResponse2.setDateOfBirth(Instant.now());
+        finishEnrollmentWithIdCheckResponse2.setDateOfBirth("A");
         finishEnrollmentWithIdCheckResponse2.setBiometricTemplateUrl("A");
         finishEnrollmentWithIdCheckResponse2.setGivenNames("A");
         finishEnrollmentWithIdCheckResponse2.setLastName("A");
@@ -99,19 +97,19 @@ public class OrdsErrorTests {
         soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse2);
 
         when(webServiceTemplate.marshalSendAndReceive(
-                anyString(),
+                        anyString(),
                         Mockito.any(
                                 ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheck
                                         .class)))
                 .thenReturn(soapSvcResp);
 
-//        // Set up to mock ords response
-//        when(restTemplate.exchange(
-//                        Mockito.any(URI.class),
-//                        Mockito.eq(HttpMethod.PUT),
-//                        Mockito.<HttpEntity<String>>any(),
-//                        Mockito.<Class<WorkerImageSetResponse>>any()))
-//                .thenThrow(new ORDSException());
+        //        // Set up to mock ords response
+        //        when(restTemplate.exchange(
+        //                        Mockito.any(URI.class),
+        //                        Mockito.eq(HttpMethod.PUT),
+        //                        Mockito.<HttpEntity<String>>any(),
+        //                        Mockito.<Class<WorkerImageSetResponse>>any()))
+        //                .thenThrow(new ORDSException());
 
         Assertions.assertThrows(
                 ORDSException.class,

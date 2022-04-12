@@ -13,7 +13,6 @@ import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -85,7 +84,7 @@ public class RefreshControllerTests {
         refreshIdentityWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
         refreshIdentityWithIdCheckResponse2.setMessage("A");
         IssuanceToken issuanceToken = new IssuanceToken();
-        issuanceToken.setExpiry(Instant.now());
+        issuanceToken.setExpiry("A");
         issuanceToken.setIssuanceID("A");
         issuanceToken.setEnrollmentURL("A");
         refreshIdentityWithIdCheckResponse2.setIssuance(issuanceToken);

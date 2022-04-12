@@ -8,7 +8,6 @@ import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.*;
-import ca.bc.gov.open.staffnet.models.serializers.InstantSoapConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -85,10 +84,7 @@ public class EnrollmentController {
             startEnrollmentWithIdCheckRequest.setRequesterAccountTypeCode(
                     BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
             startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
-            if (resp.getBody().getDateOfBirth() != null) {
-                startEnrollmentWithIdCheckRequest.setDateOfBirth(
-                        InstantSoapConverter.parse(resp.getBody().getDateOfBirth()));
-            }
+            startEnrollmentWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
             startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
             List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();

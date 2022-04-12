@@ -88,7 +88,7 @@ public class EnrollmentControllerTests {
         IssuanceToken issuanceToken = new IssuanceToken();
         issuanceToken.setIssuanceID("A");
         issuanceToken.setEnrollmentURL("A");
-        issuanceToken.setExpiry(Instant.now());
+        issuanceToken.setExpiry("A");
         startEnrollmentWithIdCheckResponse2.setIssuance(issuanceToken);
         soapSvcResp.setStartEnrollmentWithIdCheckResult(startEnrollmentWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
@@ -128,7 +128,7 @@ public class EnrollmentControllerTests {
         finishEnrollmentWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
         finishEnrollmentWithIdCheckResponse2.setDid("A");
         finishEnrollmentWithIdCheckResponse2.setPhoto(new byte[0]);
-        finishEnrollmentWithIdCheckResponse2.setDateOfBirth(Instant.now());
+        finishEnrollmentWithIdCheckResponse2.setDateOfBirth("A");
         finishEnrollmentWithIdCheckResponse2.setBiometricTemplateUrl("A");
         finishEnrollmentWithIdCheckResponse2.setGivenNames("A");
         finishEnrollmentWithIdCheckResponse2.setLastName("A");

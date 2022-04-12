@@ -10,7 +10,6 @@ import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
-import ca.bc.gov.open.staffnet.models.serializers.InstantSoapConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;

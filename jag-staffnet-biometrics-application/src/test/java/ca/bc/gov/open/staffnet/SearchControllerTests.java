@@ -11,7 +11,6 @@ import ca.bc.gov.open.staffnet.biometrics.two.SearchToken;
 import ca.bc.gov.open.staffnet.controllers.SearchController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -53,7 +52,7 @@ public class SearchControllerTests {
         SearchToken searchToken = new SearchToken();
         searchToken.setSearchID("A");
         searchToken.setSearchURL("A");
-        searchToken.setExpiry(Instant.now());
+        searchToken.setExpiry("A");
         startSearchForIdentityResponse2.setSearch(searchToken);
         soapSvcResp.setStartSearchForIdentityResult(startSearchForIdentityResponse2);
 
