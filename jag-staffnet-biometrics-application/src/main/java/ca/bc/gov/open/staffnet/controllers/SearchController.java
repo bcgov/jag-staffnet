@@ -138,7 +138,7 @@ public class SearchController {
                     (ca.bc.gov.open.staffnet.biometrics.two.FinishSearchForIdentityResponse)
                             webServiceTemplate.marshalSendAndReceive(
                                     wsUrl, finishSearchForIdentity);
-            two.setCode(soapSvcResp.getFinishSearchForIdentityResult().getDID());
+            two.setCode(soapSvcResp.getFinishSearchForIdentityResult().getCode().value());
             two.setFailureCode(
                     soapSvcResp.getFinishSearchForIdentityResult().getFailureCode().value());
             two.setMessage(soapSvcResp.getFinishSearchForIdentityResult().getMessage());

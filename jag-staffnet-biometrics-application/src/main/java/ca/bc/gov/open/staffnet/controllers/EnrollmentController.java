@@ -71,9 +71,8 @@ public class EnrollmentController {
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .StartEnrollmentWithIdCheckRequest();
 
-        HttpEntity<WorkerInfoResponse> resp = null;
         try {
-            resp =
+            HttpEntity<WorkerInfoResponse> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.GET,
@@ -185,6 +184,16 @@ public class EnrollmentController {
                     (ca.bc.gov.open.staffnet.biometrics.two.FinishEnrollmentWithIdCheckResponse)
                             webServiceTemplate.marshalSendAndReceive(
                                     wsUrl, finishEnrollmentWithIdCheck);
+            two.setCode(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getCode().value());
+            two.setFailureCode(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getFailureCode().value());
+            two.setMessage(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getMessage());
+            two.setDateOfBirth(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getDateOfBirth());
+            two.setDid(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getDid());
+            two.setLastName(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getLastName());
+            two.setGivenNames(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getGivenNames());
+            two.setBiometricTemplateUrl(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getBiometricTemplateUrl());
+            two.setPhotoTakenDate(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
+
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
             req.setPhotoTakenDate(
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
@@ -202,6 +211,10 @@ public class EnrollmentController {
                                     "startEnrollmentWithIdCheck",
                                     ex.getMessage(),
                                     inner)));
+            return out;
+        }
+
+        if (!two.getCode().equals("SUCCESS")) {
             return out;
         }
 
