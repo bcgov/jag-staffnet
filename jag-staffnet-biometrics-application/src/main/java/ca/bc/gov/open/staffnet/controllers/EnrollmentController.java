@@ -197,10 +197,7 @@ public class EnrollmentController {
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getBiometricTemplateUrl());
             two.setPhotoTakenDate(
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
-
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
-            req.setPhotoTakenDate(
-                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
@@ -212,13 +209,13 @@ public class EnrollmentController {
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from SOAP SERVICE - FinishEnrollmentWithIdCheck",
-                                    "startEnrollmentWithIdCheck",
+                                    "finishEnrollmentWithIdCheck",
                                     ex.getMessage(),
                                     inner)));
             return out;
         }
 
-        if (!two.getCode().equals("SUCCESS")) {
+        if (!two.getCode().equals("Success")) {
             return out;
         }
 

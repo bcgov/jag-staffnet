@@ -6,10 +6,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
+import ca.bc.gov.open.staffnet.biometrics.two.FailureCode;
 import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.controllers.*;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
+import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.net.URI;
 import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -87,6 +91,7 @@ public class OrdsErrorTests {
                                 .FinishEnrollmentWithIdCheckResponse2();
         finishEnrollmentWithIdCheckResponse2.setMessage("A");
         finishEnrollmentWithIdCheckResponse2.setCode(ResponseCode.SUCCESS);
+        finishEnrollmentWithIdCheckResponse2.setFailureCode(FailureCode.VOID);
         finishEnrollmentWithIdCheckResponse2.setDid("A");
         finishEnrollmentWithIdCheckResponse2.setPhoto(new byte[0]);
         finishEnrollmentWithIdCheckResponse2.setDateOfBirth("A");
@@ -103,13 +108,13 @@ public class OrdsErrorTests {
                                         .class)))
                 .thenReturn(soapSvcResp);
 
-        //        // Set up to mock ords response
-        //        when(restTemplate.exchange(
-        //                        Mockito.any(URI.class),
-        //                        Mockito.eq(HttpMethod.PUT),
-        //                        Mockito.<HttpEntity<String>>any(),
-        //                        Mockito.<Class<WorkerImageSetResponse>>any()))
-        //                .thenThrow(new ORDSException());
+        // Set up to mock ords response
+        when(restTemplate.exchange(
+                        Mockito.any(URI.class),
+                        Mockito.eq(HttpMethod.PUT),
+                        Mockito.<HttpEntity<String>>any(),
+                        Mockito.<Class<WorkerImageSetResponse>>any()))
+                .thenThrow(new ORDSException());
 
         Assertions.assertThrows(
                 ORDSException.class,
