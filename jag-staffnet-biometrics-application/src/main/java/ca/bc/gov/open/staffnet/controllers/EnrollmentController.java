@@ -70,6 +70,7 @@ public class EnrollmentController {
                 startEnrollmentWithIdCheckRequest =
                         new ca.bc.gov.open.staffnet.biometrics.two
                                 .StartEnrollmentWithIdCheckRequest();
+        startEnrollmentWithIdCheck.setRequest(startEnrollmentWithIdCheckRequest);
 
         try {
             HttpEntity<WorkerInfoResponse> resp =
