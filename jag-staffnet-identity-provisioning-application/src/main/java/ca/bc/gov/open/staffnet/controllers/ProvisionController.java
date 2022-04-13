@@ -125,18 +125,21 @@ public class ProvisionController {
                         : new SetWorkerProvisioningStatusRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker/status");
 
+        HttpEntity<SetWorkerProvisioningStatusRequest> body = new HttpEntity<>(inner, new HttpHeaders());
         try {
-            HttpEntity<SetWorkerProvisioningStatusResponse> resp =
+            HttpEntity<SetWorkerProvisioningStatusResponse2> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.PUT,
-                            new HttpEntity<>(new HttpHeaders()),
-                            SetWorkerProvisioningStatusResponse.class);
+                            body,
+                            SetWorkerProvisioningStatusResponse2.class);
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
                                     "Request Success", "setWorkerProvisioningStatus")));
-            return resp.getBody();
+            var out = new SetWorkerProvisioningStatusResponse();
+            out.setSetWorkerProvisioningStatusResponse(resp.getBody());
+            return out;
         } catch (Exception ex) {
             log.error(
                     objectMapper.writeValueAsString(
