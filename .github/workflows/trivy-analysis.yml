@@ -4,10 +4,10 @@ name: Build & Vulnerability Scan using Trivy Scanner
 
 on:
   push:
-    branches: [ main, release/*]
+    branches: [ main, release/* ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main, release/*]
+    branches: [ main, release/* ]
 
 jobs:
   build-scan-image:
@@ -33,19 +33,41 @@ jobs:
       - name: Maven Verify
         run: mvn -ntp clean verify
 
-      - name: Build an image from Dockerfile
+      - name: Build image jag-staffnet-biometrics-api from Dockerfile
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
+          CONTEXT: ./jag-staffnet-biometrics-application
         run: |
-          docker build -t jag-staffnet:${{ github.sha }} .
+          docker build -t jag-staffnet-biometrics-api:${{ github.sha }} ${CONTEXT}
 
-      # Run Vulnerability Scan usinig Trivy scanner
-      - name: Run Trivy vulnerability scanner
+      #Run Vulnerability Scan usinig Trivy scanner
+      - name: Run Trivy vulnerability scanner for jag-staffnet-biometrics-api image
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: jag-staffnet:${{ github.sha }}
+          image-ref: jjag-staffnet-biometrics-api:${{ github.sha }}
+          format: template
+          template: '@/contrib/sarif.tpl'
+          output: trivy-results.sarif
+          exit-code: 1
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+      
+      - name: Build image jag-staffnet-identity-provisioning-api from Dockerfile
+        env:
+          COMPOSE_DOCKER_CLI_BUILD: 1
+          DOCKER_BUILDKIT: 1
+          CONTEXT: ./jag-staffnet-identity-provisioning-application
+        run: |
+          docker build -t jag-staffnet-identity-provisioning-api:${{ github.sha }} ${CONTEXT}
+
+      #Run Vulnerability Scan usinig Trivy scanner
+      - name: Run Trivy vulnerability scanner for jag-staffnet-identity-provisioning-api image
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: image
+          image-ref: jag-staffnet-identity-provisioning-api:${{ github.sha }}
           format: template
           template: '@/contrib/sarif.tpl'
           output: trivy-results.sarif
@@ -53,7 +75,7 @@ jobs:
           ignore-unfixed: true
           severity: HIGH,CRITICAL
 
-      # Upload results to the Github security tab.
+      #Upload results to the Github security tab.
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v1
         if: always()
