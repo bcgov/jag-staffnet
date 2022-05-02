@@ -37,7 +37,7 @@
             <xsd:element name="JobTitle" type="xsd:string"/>
             <xsd:element name="EmployeeNo" type="xsd:string"/>
             <xsd:element name="BiometricTemplateURL" type="xsd:string"/>
-            <xsd:element name="EnrollmentDtm" type="xsd:dateTime"/>
+            <xsd:element name="EnrollmentDtm" type="xsd:string"/>
             <xsd:element name="Photo" type="xsd:base64Binary"/>
             <xsd:element name="ResponseCd" type="xsd:string"/>
             <xsd:element name="ResponseMessage" type="xsd:string"/>

@@ -70,7 +70,7 @@ public class ProvisionControllerTests {
         GetWorkerProvisioningQueueItemResponse2 two = new GetWorkerProvisioningQueueItemResponse2();
         two.setEmployeeNo("A");
         two.setEventId("A");
-        two.setEnrollmentDtm(Instant.now());
+        two.setEnrollmentDtm("A");
         two.setResponseCd("A");
         two.setResponseMessage("A");
         two.setFirstNm("A");
