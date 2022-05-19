@@ -12,7 +12,6 @@ import ca.bc.gov.open.staffnet.controllers.*;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.net.URI;
 import java.time.Instant;
 import org.junit.jupiter.api.Assertions;

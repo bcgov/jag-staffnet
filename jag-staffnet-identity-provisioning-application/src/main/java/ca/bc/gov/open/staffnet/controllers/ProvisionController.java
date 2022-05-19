@@ -125,7 +125,8 @@ public class ProvisionController {
                         : new SetWorkerProvisioningStatusRequest();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker/status");
 
-        HttpEntity<SetWorkerProvisioningStatusRequest> body = new HttpEntity<>(inner, new HttpHeaders());
+        HttpEntity<SetWorkerProvisioningStatusRequest> body =
+                new HttpEntity<>(inner, new HttpHeaders());
         try {
             HttpEntity<SetWorkerProvisioningStatusResponse2> resp =
                     restTemplate.exchange(

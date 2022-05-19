@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="8c9d99c0-2573-411e-8a21-9abe5f6f4e66" activeEnvironment="Default" name="StaffnetIdentityProv" resourceRoot="${projectDir}" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="84e4bd30-b86f-4170-981d-1238c6cf4769" wsaVersion="NONE" name="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder" type="wsdl" bindingName="{http://localhost:8080/ws}StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder" soapVersion="1_1" anonymous="optional" definition="file:/C:/workspace2/jag-staffnet/jag-staffnet-identity-provisioning-application/src/main/resources/xsdSchemas/StaffnetIdentityProvisioning.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\workspace2\jag-staffnet\jag-staffnet-identity-provisioning-application\src\main\resources\xsdSchemas\StaffnetIdentityProvisioning.wsdl"><con:part><con:url>file:\C:\workspace2\jag-staffnet\jag-staffnet-identity-provisioning-application\src\main\resources\xsdSchemas\StaffnetIdentityProvisioning.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="StaffNetIdentityProvisioning" targetNamespace="http://localhost:8080/ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://localhost:8080/ws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://localhost:8080/ws">
+      <xsd:element name="getWorkerProvisioningQueueItem" type="tns:getWorkerProvisioningQueueItem"/>
+      <xsd:element name="getWorkerProvisioningQueueItemResponse" type="tns:getWorkerProvisioningQueueItemResponse"/>
+      <xsd:element name="setWorkerProvisioningStatus" type="tns:setWorkerProvisioningStatus"/>
+      <xsd:element name="setWorkerProvisioningStatusResponse" type="tns:setWorkerProvisioningStatusResponse"/>
+      <xsd:element name="getProvisionedWorkers" type="tns:getProvisionedWorkers"/>
+      <xsd:element name="getProvisionedWorkersResponse" type="tns:getProvisionedWorkersResponse"/>
+      <xsd:complexType name="getWorkerProvisioningQueueItem">
+        <xsd:sequence>
+          <xsd:element name="getWorkerProvisioningQueueItemRequest" nillable="true" type="tns:getWorkerProvisioningQueueItemRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getWorkerProvisioningQueueItemRequest">
+        <xsd:sequence>
+          <xsd:element name="LocationCd" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getWorkerProvisioningQueueItemResponse">
+        <xsd:sequence>
+          <xsd:element name="getWorkerProvisioningQueueItemResponse" nillable="true" type="tns:getWorkerProvisioningQueueItemResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getWorkerProvisioningQueueItemResponse2">
+        <xsd:sequence>
+          <xsd:element name="EventId" type="xsd:string"/>
+          <xsd:element name="OperationMode" type="xsd:string"/>
+          <xsd:element name="WorkerDID" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="ProvisioningTargetId" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="LastNm" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="FirstNm" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="JobTitle" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="EmployeeNo" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="BiometricTemplateURL" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="EnrollmentDtm" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="Photo" type="xsd:base64Binary"/>
+          <xsd:element name="ResponseCd" type="xsd:string"/>
+          <xsd:element name="ResponseMessage" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setWorkerProvisioningStatus">
+        <xsd:sequence>
+          <xsd:element name="setWorkerProvisioningStatusRequest" nillable="true" type="tns:setWorkerProvisioningStatusRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setWorkerProvisioningStatusRequest">
+        <xsd:sequence>
+          <xsd:element name="EventId" nillable="true" type="xsd:string"/>
+          <xsd:element name="ProcessResultCd" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="ProcessResultMessage" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setWorkerProvisioningStatusResponse">
+        <xsd:sequence>
+          <xsd:element name="setWorkerProvisioningStatusResponse" nillable="true" type="tns:setWorkerProvisioningStatusResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setWorkerProvisioningStatusResponse2">
+        <xsd:sequence>
+          <xsd:element name="ResponseCd" nillable="true" type="xsd:string"/>
+          <xsd:element name="ResponseMessage" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProvisionedWorkers">
+        <xsd:sequence>
+          <xsd:element name="getProvisionedWorkerRequest" nillable="true" type="tns:getProvisionedWorkerRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProvisionedWorkerRequest">
+        <xsd:sequence>
+          <xsd:element name="LocationCd" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProvisionedWorkersResponse">
+        <xsd:sequence>
+          <xsd:element name="getProvisionedWorkerResponse" nillable="true" type="tns:getProvisionedWorkerResponse"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProvisionedWorkerResponse">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Workers" type="tns:Workers"/>
+          <xsd:element name="RecordCount" type="xsd:string"/>
+          <xsd:element name="ResponseCd" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="ResponseMessage" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Workers">
+        <xsd:sequence>
+          <xsd:element name="DID" type="xsd:string"/>
+          <xsd:element name="first_nm" nillable="true" type="xsd:string"/>
+          <xsd:element name="last_nm" nillable="true" type="xsd:string"/>
+          <xsd:element name="employee_number" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItemResponse">
+    <wsdl:part name="parameters" element="tns:getWorkerProvisioningQueueItemResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_getProvisionedWorkers">
+    <wsdl:part name="parameters" element="tns:getProvisionedWorkers"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatusResponse">
+    <wsdl:part name="parameters" element="tns:setWorkerProvisioningStatusResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatus">
+    <wsdl:part name="parameters" element="tns:setWorkerProvisioningStatus"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItem">
+    <wsdl:part name="parameters" element="tns:getWorkerProvisioningQueueItem"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StaffNetIdentityProvisioning_PortType_getProvisionedWorkersResponse">
+    <wsdl:part name="parameters" element="tns:getProvisionedWorkersResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="StaffNetIdentityProvisioning_PortType">
+    <wsdl:operation name="setWorkerProvisioningStatus">
+      <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatus"></wsdl:input>
+      <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_setWorkerProvisioningStatusResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getWorkerProvisioningQueueItem">
+      <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItem"></wsdl:input>
+      <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_getWorkerProvisioningQueueItemResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProvisionedWorkers">
+      <wsdl:input message="tns:StaffNetIdentityProvisioning_PortType_getProvisionedWorkers"></wsdl:input>
+      <wsdl:output message="tns:StaffNetIdentityProvisioning_PortType_getProvisionedWorkersResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder" type="tns:StaffNetIdentityProvisioning_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="setWorkerProvisioningStatus">
+      <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_setWorkerProvisioningStatus" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getWorkerProvisioningQueueItem">
+      <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getWorkerProvisioningQueueItem" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProvisionedWorkers">
+      <soap:operation soapAction="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getProvisionedWorkers" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning">
+    <wsdl:port name="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port" binding="tns:StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder">
+      <soap:address location="http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port</con:endpoint></con:endpoints><con:operation id="07f53dfe-af55-43a0-b0b5-b7b078a876e8" isOneWay="false" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getProvisionedWorkers" name="getProvisionedWorkers" bindingOperationName="getProvisionedWorkers" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3e9426aa-fc60-4177-ac3f-b0b60653d0ad" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:getProvisionedWorkers>\r
+         <getProvisionedWorkerRequest>\r
+            <LocationCd>?</LocationCd>\r
+         </getProvisionedWorkerRequest>\r
+      </staf:getProvisionedWorkers>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getProvisionedWorkers"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="292dfaa3-607a-43e3-91d9-7cad825c20e9" isOneWay="false" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getWorkerProvisioningQueueItem" name="getWorkerProvisioningQueueItem" bindingOperationName="getWorkerProvisioningQueueItem" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fd4c56c7-192d-403d-a0c0-b8965645f7b5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:getWorkerProvisioningQueueItem>\r
+         <getWorkerProvisioningQueueItemRequest>\r
+            <LocationCd>?</LocationCd>\r
+         </getWorkerProvisioningQueueItemRequest>\r
+      </staf:getWorkerProvisioningQueueItem>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_getWorkerProvisioningQueueItem"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="d81c8c9c-6e43-480f-aec5-6264459e856f" isOneWay="false" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_setWorkerProvisioningStatus" name="setWorkerProvisioningStatus" bindingOperationName="setWorkerProvisioningStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ba2f7a15-b593-42e1-abc6-7ff39aa06bac" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNetIdentityProvisioning.ws.provider.StaffNetIdentityProvisioning/StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:setWorkerProvisioningStatus>\r
+         <setWorkerProvisioningStatusRequest>\r
+            <EventId>?</EventId>\r
+            <ProcessResultCd>?</ProcessResultCd>\r
+            <!--Optional:-->\r
+            <ProcessResultMessage>?</ProcessResultMessage>\r
+         </setWorkerProvisioningStatusRequest>\r
+      </staf:setWorkerProvisioningStatus>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder_setWorkerProvisioningStatus"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="1adf6803-71b6-48b4-9d4c-0dc45243ed96" name="StaffnetIdentityProvTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="47b06d4f-92b0-436b-9c72-7b88552cfc4d" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetProvisionedWorkers" searchProperties="true"><con:settings/><con:testStep type="request" name="getProvisionedWorkers" id="393dcb97-dbf5-46d8-bb6d-ad23b444c110"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder</con:interface><con:operation>getProvisionedWorkers</con:operation><con:request name="getProvisionedWorkers" id="a6de5c3a-39b0-4723-920e-d63b025983b3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:getProvisionedWorkers>
+         <getProvisionedWorkerRequest>
+            <LocationCd>VIRCC</LocationCd>
+         </getProvisionedWorkerRequest>
+      </staf:getProvisionedWorkers>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="6d895afd-a38b-4ada-ab7b-971230793c34"/><con:assertion type="Valid HTTP Status Codes" id="8326657e-03f8-45da-9c77-4a3f5263f9fd" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="52de23c5-f596-46a8-88f4-93d34c4d0d12" name="Invalid HTTP Status Codes"><con:configuration><codes>401, 403, 404, 500, 503</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="17386cfb-a03e-48c0-9925-45a24d699d79" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Simple Contains" id="77f7e23e-15e8-4ed0-8f7d-b8030d27aa2f" name="Contains 1"><con:configuration><token>BIO</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="2534e963-3645-4fcb-a050-8443bd4f8bb2" name="Contains 2"><con:configuration><token>ONE</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="bcdaf205-d8cd-462d-95f1-65bdc25bff6d" name="Contains 3"><con:configuration><token>000013</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="99e2d7ae-5318-4dc4-9d3f-19feba3bc654" name="Contains 4"><con:configuration><token>JAMAL</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="5ac2a0d8-34cb-46cd-853e-421466eb7a9f" name="Contains 5"><con:configuration><token>KHODA</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="f82715ef-bbf4-4427-a750-29aa090d780d" name="Contains 6"><con:configuration><token>000001</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>LocationCd</con:name><con:value>VIRCC</con:value></con:property></con:properties></con:testCase><con:testCase id="9d7c30a4-f6d1-41fc-8f35-1fbc05132bae" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetWorkerProvisioningQueueItem" searchProperties="true"><con:settings/><con:testStep type="request" name="getWorkerProvisioningQueueItem" id="05238cdd-e590-4c55-9880-173651a919d6"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder</con:interface><con:operation>getProvisionedWorkers</con:operation><con:request name="getWorkerProvisioningQueueItem" id="832dcf26-fbaf-463a-9c17-a41f900467ed"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:getWorkerProvisioningQueueItem>
+         <getWorkerProvisioningQueueItemRequest>
+            <LocationCd>VIRCC</LocationCd>
+         </getWorkerProvisioningQueueItemRequest>
+      </staf:getWorkerProvisioningQueueItem>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="7ba7afd3-9f55-4247-9027-b3767b794919"/><con:assertion type="Valid HTTP Status Codes" id="dc9e2ab6-dda6-4341-adba-d112dc0bb859" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="6ae5d160-181c-4266-842e-21f057d77a4f" name="Invalid HTTP Status Codes"><con:configuration><codes>401, 500, 501, 502, 504</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="4a88c720-f0de-4494-a08a-d100c6c47950" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Simple Contains" id="d77cc5f6-7007-4e11-a66e-33efbfd7b7aa" name="Contains"><con:configuration><token>DELETE</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="e2b65238-3ce1-4310-9b64-4dbab1b664d0" name="Contains 2"><con:configuration><token>1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>LocationCd</con:name><con:value>VIRCC</con:value></con:property></con:properties></con:testCase><con:testCase id="9ac1722b-39a2-46f6-b0e3-44cf44910d94" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SetWorkerProvisioningStatus" searchProperties="true"><con:settings/><con:testStep type="request" name="setWorkerProvisioningStatus" id="6836eb39-203d-4c08-97e3-02d57b8510fe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNetIdentityProvisioning_ws_provider_StaffNetIdentityProvisioning_Binder</con:interface><con:operation>getProvisionedWorkers</con:operation><con:request name="setWorkerProvisioningStatus" id="58f90d57-609e-471a-89a6-fa4001cd9bda"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://localhost:8080/ws">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:setWorkerProvisioningStatus>
+         <setWorkerProvisioningStatusRequest>
+            <EventId>509</EventId>
+            <ProcessResultCd>0</ProcessResultCd>
+            <!--Optional:-->
+            <ProcessResultMessage>ProcessResultMessage</ProcessResultMessage>
+         </setWorkerProvisioningStatusRequest>
+      </staf:setWorkerProvisioningStatus>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="3d92fad4-e355-4458-a086-4283c7f21d5f"/><con:assertion type="Response SLA Assertion" id="982800ca-a77f-4987-a43a-3be521455059" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="8a9439c0-ada6-458a-bc7f-73a0ad0df43f" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="70979932-3097-47d9-8d77-bb691b71e597" name="Invalid HTTP Status Codes"><con:configuration><codes>401, 500, 501, 502, 504</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>EventId</con:name><con:value>509</con:value></con:property><con:property><con:name>ProcessResultCd</con:name><con:value>0</con:value></con:property><con:property><con:name>ProcessResultMessage</con:name><con:value>ProcessResultMessage</con:value></con:property></con:properties></con:testCase><con:testCase id="57cd8de4-4306-4742-b440-54939f9ced06" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AutomationTests" searchProperties="true"><con:settings/><con:testStep type="groovy" name="getProvisionedWorkers" id="870e58ec-384c-4aa7-bd2c-a59a4356ed51"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def GetProvisionedWorkers = testRunner.testCase.testSuite.testCases["GetProvisionedWorkers"].testSteps["getProvisionedWorkers"].getPropertyValue("Request")
+ 
+ def LocationCd=testRunner.testCase.testSuite.testCases["GetProvisionedWorkers"].getPropertyValue("LocationCd")
+ 
+ def xmlAdd= new XmlHolder(GetProvisionedWorkers)
+ xmlAdd.setNodeValue("//staf:getProvisionedWorkers/getProvisionedWorkerRequest/LocationCd",LocationCd)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["GetProvisionedWorkers"].testSteps["getProvisionedWorkers"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetProvisionedWorkers"].testSteps["getProvisionedWorkers"]
+ def contextGetProvisionedWorkers = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetProvisionedWorkers)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetProvisionedWorkers"].testSteps["getProvisionedWorkers"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//DID")
+def GetResponse1= Response.getNodeValue("//first_nm")
+def GetResponse2= Response.getNodeValue("//last_nm")
+def GetResponse3= Response.getNodeValue("//employee_number")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+
+assert GetResponse instanceof String == true
+assert GetResponse1=="TREVOR"
+assert GetResponse2=="AARBO"
+assert GetResponse3=="01353"
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="getWorkerProvisioningQueueItem" id="965255e5-1bc0-498e-baad-77b3fac95372"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def GetWorkerProvisioningQueueItem = testRunner.testCase.testSuite.testCases["GetWorkerProvisioningQueueItem"].testSteps["getWorkerProvisioningQueueItem"].getPropertyValue("Request")
+ 
+ def LocationCd=testRunner.testCase.testSuite.testCases["GetWorkerProvisioningQueueItem"].getPropertyValue("LocationCd")
+ 
+ def xmlAdd= new XmlHolder(GetWorkerProvisioningQueueItem)
+ xmlAdd.setNodeValue("//staf:getWorkerProvisioningQueueItem/getWorkerProvisioningQueueItemRequest/LocationCd",LocationCd)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["GetWorkerProvisioningQueueItem"].testSteps["getWorkerProvisioningQueueItem"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetWorkerProvisioningQueueItem"].testSteps["getWorkerProvisioningQueueItem"]
+ def contextGetWorkerProvisioningQueueItem = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetWorkerProvisioningQueueItem)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetWorkerProvisioningQueueItem"].testSteps["getWorkerProvisioningQueueItem"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//EventId")
+def GetResponse1= Response.getNodeValue("//OperationMode")
+def GetResponse2= Response.getNodeValue("//WorkerDID")
+def GetResponse3= Response.getNodeValue("//ResponseCd")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+
+assert GetResponse.isNumber()
+assert GetResponse1=="DELETE"
+assert GetResponse2 instanceof String == true
+assert GetResponse3=="1"
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="setWorkerProvisioningStatus" id="92114212-aba8-42e6-b398-9699e129294c"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def SetWorkerProvisioningStatus = testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].testSteps["setWorkerProvisioningStatus"].getPropertyValue("Request")
+ 
+ def EventId=testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].getPropertyValue("EventId")
+ def ProcessResultCd=testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].getPropertyValue("ProcessResultCd")
+ def ProcessResultMessage=testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].getPropertyValue("ProcessResultMessage")
+ 
+ def xmlAdd= new XmlHolder(SetWorkerProvisioningStatus)
+ xmlAdd.setNodeValue("//staf:setWorkerProvisioningStatus/setWorkerProvisioningStatusRequest/EventId",EventId)
+ xmlAdd.setNodeValue("//staf:setWorkerProvisioningStatus/setWorkerProvisioningStatusRequest/ProcessResultCd",ProcessResultCd)
+ xmlAdd.setNodeValue("//staf:setWorkerProvisioningStatus/setWorkerProvisioningStatusRequest/ProcessResultMessage",ProcessResultMessage)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].testSteps["setWorkerProvisioningStatus"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].testSteps["setWorkerProvisioningStatus"]
+ def contextSetWorkerProvisioningStatus = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextSetWorkerProvisioningStatus)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["SetWorkerProvisioningStatus"].testSteps["setWorkerProvisioningStatus"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//ResponseCd")
+
+log.info GetResponse
+
+assert GetResponse=="0"
+
+
+
+
+</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
