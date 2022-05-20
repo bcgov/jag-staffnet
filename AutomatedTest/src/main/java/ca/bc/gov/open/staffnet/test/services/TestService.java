@@ -27,11 +27,15 @@ public class TestService {
     public TestService() {}
 
     public void setAuthentication(String fileName) throws IOException {
-        InputStream template =
+        /*InputStream template =
                 getClass().getResourceAsStream(fileName +"-template.xml");
+        Scanner scanner = new Scanner(template);*/
+        InputStream template = getClass().getResourceAsStream("/" + fileName);
         Scanner scanner = new Scanner(template);
+        File project = new File("./" + fileName.replace("-template", ""));
 
-        File project = new File(fileName);
+
+       // File project = new File(fileName);
         if (project.exists()) {
             project.delete();
         }
@@ -102,12 +106,6 @@ public class TestService {
             runner.run();
 
         } catch (Exception ignored) {
-        }
-            runner.setProjectFile("Biometrics-soapui-project.xml");
-            try {
-                runner.run();
-            }catch(Exception ignored){
-
         }
         return zipAndReturnErrors();
     }

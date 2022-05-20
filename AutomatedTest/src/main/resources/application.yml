@@ -6,6 +6,7 @@ server:
   port: 8081
 
 test:
+  host: ${ORDS_HOST}
   password: ${BASIC_AUTH_PASS}
   username: ${BASIC_AUTH_USER}
   api-host-identity: ${API_HOST_IDENTITY}

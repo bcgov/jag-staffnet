@@ -21,9 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/tests")
-@Slf4j
 public class TestController {
-    @Value("${staffnet.host}")
+    @Value("${test.host}")
     private String host = "https://127.0.0.1/";
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -34,7 +33,7 @@ public class TestController {
     public TestController(TestService testService) throws IOException {
 
         this.testService = testService;
-        this.testService.setAuthentication("StaffnetIdentity-soapui-project.xml");
+        this.testService.setAuthentication("StaffnetIdentity-soapui-project-template.xml");
 
     }
 

@@ -44,3 +44,4 @@ cc-test-reporter
 *-soapui-project.xml
 /StaffnetIdentity-soapui-project.xml
 /StaffnetIdentityTestSuite*.txt
+/StaffnetIdentity-soapui-project-template.xml
