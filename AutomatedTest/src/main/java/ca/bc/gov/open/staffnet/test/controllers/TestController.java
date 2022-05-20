@@ -51,7 +51,7 @@ public class TestController {
                             new ParameterizedTypeReference<>(){});
 
          if(resp.getBody().get("status").equals("fail")) {
-             return new ResponseEntity<String>("{\"status\": \"table not updated\"}", responseHeaders, HttpStatus.OK);
+
          }
         } catch (Exception ex) {
 
