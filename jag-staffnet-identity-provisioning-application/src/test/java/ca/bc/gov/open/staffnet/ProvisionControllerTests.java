@@ -108,15 +108,15 @@ public class ProvisionControllerTests {
         two.setResponseMessage("A");
         resp.setSetWorkerProvisioningStatusResponse(two);
 
-        ResponseEntity<SetWorkerProvisioningStatusResponse> responseEntity =
-                new ResponseEntity<>(resp, HttpStatus.OK);
+        ResponseEntity<SetWorkerProvisioningStatusResponse2> responseEntity =
+                new ResponseEntity<>(two, HttpStatus.OK);
 
         // Set up to mock ords response
         when(restTemplate.exchange(
                         Mockito.any(URI.class),
                         Mockito.eq(HttpMethod.PUT),
                         Mockito.<HttpEntity<String>>any(),
-                        Mockito.<Class<SetWorkerProvisioningStatusResponse>>any()))
+                        Mockito.<Class<SetWorkerProvisioningStatusResponse2>>any()))
                 .thenReturn(responseEntity);
 
         ProvisionController provisionController =
