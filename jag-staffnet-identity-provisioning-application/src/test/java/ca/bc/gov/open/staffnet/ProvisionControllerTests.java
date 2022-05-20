@@ -7,7 +7,6 @@ import ca.bc.gov.open.staffnet.identity_provisioning.one.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
-import java.time.Instant;
 import java.util.Collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -70,7 +69,7 @@ public class ProvisionControllerTests {
         GetWorkerProvisioningQueueItemResponse2 two = new GetWorkerProvisioningQueueItemResponse2();
         two.setEmployeeNo("A");
         two.setEventId("A");
-        two.setEnrollmentDtm(Instant.now());
+        two.setEnrollmentDtm("A");
         two.setResponseCd("A");
         two.setResponseMessage("A");
         two.setFirstNm("A");

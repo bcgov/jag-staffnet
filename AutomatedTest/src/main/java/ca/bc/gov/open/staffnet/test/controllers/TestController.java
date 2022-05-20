@@ -1,14 +1,11 @@
 package ca.bc.gov.open.staffnet.test.controllers;
 
 import ca.bc.gov.open.staffnet.test.services.TestService;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-
-import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -28,30 +25,25 @@ public class TestController {
     private final RestTemplate restTemplate = new RestTemplate();
     private TestService testService;
 
-
     @Autowired
     public TestController(TestService testService) throws IOException {
-
         this.testService = testService;
         this.testService.setAuthentication("StaffnetIdentity-soapui-project-template.xml");
-
     }
 
     @GetMapping(value = "/all")
     public ResponseEntity runAllTests() throws IOException {
-        UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "tests/init");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "tests/init");
         try {
             HttpEntity<Map<String, String>> resp =
                     restTemplate.exchange(
                             builder.build().encode().toUri(),
                             HttpMethod.POST,
                             new HttpEntity<>(new HttpHeaders()),
-                            new ParameterizedTypeReference<>(){});
+                            new ParameterizedTypeReference<>() {});
 
-         if(resp.getBody().get("status").equals("fail")) {
+            if (resp.getBody().get("status").equals("fail")) {}
 
-         }
         } catch (Exception ex) {
 
         }
@@ -70,7 +62,8 @@ public class TestController {
         } else {
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.add("Content-Type", "application/json");
-            return new ResponseEntity<String>("{\"status\": \"All tests passed\"}", responseHeaders, HttpStatus.OK);
+            return new ResponseEntity<String>(
+                    "{\"status\": \"All tests passed\"}", responseHeaders, HttpStatus.OK);
         }
     }
 

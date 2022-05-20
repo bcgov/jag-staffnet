@@ -26,22 +26,17 @@ public class TestService {
 
     public TestService() {}
 
-    public void setAuthentication(String fileName) throws IOException {
-        /*InputStream template =
-                getClass().getResourceAsStream(fileName +"-template.xml");
-        Scanner scanner = new Scanner(template);*/
-        InputStream template = getClass().getResourceAsStream("/" + fileName);
+    public void setAuthentication(String templateFileName) throws IOException {
+        InputStream template = getClass().getResourceAsStream("/" + templateFileName);
         Scanner scanner = new Scanner(template);
-        File project = new File("./" + fileName.replace("-template", ""));
+        String fileName = "./" + templateFileName.replace("-template", "");
 
-
-       // File project = new File(fileName);
+        File project = new File(fileName);
         if (project.exists()) {
             project.delete();
         }
         project.createNewFile();
-        BufferedWriter writer =
-                new BufferedWriter(new FileWriter(fileName));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.contains("{AUTHENTICATION_USERNAME}")) {
@@ -101,8 +96,8 @@ public class TestService {
 
     public File runAllTests() throws IOException {
         SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
-        runner.setProjectFile("StaffnetIdentity-soapui-project.xml");
         try {
+            runner.setProjectFile("StaffnetIdentity-soapui-project.xml");
             runner.run();
 
         } catch (Exception ignored) {
