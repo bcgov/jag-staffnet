@@ -40,7 +40,7 @@ public class MyBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoi
 
     @Override
     public void afterPropertiesSet() {
-        setRealmName("staffnet");
+        setRealmName("staffnet-identity-provisioning");
         super.afterPropertiesSet();
     }
 }
