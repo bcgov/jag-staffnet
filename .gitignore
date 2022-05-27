@@ -44,7 +44,5 @@ cc-test-reporter
 *-soapui-project.xml
 /StaffnetIdentity-soapui-project.xml
 /StaffnetIdentityTestSuite*.txt
-/StaffnetIdentity-soapui-project-template.xml
-/StaffnetBio-soapui-project-template.xml
 /StaffnetBio-soapui-project.xml
 /StaffnetBioTestSuite*.txt
