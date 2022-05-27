@@ -29,6 +29,7 @@ public class TestController {
     public TestController(TestService testService) throws IOException {
         this.testService = testService;
         this.testService.setAuthentication("StaffnetIdentity-soapui-project-template.xml");
+        this.testService.setAuthentication("StaffnetBio-soapui-project-template.xml");
     }
 
     @GetMapping(value = "/all")

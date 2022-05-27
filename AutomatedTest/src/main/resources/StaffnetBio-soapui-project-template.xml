@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6e6c119b-bd0e-45c4-bca0-c62db62e4204" activeEnvironment="Default" name="StaffnetBio" resourceRoot="${projectDir}" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="4c87253e-c7ef-46f1-949f-4ea906455012" wsaVersion="NONE" name="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder" type="wsdl" bindingName="{http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics}StaffNet_Biometrics_ws_provider_SNBiometrics_Binder" soapVersion="1_1" anonymous="optional" definition="file:/C:/workspace2/jag-staffnet/jag-staffnet-biometrics-application/src/main/resources/xsdSchemas/StaffnetBiometrics.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\workspace2\jag-staffnet\jag-staffnet-biometrics-application\src\main\resources\xsdSchemas\StaffnetBiometrics.wsdl"><con:part><con:url>file:\C:\workspace2\jag-staffnet\jag-staffnet-biometrics-application\src\main\resources\xsdSchemas\StaffnetBiometrics.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SNBiometrics" targetNamespace="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:tns="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+      <xsd:element name="finishEnrollmentWithIdCheck" type="tns:finishEnrollmentWithIdCheck"/>
+      <xsd:element name="finishEnrollmentWithIdCheckResponse" type="tns:finishEnrollmentWithIdCheckResponse"/>
+      <xsd:element name="deactivateBiometricCredentialByDID" type="tns:deactivateBiometricCredentialByDID"/>
+      <xsd:element name="deactivateBiometricCredentialByDIDResponse" type="tns:deactivateBiometricCredentialByDIDResponse"/>
+      <xsd:element name="reactivateBiometricCredentialByDID" type="tns:reactivateBiometricCredentialByDID"/>
+      <xsd:element name="reactivateBiometricCredentialByDIDResponse" type="tns:reactivateBiometricCredentialByDIDResponse"/>
+      <xsd:element name="startSearchForIdentity" type="tns:startSearchForIdentity"/>
+      <xsd:element name="startSearchForIdentityResponse" type="tns:startSearchForIdentityResponse"/>
+      <xsd:element name="refreshIdentityWithIdCheck" type="tns:refreshIdentityWithIdCheck"/>
+      <xsd:element name="refreshIdentityWithIdCheckResponse" type="tns:refreshIdentityWithIdCheckResponse"/>
+      <xsd:element name="destroyBiometricCredentialByDID" type="tns:destroyBiometricCredentialByDID"/>
+      <xsd:element name="destroyBiometricCredentialByDIDResponse" type="tns:destroyBiometricCredentialByDIDResponse"/>
+      <xsd:element name="finishSearchForIdentity" type="tns:finishSearchForIdentity"/>
+      <xsd:element name="finishSearchForIdentityResponse" type="tns:finishSearchForIdentityResponse"/>
+      <xsd:element name="startEnrollmentWithIdCheck" type="tns:startEnrollmentWithIdCheck"/>
+      <xsd:element name="startEnrollmentWithIdCheckResponse" type="tns:startEnrollmentWithIdCheckResponse"/>
+      <xsd:element name="biometricReconciliation" type="tns:biometricReconciliation"/>
+      <xsd:element name="biometricReconciliationResponse" type="tns:biometricReconciliationResponse"/>
+      <xsd:complexType name="finishEnrollmentWithIdCheck">
+        <xsd:sequence>
+          <xsd:element name="finishEnrollmentWithIdCheckRequest" nillable="true" type="tns:finishEnrollmentWithIdCheckRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishEnrollmentWithIdCheckRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="issuanceID" type="xsd:string"/>
+          <xsd:element name="IdentityEventId" nillable="true" type="xsd:string"/>
+          <xsd:element name="individual_id" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishEnrollmentWithIdCheckResponse">
+        <xsd:sequence>
+          <xsd:element name="finishEnrollmentWithIdCheckResponse" nillable="true" type="tns:finishEnrollmentWithIdCheckResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishEnrollmentWithIdCheckResponse2">
+        <xsd:sequence>
+          <xsd:element name="code" type="xsd:string"/>
+          <xsd:element name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="did" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="givenNames" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="lastName" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="photo" type="xsd:base64Binary"/>
+          <xsd:element name="dateOfBirth" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="biometricTemplateUrl" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="photoTakenDate" type="xsd:string"/>
+          <xsd:element name="imageSetSuccessYN" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deactivateBiometricCredentialByDID">
+        <xsd:sequence>
+          <xsd:element name="deactivateBiometricCredentialByDIDRequest" nillable="true" type="tns:deactivateBiometricCredentialByDIDRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deactivateBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element name="DID" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deactivateBiometricCredentialByDIDResponse">
+        <xsd:sequence>
+          <xsd:element name="deactivateBiometricCredentialByDIDResponse" nillable="true" type="tns:deactivateBiometricCredentialByDIDResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deactivateBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+          <xsd:element name="code" type="xsd:string"/>
+          <xsd:element name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="reactivateBiometricCredentialByDID">
+        <xsd:sequence>
+          <xsd:element name="reactivateBiometricCredentialByDIDRequest" nillable="true" type="tns:reactivateBiometricCredentialByDIDRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="reactivateBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element name="DID" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="reactivateBiometricCredentialByDIDResponse">
+        <xsd:sequence>
+          <xsd:element name="reactivateBiometricCredentialByDIDResponse" nillable="true" type="tns:reactivateBiometricCredentialByDIDResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="reactivateBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+          <xsd:element name="code" type="xsd:string"/>
+          <xsd:element name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startSearchForIdentity">
+        <xsd:sequence>
+          <xsd:element name="startSearchForIdentityRequest" nillable="true" type="tns:startSearchForIdentityRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startSearchForIdentityRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element name="activeOnly" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startSearchForIdentityResponse">
+        <xsd:sequence>
+          <xsd:element name="startSearchForIdentityResponse" nillable="true" type="tns:startSearchForIdentityResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startSearchForIdentityResponse2">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+          <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+          <xsd:element name="searchURL" nillable="true" type="xsd:string"/>
+          <xsd:element name="expiryDate" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="refreshIdentityWithIdCheck">
+        <xsd:sequence>
+          <xsd:element name="refreshIdentityWithIdCheckRequest" nillable="true" type="tns:refreshIdentityWithIdCheckRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="refreshIdentityWithIdCheckRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+          <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="did" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="refreshIdentityWithIdCheckResponse">
+        <xsd:sequence>
+          <xsd:element name="refreshIdentityWithIdCheckResponse" nillable="true" type="tns:refreshIdentityWithIdCheckResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="refreshIdentityWithIdCheckResponse2">
+        <xsd:sequence>
+          <xsd:element name="code" type="xsd:string"/>
+          <xsd:element name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="issuanceId" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="enrollmentURL" type="xsd:string"/>
+          <xsd:element name="expiryDate" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="destroyBiometricCredentialByDID">
+        <xsd:sequence>
+          <xsd:element name="destroyBiometricCredentialByDIDRequest" nillable="true" type="tns:destroyBiometricCredentialByDIDRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="destroyBiometricCredentialByDIDRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element name="DID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="destroyBiometricCredentialByDIDResponse">
+        <xsd:sequence>
+          <xsd:element name="destroyBiometricCredentialByDIDResponse" nillable="true" type="tns:destroyBiometricCredentialByDIDResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="destroyBiometricCredentialByDIDResponse2">
+        <xsd:sequence>
+          <xsd:element name="code" nillable="true" type="xsd:string"/>
+          <xsd:element name="failureCode" nillable="true" type="xsd:string"/>
+          <xsd:element name="message" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishSearchForIdentity">
+        <xsd:sequence>
+          <xsd:element name="finishSearchForIdentityRequest" nillable="true" type="tns:finishSearchForIdentityRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishSearchForIdentityRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requestorAccountTypeCode" type="xsd:string"/>
+          <xsd:element name="requesterUserGuid" nillable="true" type="xsd:string"/>
+          <xsd:element name="searchID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishSearchForIdentityResponse">
+        <xsd:sequence>
+          <xsd:element name="finishSearchForIdentityResponse" nillable="true" type="tns:finishSearchForIdentityResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="finishSearchForIdentityResponse2">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+          <xsd:element name="status" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="DID" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="active" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startEnrollmentWithIdCheck">
+        <xsd:sequence>
+          <xsd:element name="startEnrollmentWithIdCheckRequest" nillable="true" type="tns:startEnrollmentWithIdCheckRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startEnrollmentWithIdCheckRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+          <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="did" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startEnrollmentWithIdCheckResponse">
+        <xsd:sequence>
+          <xsd:element name="startEnrollmentWithIdCheckResponse" nillable="true" type="tns:startEnrollmentWithIdCheckResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="startEnrollmentWithIdCheckResponse2">
+        <xsd:sequence>
+          <xsd:element name="enrollmentURL" type="xsd:string"/>
+          <xsd:element name="issuanceId" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="expiryDate" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="failureCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="message" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="biometricReconciliation">
+        <xsd:sequence>
+          <xsd:element name="biometricReconciliationRequest" nillable="true" type="tns:biometricReconciliationRequest"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="biometricReconciliationRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestorUserId" type="xsd:string"/>
+          <xsd:element name="requesterAccountTypeCode" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="individualID" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="biometricReconciliationResponse">
+        <xsd:sequence>
+          <xsd:element name="biometricReconciliationResponse" nillable="true" type="tns:biometricReconciliationResponse2"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="biometricReconciliationResponse2">
+        <xsd:sequence>
+          <xsd:element name="responseCd" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="responseTxt" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SNBiometrics_PortType_biometricReconciliation">
+    <wsdl:part name="parameters" element="tns:biometricReconciliation"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_destroyBiometricCredentialByDID">
+    <wsdl:part name="parameters" element="tns:destroyBiometricCredentialByDID"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_startEnrollmentWithIdCheckResponse">
+    <wsdl:part name="parameters" element="tns:startEnrollmentWithIdCheckResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_startSearchForIdentityResponse">
+    <wsdl:part name="parameters" element="tns:startSearchForIdentityResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_refreshIdentityWithIdCheck">
+    <wsdl:part name="parameters" element="tns:refreshIdentityWithIdCheck"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_finishSearchForIdentity">
+    <wsdl:part name="parameters" element="tns:finishSearchForIdentity"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_biometricReconciliationResponse">
+    <wsdl:part name="parameters" element="tns:biometricReconciliationResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_reactivateBiometricCredentialByDIDResponse">
+    <wsdl:part name="parameters" element="tns:reactivateBiometricCredentialByDIDResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_destroyBiometricCredentialByDIDResponse">
+    <wsdl:part name="parameters" element="tns:destroyBiometricCredentialByDIDResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_startEnrollmentWithIdCheck">
+    <wsdl:part name="parameters" element="tns:startEnrollmentWithIdCheck"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_deactivateBiometricCredentialByDIDResponse">
+    <wsdl:part name="parameters" element="tns:deactivateBiometricCredentialByDIDResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_finishSearchForIdentityResponse">
+    <wsdl:part name="parameters" element="tns:finishSearchForIdentityResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_reactivateBiometricCredentialByDID">
+    <wsdl:part name="parameters" element="tns:reactivateBiometricCredentialByDID"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_deactivateBiometricCredentialByDID">
+    <wsdl:part name="parameters" element="tns:deactivateBiometricCredentialByDID"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_refreshIdentityWithIdCheckResponse">
+    <wsdl:part name="parameters" element="tns:refreshIdentityWithIdCheckResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_startSearchForIdentity">
+    <wsdl:part name="parameters" element="tns:startSearchForIdentity"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_finishEnrollmentWithIdCheckResponse">
+    <wsdl:part name="parameters" element="tns:finishEnrollmentWithIdCheckResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SNBiometrics_PortType_finishEnrollmentWithIdCheck">
+    <wsdl:part name="parameters" element="tns:finishEnrollmentWithIdCheck"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SNBiometrics_PortType">
+    <wsdl:operation name="refreshIdentityWithIdCheck">
+      <wsdl:input message="tns:SNBiometrics_PortType_refreshIdentityWithIdCheck"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_refreshIdentityWithIdCheckResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="finishEnrollmentWithIdCheck">
+      <wsdl:input message="tns:SNBiometrics_PortType_finishEnrollmentWithIdCheck"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_finishEnrollmentWithIdCheckResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="startEnrollmentWithIdCheck">
+      <wsdl:input message="tns:SNBiometrics_PortType_startEnrollmentWithIdCheck"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_startEnrollmentWithIdCheckResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="destroyBiometricCredentialByDID">
+      <wsdl:input message="tns:SNBiometrics_PortType_destroyBiometricCredentialByDID"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_destroyBiometricCredentialByDIDResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="biometricReconciliation">
+      <wsdl:input message="tns:SNBiometrics_PortType_biometricReconciliation"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_biometricReconciliationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reactivateBiometricCredentialByDID">
+      <wsdl:input message="tns:SNBiometrics_PortType_reactivateBiometricCredentialByDID"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_reactivateBiometricCredentialByDIDResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="finishSearchForIdentity">
+      <wsdl:input message="tns:SNBiometrics_PortType_finishSearchForIdentity"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_finishSearchForIdentityResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deactivateBiometricCredentialByDID">
+      <wsdl:input message="tns:SNBiometrics_PortType_deactivateBiometricCredentialByDID"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_deactivateBiometricCredentialByDIDResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="startSearchForIdentity">
+      <wsdl:input message="tns:SNBiometrics_PortType_startSearchForIdentity"></wsdl:input>
+      <wsdl:output message="tns:SNBiometrics_PortType_startSearchForIdentityResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder" type="tns:SNBiometrics_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="refreshIdentityWithIdCheck">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_refreshIdentityWithIdCheck" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="finishEnrollmentWithIdCheck">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishEnrollmentWithIdCheck" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="startEnrollmentWithIdCheck">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startEnrollmentWithIdCheck" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="destroyBiometricCredentialByDID">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_destroyBiometricCredentialByDID" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="biometricReconciliation">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_biometricReconciliation" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reactivateBiometricCredentialByDID">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_reactivateBiometricCredentialByDID" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="finishSearchForIdentity">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishSearchForIdentity" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deactivateBiometricCredentialByDID">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_deactivateBiometricCredentialByDID" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="startSearchForIdentity">
+      <soap:operation soapAction="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startSearchForIdentity" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StaffNet_Biometrics.ws.provider.SNBiometrics">
+    <wsdl:port name="StaffNet_Biometrics_ws_provider_SNBiometrics_Port" binding="tns:StaffNet_Biometrics_ws_provider_SNBiometrics_Binder">
+      <soap:address location="http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint></con:endpoints><con:operation id="e420c755-3072-45df-93ea-8623bffe44f1" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_biometricReconciliation" name="biometricReconciliation" bindingOperationName="biometricReconciliation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6b3c8335-32b3-41b0-96fc-c0833a17be33" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:biometricReconciliation>\r
+         <biometricReconciliationRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requesterAccountTypeCode>?</requesterAccountTypeCode>\r
+            <!--Optional:-->\r
+            <individualID>?</individualID>\r
+         </biometricReconciliationRequest>\r
+      </staf:biometricReconciliation>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_biometricReconciliation"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="84466f8f-0925-4d4e-bdcc-7b3dccef716d" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_deactivateBiometricCredentialByDID" name="deactivateBiometricCredentialByDID" bindingOperationName="deactivateBiometricCredentialByDID" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c74b889f-5504-4c6b-93c3-45a30b798668" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:deactivateBiometricCredentialByDID>\r
+         <deactivateBiometricCredentialByDIDRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <DID>?</DID>\r
+         </deactivateBiometricCredentialByDIDRequest>\r
+      </staf:deactivateBiometricCredentialByDID>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_deactivateBiometricCredentialByDID"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="04d1a83c-691f-4595-9c7b-64201d3efbf6" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_destroyBiometricCredentialByDID" name="destroyBiometricCredentialByDID" bindingOperationName="destroyBiometricCredentialByDID" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="444bfab9-3cb3-4457-9b55-bd6c42ecafbd" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:destroyBiometricCredentialByDID>\r
+         <destroyBiometricCredentialByDIDRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <DID>?</DID>\r
+         </destroyBiometricCredentialByDIDRequest>\r
+      </staf:destroyBiometricCredentialByDID>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_destroyBiometricCredentialByDID"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ed493a87-dff2-4e83-9867-48e11ee28626" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishEnrollmentWithIdCheck" name="finishEnrollmentWithIdCheck" bindingOperationName="finishEnrollmentWithIdCheck" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5b8f80f1-5327-436e-bc03-959119e735a7" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:finishEnrollmentWithIdCheck>\r
+         <finishEnrollmentWithIdCheckRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <!--Optional:-->\r
+            <issuanceID>?</issuanceID>\r
+            <IdentityEventId>?</IdentityEventId>\r
+            <individual_id>?</individual_id>\r
+         </finishEnrollmentWithIdCheckRequest>\r
+      </staf:finishEnrollmentWithIdCheck>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishEnrollmentWithIdCheck"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="8b3a534a-3e35-42ba-b269-1f1a7c4d2feb" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishSearchForIdentity" name="finishSearchForIdentity" bindingOperationName="finishSearchForIdentity" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="07bba518-25a6-4b67-b756-a0c10b2a3054" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:finishSearchForIdentity>\r
+         <finishSearchForIdentityRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <requesterUserGuid>?</requesterUserGuid>\r
+            <searchID>?</searchID>\r
+         </finishSearchForIdentityRequest>\r
+      </staf:finishSearchForIdentity>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_finishSearchForIdentity"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="e6b88a8c-c4b5-4f84-b4dd-9f3980b0a365" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_reactivateBiometricCredentialByDID" name="reactivateBiometricCredentialByDID" bindingOperationName="reactivateBiometricCredentialByDID" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0e46cbf1-a003-4564-991f-4795a1f71e6f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:reactivateBiometricCredentialByDID>\r
+         <reactivateBiometricCredentialByDIDRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <DID>?</DID>\r
+         </reactivateBiometricCredentialByDIDRequest>\r
+      </staf:reactivateBiometricCredentialByDID>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_reactivateBiometricCredentialByDID"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="77577dde-c46f-4831-85ca-3846e3e8e047" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_refreshIdentityWithIdCheck" name="refreshIdentityWithIdCheck" bindingOperationName="refreshIdentityWithIdCheck" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="37e3e4f4-c312-44c5-af46-5da6fe1c4867" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:refreshIdentityWithIdCheck>\r
+         <refreshIdentityWithIdCheckRequest>\r
+            <!--Optional:-->\r
+            <individualID>?</individualID>\r
+            <requesterAccountTypeCode>?</requesterAccountTypeCode>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <did>?</did>\r
+         </refreshIdentityWithIdCheckRequest>\r
+      </staf:refreshIdentityWithIdCheck>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_refreshIdentityWithIdCheck"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6668aaa3-aa29-4a12-9d81-00fb4c40fe5a" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startEnrollmentWithIdCheck" name="startEnrollmentWithIdCheck" bindingOperationName="startEnrollmentWithIdCheck" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e2fee074-6597-40aa-bde1-e1f1e5a9fc84" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:startEnrollmentWithIdCheck>\r
+         <startEnrollmentWithIdCheckRequest>\r
+            <!--Optional:-->\r
+            <individualID>?</individualID>\r
+            <requesterAccountTypeCode>?</requesterAccountTypeCode>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <did>?</did>\r
+         </startEnrollmentWithIdCheckRequest>\r
+      </staf:startEnrollmentWithIdCheck>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startEnrollmentWithIdCheck"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5969a0c9-eb8e-44bd-bc0a-42690e679fed" isOneWay="false" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startSearchForIdentity" name="startSearchForIdentity" bindingOperationName="startSearchForIdentity" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="61799ce4-9d4f-49a6-b583-11774d40b618" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/StaffNet_Biometrics.ws.provider.SNBiometrics/StaffNet_Biometrics_ws_provider_SNBiometrics_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <staf:startSearchForIdentity>\r
+         <startSearchForIdentityRequest>\r
+            <!--Optional:-->\r
+            <requestorUserId>?</requestorUserId>\r
+            <requestorAccountTypeCode>?</requestorAccountTypeCode>\r
+            <activeOnly>?</activeOnly>\r
+         </startSearchForIdentityRequest>\r
+      </staf:startSearchForIdentity>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="StaffNet_Biometrics_ws_provider_SNBiometrics_Binder_startSearchForIdentity"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="c1c3c024-a587-47e9-8fd8-47353da1944b" name="StaffnetBio"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="00990746-2303-4283-a13a-1967cc42ea15" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BiometricReconciliation" searchProperties="true"><con:settings/><con:testStep type="request" name="biometricReconciliation" id="36ed4a72-218f-4a6e-a13e-113cca327bee"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="biometricReconciliation" id="923d755d-4ba2-4176-9e89-4050192305fe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:biometricReconciliation>
+         <biometricReconciliationRequest>
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requesterAccountTypeCode>CORNET</requesterAccountTypeCode>
+            <!--Optional:-->
+            <!-- <individualID>?</individualID> -->
+         </biometricReconciliationRequest>
+      </staf:biometricReconciliation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ab39c9b1-7bdc-4e4d-a65c-44c1e0c7aebe"/><con:assertion type="Valid HTTP Status Codes" id="248e50ba-1806-4063-837c-824b82a5d841" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="0f293787-a45b-4430-92b7-677d7b15b2a0" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502, 503</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requesterAccountTypeCode</con:name><con:value>CORNET</con:value></con:property></con:properties></con:testCase><con:testCase id="f426b58b-0501-407f-a099-e8cf8d17753d" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DeactivateBiometricCredentialByDID" searchProperties="true"><con:settings/><con:testStep type="request" name="deactivateBiometricCredentialByDID" id="28fef78e-fcd9-4fb8-abc6-bf2a0e2ad779"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="deactivateBiometricCredentialByDID" id="ee253b00-c11f-485b-8f8c-6b8aa0c66c21"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:deactivateBiometricCredentialByDID>
+         <deactivateBiometricCredentialByDIDRequest>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <DID>urn:did:31UZ270HV4GR|urn:ca:bc:gov:worker:staffnet:dev</DID>
+         </deactivateBiometricCredentialByDIDRequest>
+      </staf:deactivateBiometricCredentialByDID>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="2a775fbb-d2bc-438f-bde4-ea32a17df55b"/><con:assertion type="Invalid HTTP Status Codes" id="dbf725e2-5951-44e0-97f3-1666c87b81a6" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 500, 502, 503</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="308edfb5-92d4-49ad-97a9-9272d7e29a35" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>DID</con:name><con:value>urn:did:31UZ270HV4GR|urn:ca:bc:gov:worker:staffnet:dev</con:value></con:property></con:properties></con:testCase><con:testCase id="a89fa8d3-def7-4c36-b9b2-79cead762094" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DestroyBiometricCredentialByDID" searchProperties="true"><con:settings/><con:testStep type="request" name="destroyBiometricCredentialByDID" id="1ca53469-e612-414e-baeb-098ac8e33289"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="destroyBiometricCredentialByDID" id="64f7765b-3d13-4cbb-9a2f-a7f5a3efba8d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:destroyBiometricCredentialByDID>
+         <destroyBiometricCredentialByDIDRequest>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <DID>urn:did:63YD7DIZSHTP|urn:ca:bc:gov:worker:staffnet:dev</DID>
+         </destroyBiometricCredentialByDIDRequest>
+      </staf:destroyBiometricCredentialByDID>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="40c9118e-717b-42ce-bb41-70235e413d42"/><con:assertion type="Valid HTTP Status Codes" id="b1fd17d1-7a9f-40b2-8bef-b48d91dc5605" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="5f8a8da4-1039-4429-9bac-ec0e0f1e7b89" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502, 503</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="6691a2ab-7a48-4667-92b5-02114d877dbb" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>DID</con:name><con:value>urn:did:63YD7DIZSHTP|urn:ca:bc:gov:worker:staffnet:dev</con:value></con:property></con:properties></con:testCase><con:testCase id="31150789-d9f4-453c-9a68-8339ce076579" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FinishEnrollmentWithIdCheck" searchProperties="true"><con:settings/><con:testStep type="request" name="finishEnrollmentWithIdCheck" id="c91c5b31-3fc6-426f-8fa8-e22fd5086ffe"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="finishEnrollmentWithIdCheck" id="31c54df3-c585-4cdc-b793-288321f0b59c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:finishEnrollmentWithIdCheck>
+         <finishEnrollmentWithIdCheckRequest>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <!--Optional:-->
+            <issuanceID>D7C9AFEB6810F4FD3AC3D9DD09DFF27CDB8B281452522ACDC73D3154A2991044</issuanceID>
+            <IdentityEventId/>
+            <individual_id>380965.0005</individual_id>
+         </finishEnrollmentWithIdCheckRequest>
+      </staf:finishEnrollmentWithIdCheck>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="fbff28f5-1367-4d59-8050-8e9a036c68a1"/><con:assertion type="Invalid HTTP Status Codes" id="a7a01f6d-7789-4420-a2a6-41b3cd159efc" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502. 503</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="5f366623-695f-4c52-a9e0-46f9307e07cc" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="bb898fdd-46c8-488c-bc70-08549b1196db" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>issuanceID</con:name><con:value>D7C9AFEB6810F4FD3AC3D9DD09DFF27CDB8B281452522ACDC73D3154A2991044</con:value></con:property><con:property><con:name>individual_id</con:name><con:value>380965.0005</con:value></con:property></con:properties></con:testCase><con:testCase id="5a916466-e367-4b63-a140-fa427c28c8af" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FinishSearchForIdentity" searchProperties="true"><con:settings/><con:testStep type="request" name="finishSearchForIdentity" id="98d5c28d-90bf-4c6a-98b3-eda86cdcf9ad"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="finishSearchForIdentity" id="a28663af-6041-48eb-b691-d45743e31a78"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:finishSearchForIdentity>
+         <finishSearchForIdentityRequest>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <!-- <requesterUserGuid></requesterUserGuid> -->
+            <searchID>C13557DACCBEA938A41F52E7EC1EF693C5BF677E11E3CAE6F3278BD10567</searchID>
+         </finishSearchForIdentityRequest>
+      </staf:finishSearchForIdentity>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8e7a778a-bd59-48b8-9d80-ab53cc30c169"/><con:assertion type="Invalid HTTP Status Codes" id="93d9f779-6e4e-4599-b721-85531cc0f03b" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502. 503</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="06ec3d29-0449-4719-b898-2526fd78436a" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="03f24475-9d12-4709-8079-3b2518e2cd18" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>searchID</con:name><con:value>C13557DACCBEA938A41F52E7EC1EF693C5BF677E11E3CAE6F3278BD10567</con:value></con:property></con:properties></con:testCase><con:testCase id="8d837a65-c0b9-4ade-80f6-51eba522356c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReactivateBiometricCredentialByDID" searchProperties="true"><con:settings/><con:testStep type="request" name="reactivateBiometricCredentialByDID" id="0c51046e-1777-42cf-82b4-d14af51934b7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="reactivateBiometricCredentialByDID" id="059d7f23-0cb2-46ec-b5e2-544a39373c2c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:reactivateBiometricCredentialByDID>
+         <reactivateBiometricCredentialByDIDRequest>
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <DID>urn:did:PMM92S9KZGB6|urn:ca:bc:gov:worker:staffnet:dev</DID>
+         </reactivateBiometricCredentialByDIDRequest>
+      </staf:reactivateBiometricCredentialByDID>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="cb72983f-3fd3-4ab0-97de-c6d90b5d3def"/><con:assertion type="Invalid HTTP Status Codes" id="5d949bb7-8f52-4296-a5c9-90f5430ad12f" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502. 503</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="14899257-7f13-4c1c-9971-8093c35a2d87" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="e8cdcd6a-39e7-4156-bc5c-f6409c57bc4b" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>DID</con:name><con:value>urn:did:PMM92S9KZGB6|urn:ca:bc:gov:worker:staffnet:dev</con:value></con:property></con:properties></con:testCase><con:testCase id="63dc28ce-bc7e-42d3-964f-f25418430d40" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RefreshIdentityWithIdCheck" searchProperties="true"><con:settings/><con:testStep type="request" name="refreshIdentityWithIdCheck" id="49d322aa-456f-42ae-a5da-190c00b18875"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="refreshIdentityWithIdCheck" id="2bf81427-e555-4d46-9387-6117182799d2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:refreshIdentityWithIdCheck>
+         <refreshIdentityWithIdCheckRequest>
+            <!--Optional:-->
+            <individualID>380965.0005</individualID>
+            <requesterAccountTypeCode>CORNET</requesterAccountTypeCode>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <did>urn:did:31UZ270HV4GR|urn:ca:bc:gov:worker:staffnet:dev</did>
+         </refreshIdentityWithIdCheckRequest>
+      </staf:refreshIdentityWithIdCheck>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="79087c92-2bef-49db-8ea4-bcca12c67caf"/><con:assertion type="Response SLA Assertion" id="7c459d1e-dc2c-45d2-af23-d127c6278a07" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="acd03e73-a5a7-4058-9734-a7a56f6fecc9" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502. 503</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="ec142cee-cc70-47e5-a8dd-87ca97ef67ac" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>individualID</con:name><con:value>380965.0005</con:value></con:property><con:property><con:name>requesterAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>did</con:name><con:value>urn:did:31UZ270HV4GR|urn:ca:bc:gov:worker:staffnet:dev</con:value></con:property></con:properties></con:testCase><con:testCase id="6cb3ed93-b6e3-4249-9e09-ced04afe1687" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="StartEnrollmentWithIdCheck" searchProperties="true"><con:settings/><con:testStep type="request" name="startEnrollmentWithIdCheck" id="654d10f0-0456-4a6a-b5d1-f9b8db7d3720"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="startEnrollmentWithIdCheck" id="a11f62df-ae8e-4260-aae8-f0f066f86ca0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:startEnrollmentWithIdCheck>
+         <startEnrollmentWithIdCheckRequest>
+            <!--Optional:-->
+            <individualID>380965.0005</individualID>
+            <requesterAccountTypeCode>CORNET</requesterAccountTypeCode>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <DID>urn:did:63YD7DIZSHTP|urn:ca:bc:gov:worker:staffnet:dev</DID>
+         </startEnrollmentWithIdCheckRequest>
+      </staf:startEnrollmentWithIdCheck>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f7abe4b3-9607-45de-b054-4e1a05c54848"/><con:assertion type="Valid HTTP Status Codes" id="d884f787-70aa-4694-a6f7-209258829b85" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="2c29ec6e-00eb-4643-9528-167bdbdc628e" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="b8894ec7-0c77-4436-b8f2-f5345fd013c4" name="Invalid HTTP Status Codes"><con:configuration><codes/></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>individualID</con:name><con:value>380965.0005</con:value></con:property><con:property><con:name>requesterAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>DID</con:name><con:value>urn:did:63YD7DIZSHTP|urn:ca:bc:gov:worker:staffnet:dev</con:value></con:property></con:properties></con:testCase><con:testCase id="0c7cfde7-aa1b-4497-b1a5-e34b03f29bdb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="StartSearchForIdentity" searchProperties="true"><con:settings/><con:testStep type="request" name="startSearchForIdentity" id="5e52a54b-afc7-4542-a711-96e34978b52c"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>StaffNet_Biometrics_ws_provider_SNBiometrics_Binder</con:interface><con:operation>biometricReconciliation</con:operation><con:request name="startSearchForIdentity" id="d90f83a8-63e9-418d-a920-7bb330e76408"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>{API_HOST_BIOMETRICS}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:staf="http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <staf:startSearchForIdentity>
+         <startSearchForIdentityRequest>
+            <!--Optional:-->
+            <requestorUserId>JAKHODAB</requestorUserId>
+            <requestorAccountTypeCode>CORNET</requestorAccountTypeCode>
+            <activeOnly>N</activeOnly>
+         </startSearchForIdentityRequest>
+      </staf:startSearchForIdentity>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="e549a99e-5acc-4b8f-ad5f-8ed0bf95239d"/><con:assertion type="Valid HTTP Status Codes" id="8e5bcd6d-8c10-427f-b83e-85257882fa20" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="2fd67101-0464-43db-866b-5135085eee68" name="Invalid HTTP Status Codes"><con:configuration><codes>400, 401, 404, 500, 502. 503</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="c6b4441d-09f9-4aee-b41c-752964db77c1" name="Response SLA"><con:configuration><SLA>2000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>requestorUserId</con:name><con:value>JAKHODAB</con:value></con:property><con:property><con:name>requestorAccountTypeCode</con:name><con:value>CORNET</con:value></con:property><con:property><con:name>activeOnly</con:name><con:value>N</con:value></con:property></con:properties></con:testCase><con:testCase id="06e38228-e146-4386-9823-1ad8678cbbc9" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AutomationTests" searchProperties="true"><con:settings/><con:testStep type="groovy" name="biometricReconciliation" id="d59b35fb-774c-45db-879c-b6eefe769733"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def BiometricReconciliation = testRunner.testCase.testSuite.testCases["BiometricReconciliation"].testSteps["biometricReconciliation"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["BiometricReconciliation"].getPropertyValue("requestorUserId")
+ def requesterAccountTypeCode=testRunner.testCase.testSuite.testCases["BiometricReconciliation"].getPropertyValue("requesterAccountTypeCode")
+ 
+ def xmlAdd= new XmlHolder(BiometricReconciliation)
+ xmlAdd.setNodeValue("//staf:biometricReconciliation/biometricReconciliationRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:biometricReconciliation/biometricReconciliationRequest/requesterAccountTypeCode",requesterAccountTypeCode)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["BiometricReconciliation"].testSteps["biometricReconciliation"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["BiometricReconciliation"].testSteps["biometricReconciliation"]
+ def contextBiometricReconciliation = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextBiometricReconciliation)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["BiometricReconciliation"].testSteps["biometricReconciliation"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//responseCd")
+
+log.info GetResponse
+
+assert GetResponse=="0"
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="deactivateBiometricCredentialByDID" id="907f0e31-9b4f-4fd7-b852-7d22b6a9769e"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def DeactivateBiometricCredentialByDID = testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].testSteps["deactivateBiometricCredentialByDID"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].getPropertyValue("requestorAccountTypeCode")
+ def DID=testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].getPropertyValue("DID")
+ 
+ def xmlAdd= new XmlHolder(DeactivateBiometricCredentialByDID)
+ xmlAdd.setNodeValue("//staf:deactivateBiometricCredentialByDID/deactivateBiometricCredentialByDIDRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:deactivateBiometricCredentialByDID/deactivateBiometricCredentialByDIDRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:deactivateBiometricCredentialByDID/deactivateBiometricCredentialByDIDRequest/DID",DID)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].testSteps["deactivateBiometricCredentialByDID"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].testSteps["deactivateBiometricCredentialByDID"]
+ def contextDeactivateBiometricCredentialByDID = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextDeactivateBiometricCredentialByDID)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["DeactivateBiometricCredentialByDID"].testSteps["deactivateBiometricCredentialByDID"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+
+log.info GetResponse
+log.info GetResponse1
+
+assert GetResponse=="Success"
+assert GetResponse1=="ExpectedResults"
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="destroyBiometricCredentialByDID" id="da38bc33-d5fc-4074-830c-d2d8a52874d0"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def DestroyBiometricCredentialByDID = testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].testSteps["destroyBiometricCredentialByDID"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].getPropertyValue("requestorAccountTypeCode")
+ def DID=testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].getPropertyValue("DID")
+ 
+ def xmlAdd= new XmlHolder(DestroyBiometricCredentialByDID)
+ xmlAdd.setNodeValue("//staf:destroyBiometricCredentialByDID/destroyBiometricCredentialByDIDRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:destroyBiometricCredentialByDID/destroyBiometricCredentialByDIDRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:destroyBiometricCredentialByDID/destroyBiometricCredentialByDIDRequest/DID",DID)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].testSteps["destroyBiometricCredentialByDID"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].testSteps["destroyBiometricCredentialByDID"]
+ def contextDestroyBiometricCredentialByDID = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextDestroyBiometricCredentialByDID)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["DestroyBiometricCredentialByDID"].testSteps["destroyBiometricCredentialByDID"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//message")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+
+assert GetResponse=="Failed"
+assert GetResponse1=="NoResults"
+assert GetResponse2=="Could not destroy credential."
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="finishEnrollmentWithIdCheck" id="f8202bbd-49ec-4ab9-bcea-8e0a5a8f4ad7"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def FinishEnrollmentWithIdCheck = testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].testSteps["finishEnrollmentWithIdCheck"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].getPropertyValue("requestorAccountTypeCode")
+ def issuanceID=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].getPropertyValue("issuanceID")
+ def individual_id=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].getPropertyValue("individual_id")
+ 
+ def xmlAdd= new XmlHolder(FinishEnrollmentWithIdCheck)
+ xmlAdd.setNodeValue("//staf:finishEnrollmentWithIdCheck/finishEnrollmentWithIdCheckRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:finishEnrollmentWithIdCheck/finishEnrollmentWithIdCheckRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:finishEnrollmentWithIdCheck/finishEnrollmentWithIdCheckRequest/issuanceID",issuanceID)
+ xmlAdd.setNodeValue("//staf:finishEnrollmentWithIdCheck/finishEnrollmentWithIdCheckRequest/individual_id",individual_id)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].testSteps["finishEnrollmentWithIdCheck"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].testSteps["finishEnrollmentWithIdCheck"]
+ def contextFinishEnrollmentWithIdCheck = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextFinishEnrollmentWithIdCheck)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["FinishEnrollmentWithIdCheck"].testSteps["finishEnrollmentWithIdCheck"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//message")
+def GetResponse3= Response.getNodeValue("//dateOfBirth")
+
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+
+assert GetResponse=="Failed"
+assert GetResponse1=="NoResults"
+assert GetResponse2=="Enrollment did not finish or issuance number was invalid."
+assert GetResponse3=="0001-01-01T00:00:00"
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="finishSearchForIdentity" id="e9da7128-1ff5-49d3-a85d-b048f59439ab"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def FinishSearchForIdentity = testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].testSteps["finishSearchForIdentity"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].getPropertyValue("requestorAccountTypeCode")
+ def searchID=testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].getPropertyValue("searchID")
+ 
+ def xmlAdd= new XmlHolder(FinishSearchForIdentity)
+ xmlAdd.setNodeValue("//staf:finishSearchForIdentity/finishSearchForIdentityRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:finishSearchForIdentity/finishSearchForIdentityRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:finishSearchForIdentity/finishSearchForIdentityRequest/searchID",searchID)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].testSteps["finishSearchForIdentity"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].testSteps["finishSearchForIdentity"]
+ def contextFinishSearchForIdentity = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextFinishSearchForIdentity)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["FinishSearchForIdentity"].testSteps["finishSearchForIdentity"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//message")
+def GetResponse3= Response.getNodeValue("//status")
+def GetResponse4= Response.getNodeValue("//active")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+log.info GetResponse4
+
+assert GetResponse=="Failed"
+assert GetResponse1=="NoResults"
+assert GetResponse2=="Could not perform BCSController.FinishSearch(C13557DACCBEA938A41F52E7EC1EF693C5BF677E11E3CAE6F3278BD10567)"
+assert GetResponse3=="NotCompleted"
+assert GetResponse4=="N"
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="reactivateBiometricCredentialByDID" id="0b23298e-ddec-44b8-9b5e-96c09ca8beca"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def ReactivateBiometricCredentialByDID = testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].testSteps["reactivateBiometricCredentialByDID"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].getPropertyValue("requestorAccountTypeCode")
+ def DID=testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].getPropertyValue("DID")
+ 
+ def xmlAdd= new XmlHolder(ReactivateBiometricCredentialByDID)
+ xmlAdd.setNodeValue("//staf:reactivateBiometricCredentialByDID/reactivateBiometricCredentialByDIDRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:reactivateBiometricCredentialByDID/reactivateBiometricCredentialByDIDRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:reactivateBiometricCredentialByDID/reactivateBiometricCredentialByDIDRequest/DID",DID)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].testSteps["reactivateBiometricCredentialByDID"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].testSteps["reactivateBiometricCredentialByDID"]
+ def contextReactivateBiometricCredentialByDID = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextReactivateBiometricCredentialByDID)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["ReactivateBiometricCredentialByDID"].testSteps["reactivateBiometricCredentialByDID"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//message")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+
+assert GetResponse=="Failed"
+assert GetResponse1=="NoResults"
+assert GetResponse2=="Could not reactivate credential."
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="refreshIdentityWithIdCheck" id="d230e7d0-2bd3-42ff-870d-5c8bc169466b"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def RefreshIdentityWithIdCheck = testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].testSteps["refreshIdentityWithIdCheck"].getPropertyValue("Request")
+ 
+ def individualID=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].getPropertyValue("individualID")
+ def requesterAccountTypeCode=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].getPropertyValue("requesterAccountTypeCode")
+ def requestorUserId=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].getPropertyValue("requestorUserId")
+ def did=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].getPropertyValue("did")
+ 
+ def xmlAdd= new XmlHolder(RefreshIdentityWithIdCheck)
+ xmlAdd.setNodeValue("//staf:refreshIdentityWithIdCheck/refreshIdentityWithIdCheckRequest/individualID",individualID)
+ xmlAdd.setNodeValue("//staf:refreshIdentityWithIdCheck/refreshIdentityWithIdCheckRequest/requesterAccountTypeCode",requesterAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:refreshIdentityWithIdCheck/refreshIdentityWithIdCheckRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:refreshIdentityWithIdCheck/refreshIdentityWithIdCheckRequest/did",did)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].testSteps["refreshIdentityWithIdCheck"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].testSteps["refreshIdentityWithIdCheck"]
+ def contextRefreshIdentityWithIdCheck = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextRefreshIdentityWithIdCheck)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["RefreshIdentityWithIdCheck"].testSteps["refreshIdentityWithIdCheck"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//issuanceId")
+def GetResponse3= Response.getNodeValue("//enrollmentURL")
+def GetResponse4= Response.getNodeValue("//expiryDate")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+log.info GetResponse4
+
+assert GetResponse=="Success"
+assert GetResponse1=="ExpectedResults"
+assert GetResponse2 instanceof String
+assert GetResponse3=="https://gww.dev.biometrics.gov.bc.ca/BM22/IdCheck/Start.aspx"
+assert GetResponse4 instanceof String
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="startEnrollmentWithIdCheck" id="e99ed9b0-6468-4592-829d-15b7fbc43e29"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def StartEnrollmentWithIdCheck = testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].testSteps["startEnrollmentWithIdCheck"].getPropertyValue("Request")
+ 
+ def individualID=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].getPropertyValue("individualID")
+ def requesterAccountTypeCode=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].getPropertyValue("requesterAccountTypeCode")
+ def requestorUserId=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].getPropertyValue("requestorUserId")
+ def DID=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].getPropertyValue("DID")
+ 
+ def xmlAdd= new XmlHolder(StartEnrollmentWithIdCheck)
+ xmlAdd.setNodeValue("//staf:startEnrollmentWithIdCheck/startEnrollmentWithIdCheckRequest/individualID",individualID)
+ xmlAdd.setNodeValue("//staf:startEnrollmentWithIdCheck/startEnrollmentWithIdCheckRequest/requesterAccountTypeCode",requesterAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:startEnrollmentWithIdCheck/startEnrollmentWithIdCheckRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:startEnrollmentWithIdCheck/startEnrollmentWithIdCheckRequest/DID",DID)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].testSteps["startEnrollmentWithIdCheck"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].testSteps["startEnrollmentWithIdCheck"]
+ def contextStartEnrollmentWithIdCheck = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextStartEnrollmentWithIdCheck)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["StartEnrollmentWithIdCheck"].testSteps["startEnrollmentWithIdCheck"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//enrollmentURL")
+def GetResponse1= Response.getNodeValue("//issuanceId")
+def GetResponse2= Response.getNodeValue("//expiryDate")
+def GetResponse3= Response.getNodeValue("//code")
+def GetResponse4= Response.getNodeValue("//failureCode")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+log.info GetResponse4
+
+assert GetResponse=="https://gww.dev.biometrics.gov.bc.ca/BM22/IdCheck/Start.aspx"
+assert GetResponse1 instanceof String
+assert GetResponse2 instanceof String
+assert GetResponse3=="Success"
+assert GetResponse4=="ExpectedResults"
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="startSearchForIdentity" id="6af135d7-6e12-4983-8389-2c098f8c6ed0"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def StartSearchForIdentity = testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].testSteps["startSearchForIdentity"].getPropertyValue("Request")
+ 
+ def requestorUserId=testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].getPropertyValue("requestorUserId")
+ def requestorAccountTypeCode=testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].getPropertyValue("requestorAccountTypeCode")
+ def activeOnly=testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].getPropertyValue("activeOnly")
+ 
+ def xmlAdd= new XmlHolder(StartSearchForIdentity)
+ xmlAdd.setNodeValue("//staf:startSearchForIdentity/startSearchForIdentityRequest/requestorUserId",requestorUserId)
+ xmlAdd.setNodeValue("//staf:startSearchForIdentity/startSearchForIdentityRequest/requestorAccountTypeCode",requestorAccountTypeCode)
+ xmlAdd.setNodeValue("//staf:startSearchForIdentity/startSearchForIdentityRequest/activeOnly",activeOnly)
+
+ def newxmlGet= xmlAdd.getXml();
+ //add xml detail
+ testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].testSteps["startSearchForIdentity"].setPropertyValue("Request",newxmlGet)
+
+ def getTestStep=testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].testSteps["startSearchForIdentity"]
+ def contextStartSearchForIdentity = new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextStartSearchForIdentity)
+ //Validation -
+def getRes=testRunner.testCase.testSuite.testCases["StartSearchForIdentity"].testSteps["startSearchForIdentity"].getPropertyValue("Response")
+def Response= new XmlHolder(getRes)
+def GetResponse= Response.getNodeValue("//code")
+def GetResponse1= Response.getNodeValue("//failureCode")
+def GetResponse2= Response.getNodeValue("//searchID")
+def GetResponse3= Response.getNodeValue("//searchURL")
+def GetResponse4= Response.getNodeValue("//expiryDate")
+
+log.info GetResponse
+log.info GetResponse1
+log.info GetResponse2
+log.info GetResponse3
+log.info GetResponse4
+
+assert GetResponse=="Success"
+assert GetResponse1=="ExpectedResults"
+assert GetResponse2 instanceof String
+assert GetResponse3=="https://gww.dev.biometrics.gov.bc.ca/BM22/Search/Start.aspx"
+assert GetResponse4 instanceof String
+
+</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

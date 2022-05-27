@@ -60,8 +60,11 @@ public class TestService {
 
     private File zipAndReturnErrors() throws IOException {
         File dir = new File(".");
-        FileFilter fileFilter = new WildcardFileFilter("StaffnetIdentity*.txt");
+        FileFilter fileFilter = new WildcardFileFilter("*Staffnet*-FAILED.txt");
         File[] files = dir.listFiles(fileFilter);
+        if (files == null || files.length == 0) {
+            return null;
+        }
         sanitizeErrorFiles(files);
         FileOutputStream fos = new FileOutputStream("TestErrors.zip");
         ZipOutputStream zipOut = new ZipOutputStream(fos);
@@ -101,6 +104,12 @@ public class TestService {
             runner.run();
 
         } catch (Exception ignored) {
+        }
+        try {
+            runner.setProjectFile("StaffnetBio-soapui-project.xml");
+            runner.run();
+        } catch (Exception Ignore) {
+
         }
         return zipAndReturnErrors();
     }
