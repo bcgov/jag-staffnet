@@ -9,4 +9,3 @@ test:
   username: ${BASIC_AUTH_USER}
   api-host-identity: ${API_HOST_IDENTITY}
   api-host-biometrics: ${API_HOST_BIOMETRICS}
-

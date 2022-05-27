@@ -43,10 +43,18 @@ public class TestController {
                             new HttpEntity<>(new HttpHeaders()),
                             new ParameterizedTypeReference<>() {});
 
-            if (resp.getBody().get("status").equals("fail")) {}
+            if (resp.getBody().get("status").equals("fail")) {
+                HttpHeaders responseHeaders = new HttpHeaders();
+                responseHeaders.add("content-disposition", "attachment; filename=InitFail.zip");
+                responseHeaders.add("Content-Type", "application/zip");
+                return new ResponseEntity<byte[]>(responseHeaders, HttpStatus.OK);
+            }
 
         } catch (Exception ex) {
-
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.add("content-disposition", "attachment; filename=InitFail_ORDSError");
+            responseHeaders.add("Content-Type", "application/zip");
+            return new ResponseEntity<byte[]>(responseHeaders, HttpStatus.OK);
         }
 
         File f = testService.runAllTests();
