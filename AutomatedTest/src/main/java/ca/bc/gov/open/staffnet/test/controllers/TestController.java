@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
+@Slf4j
 @RestController
 @RequestMapping("/tests")
 public class TestController {
@@ -47,6 +49,7 @@ public class TestController {
                 HttpHeaders responseHeaders = new HttpHeaders();
                 responseHeaders.add("content-disposition", "attachment; filename=InitFail.zip");
                 responseHeaders.add("Content-Type", "application/zip");
+                log.error("Failed to reset DB. Test halted");
                 return new ResponseEntity<byte[]>(responseHeaders, HttpStatus.OK);
             }
 
@@ -54,7 +57,9 @@ public class TestController {
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.add("content-disposition", "attachment; filename=InitFail_ORDSError");
             responseHeaders.add("Content-Type", "application/zip");
-            return new ResponseEntity<byte[]>(responseHeaders, HttpStatus.OK);
+            log.error("Failed to reset DB. Test halted");
+            return new ResponseEntity<byte[]>(
+                     responseHeaders, HttpStatus.OK);
         }
 
         File f = testService.runAllTests();
