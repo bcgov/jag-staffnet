@@ -2,4 +2,4 @@
 *
 
 # Allow files and directories
-!./jag-staffnet-biometrics-application/target/staffnet-biometrics-application.jar
+!./target/staffnet-biometrics-application.jar

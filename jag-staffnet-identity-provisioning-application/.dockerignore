@@ -2,4 +2,4 @@
 *
 
 # Allow files and directories
-!./jag-staffnet-identity-provisioning-application/target/staffnet-identity-provisioning-application.jar
+!./target/staffnet-identity-provisioning-application.jar
