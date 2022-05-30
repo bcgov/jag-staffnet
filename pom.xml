@@ -32,6 +32,7 @@
         <module>jag-staffnet-identity-provisioning-application</module>
         <module>staffnet-identity-provisioning-models</module>
         <module>staffnet-code-coverage</module>
+        <module>AutomatedTest</module>
     </modules>
 
     <build>
