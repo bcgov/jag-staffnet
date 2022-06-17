@@ -39,16 +39,15 @@ jobs:
           DOCKER_BUILDKIT: 1
           CONTEXT: ./jag-staffnet-biometrics-application
         run: |
-          docker build -t jag-staffnet-biometrics-api:${{ github.sha }} ${CONTEXT}
+          docker build -t docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }} ${CONTEXT}
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner for jag-staffnet-biometrics-api image
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: jjag-staffnet-biometrics-api:${{ github.sha }}
-          format: template
-          template: '@/contrib/sarif.tpl'
+          image-ref: docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }}
+          format: sarif
           output: trivy-results.sarif
           exit-code: 1
           ignore-unfixed: true
@@ -60,16 +59,15 @@ jobs:
           DOCKER_BUILDKIT: 1
           CONTEXT: ./jag-staffnet-identity-provisioning-application
         run: |
-          docker build -t jag-staffnet-identity-provisioning-api:${{ github.sha }} ${CONTEXT}
+          docker build -t docker.io/staffnet/jag-staffnet-identity-provisioning-api:${{ github.sha }} ${CONTEXT}
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner for jag-staffnet-identity-provisioning-api image
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: jag-staffnet-identity-provisioning-api:${{ github.sha }}
-          format: template
-          template: '@/contrib/sarif.tpl'
+          image-ref: docker.io/staffnet/jag-staffnet-identity-provisioning-api:${{ github.sha }}
+          format: sarif
           output: trivy-results.sarif
           exit-code: 1
           ignore-unfixed: true
@@ -77,7 +75,7 @@ jobs:
 
       #Upload results to the Github security tab.
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
           sarif_file: trivy-results.sarif
