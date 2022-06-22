@@ -1,11 +1,11 @@
 security:
   basic-auth:
-    password: ${BASIC_AUTH_PASS}
-    username: ${BASIC_AUTH_USER}
+    password: ${BIOMETRIC_AUTH_PASS}
+    username: ${BIOMETRIC_AUTH_USER}
 test:
   host: ${ORDS_HOST}
-  password: ${BASIC_AUTH_PASS}
-  username: ${BASIC_AUTH_USER}
+  password: ${BIOMETRIC_AUTH_PASS}
+  username: ${BIOMETRIC_AUTH_USER}
   api-host-identity: ${API_HOST_IDENTITY}
   api-host-biometrics: ${API_HOST_BIOMETRICS}
 

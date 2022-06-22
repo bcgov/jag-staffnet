@@ -28,8 +28,10 @@ jobs:
     runs-on: ubuntu-20.04
     environment: ${{ github.event.inputs.env }}
     env:
-      BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-      BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+      BIOMETRIC_AUTH_USER: ${{ secrets.BIOMETRIC_AUTH_USER }}
+      BIOMETRIC_AUTH_PASS: ${{ secrets.BIOMETRIC_AUTH_PASS }}
+      PROVISION_AUTH_USER: ${{ secrets.PROVISION_AUTH_USER }}
+      PROVISION_AUTH_PASS: ${{ secrets.PROVISION_AUTH_PASS }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

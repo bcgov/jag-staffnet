@@ -21,8 +21,10 @@ jobs:
     env:
       FILE_COUNTER: 0
       CC_TEST_REPORTER_ID: 7fdb5d959c343780ce353586dccfa790ac7c1f086ab620ed91645e48f3cafc77
-      BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-      BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+      BIOMETRIC_AUTH_USER: ${{ secrets.BIOMETRIC_AUTH_USER }}
+      BIOMETRIC_AUTH_PASS: ${{ secrets.BIOMETRIC_AUTH_PASS }}
+      PROVISION_AUTH_USER: ${{ secrets.PROVISION_AUTH_USER }}
+      PROVISION_AUTH_PASS: ${{ secrets.PROVISION_AUTH_PASS }}
       ACTION_DEBUG: true
 
     # Steps represent a sequence of tasks that will be executed as part of the job
