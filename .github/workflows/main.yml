@@ -207,7 +207,7 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-biometrics-api to get completed before proceeding next stage - Silver
+      # Wait to DC rollout of jag-staffnet-biometrics-api to get completed before proceeding next stage - Calgary (OC DR)
       - name: Wait for DC rollout of jag-staffnet-biometrics-api - Calgary (OC DR)
         env:
           appName: ${{github.event.inputs.app1}}
@@ -224,7 +224,7 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-identity-provisioning-api to get completed before proceeding next stage - Silver
+      # Wait to DC rollout of jag-staffnet-identity-provisioning-api to get completed before proceeding next stage - Calgary (OC DR)
       - name: Wait for DC rollout of jag-staffnet-identity-provisioning-api - Calgary (OC DR)
         env:
           appName: ${{github.event.inputs.app2}}
