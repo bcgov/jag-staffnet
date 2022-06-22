@@ -8,13 +8,13 @@ on:
   workflow_dispatch:
     inputs:
         app1:
-            description: 'App Name (jag-staffnet-biometrics-api)'    
+            description: 'App Name (jag-staffnet-biometrics)'
             required: true
-            default: 'jag-staffnet-biometrics-api'
+            default: 'jag-staffnet-biometrics'
         app2:
-            description: 'App Name (jag-staffnet-identity-provisioning-api)'    
+            description: 'App Name (jag-staffnet-identity-provisioning)'
             required: true
-            default: 'jag-staffnet-identity-provisioning-api'
+            default: 'jag-staffnet-identity-provisioning'
         env:
             description: 'Image Target Env'  
             required: true
@@ -76,8 +76,8 @@ jobs:
       - name: Maven Spotless Check
         run: mvn -ntp spotless:check
       
-      #Build image jag-staffnet-biometrics-api
-      - name: Build image jag-staffnet-biometrics-api
+      #Build image jag-staffnet-biometrics
+      - name: Build image jag-staffnet-biometrics
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
@@ -85,8 +85,8 @@ jobs:
         run: |
           docker build -t ${{github.event.inputs.app1}}:${{env.gitsha}} ${CONTEXT}
       
-      #Build image jag-staffnet-identity-provisioning-api
-      - name: Build image jag-staffnet-identity-provisioning-api
+      #Build image jag-staffnet-identity-provisioning
+      - name: Build image jag-staffnet-identity-provisioning
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
@@ -102,16 +102,16 @@ jobs:
           username: ${{secrets.OPENSHIFT_SA_USERNAME}}
           password: ${{secrets.OPENSHIFT_SA_PASSWORD}}
 
-      #Push image jag-staffnet-biometrics-api to OpenShift Image stream - Kamloops (OC Prod)
-      - name: Push Image jag-staffnet-biometrics-api to Openshift Image Stream - Kamloops (OC Prod)
+      #Push image jag-staffnet-biometrics to OpenShift Image stream - Kamloops (OC Prod)
+      - name: Push Image jag-staffnet-biometrics to Openshift Image Stream - Kamloops (OC Prod)
         env:
           IMAGE: ${{secrets.OPENSHIFT_EXTERNAL_REPOSITORY}}/${{secrets.OPENSHIFT_TOOLS_NAMESPACE}}/${{github.event.inputs.app1}}:${{secrets.OPENSHIFT_ENV_TAG}}
         run: |
           docker tag ${{github.event.inputs.app1}}:${{env.gitsha}} ${IMAGE}
           docker push ${IMAGE}
       
-      #Push image jag-staffnet-identity-provisioning-api to OpenShift Image stream - Kamloops (OC Prod)
-      - name: Push Image jag-staffnet-identity-provisioning-api to Openshift Image Stream - Kamloops (OC Prod)
+      #Push image jag-staffnet-identity-provisioning to OpenShift Image stream - Kamloops (OC Prod)
+      - name: Push Image jag-staffnet-identity-provisioning to Openshift Image Stream - Kamloops (OC Prod)
         env:
           IMAGE: ${{secrets.OPENSHIFT_EXTERNAL_REPOSITORY}}/${{secrets.OPENSHIFT_TOOLS_NAMESPACE}}/${{github.event.inputs.app2}}:${{secrets.OPENSHIFT_ENV_TAG}}
         run: |
@@ -126,16 +126,16 @@ jobs:
           username: ${{secrets.OPENSHIFT_SA_USERNAME}}
           password: ${{secrets.OPENSHIFT_SA_PASSWORD_DR}}
 
-      #Push image jag-staffnet-biometrics-api  to OpenShift Image stream - Calgary (OC DR)
-      - name: Push Image jag-staffnet-biometrics-api  to Openshift Image Stream - Calgary (OC DR)
+      #Push image jag-staffnet-biometrics  to OpenShift Image stream - Calgary (OC DR)
+      - name: Push Image jag-staffnet-biometrics  to Openshift Image Stream - Calgary (OC DR)
         env:
           IMAGE: ${{secrets.OPENSHIFT_EXTERNAL_REPOSITORY_DR}}/${{secrets.OPENSHIFT_TOOLS_NAMESPACE}}/${{github.event.inputs.app1}}:${{secrets.OPENSHIFT_ENV_TAG}}
         run: |
           docker tag ${{github.event.inputs.app1}}:${{env.gitsha}} ${IMAGE}
           docker push ${IMAGE}
       
-      #Push image jag-staffnet-identity-provisioning-api to OpenShift Image stream - Calgary (OC DR)
-      - name: Push Image jag-staffnet-identity-provisioning-api to Openshift Image Stream - Calgary (OC DR)
+      #Push image jag-staffnet-identity-provisioning to OpenShift Image stream - Calgary (OC DR)
+      - name: Push Image jag-staffnet-identity-provisioning to Openshift Image Stream - Calgary (OC DR)
         env:
           IMAGE: ${{secrets.OPENSHIFT_EXTERNAL_REPOSITORY_DR}}/${{secrets.OPENSHIFT_TOOLS_NAMESPACE}}/${{github.event.inputs.app2}}:${{secrets.OPENSHIFT_ENV_TAG}}
         run: |
@@ -153,8 +153,8 @@ jobs:
           openshift_token: ${{secrets.OPENSHIFT_SA_ENV_DEPLOYER_TOKEN}}
           namespace: ${OPENSHIFT_NAMESPACE}
         
-      # Labels the deployment config of the application jag-staffnet-biometrics-api with release version number to spin up the pods labelled in same version - Kamloops (OC PROD)
-      - name: Labelling DC of jag-staffnet-biometrics-api to release version - Kamloops (OC PROD)
+      # Labels the deployment config of the application jag-staffnet-biometrics with release version number to spin up the pods labelled in same version - Kamloops (OC PROD)
+      - name: Labelling DC of jag-staffnet-biometrics to release version - Kamloops (OC PROD)
         env:
           releaseVersion: ${{ env.releaseVersion }}
           appName: ${{github.event.inputs.app1}}
@@ -162,16 +162,16 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-biometrics-api to get completed before proceeding next stage - Kamloops (OC PROD)
-      - name: Wait for DC rollout of jag-staffnet-biometrics-api - Kamloops (OC PROD)
+      # Wait to DC rollout of jag-staffnet-biometrics to get completed before proceeding next stage - Kamloops (OC PROD)
+      - name: Wait for DC rollout of jag-staffnet-biometrics - Kamloops (OC PROD)
         env:
           appName: ${{github.event.inputs.app1}}
           openshiftEnvNamespace: ${{secrets.OPENSHIFT_LICENSE_PLATE}}-${{ github.event.inputs.env }}
         run: |
           oc rollout status -n ${openshiftEnvNamespace} dc/${appName} --watch
 
-      # Labels the deployment config of the application jag-staffnet-identity-provisioning-api with release version number to spin up the pods labelled in same version - Kamloops (OC PROD)
-      - name: Labelling DC of jag-staffnet-identity-provisioning-api to release version - Kamloops (OC PROD)
+      # Labels the deployment config of the application jag-staffnet-identity-provisioning with release version number to spin up the pods labelled in same version - Kamloops (OC PROD)
+      - name: Labelling DC of jag-staffnet-identity-provisioning to release version - Kamloops (OC PROD)
         env:
           releaseVersion: ${{ env.releaseVersion }}
           appName: ${{github.event.inputs.app2}}
@@ -179,8 +179,8 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-identity-provisioning-api to get completed before proceeding next stage - Kamloops (OC PROD)
-      - name: Wait for DC rollout of jag-staffnet-identity-provisioning-api - Kamloops (OC PROD)
+      # Wait to DC rollout of jag-staffnet-identity-provisioning to get completed before proceeding next stage - Kamloops (OC PROD)
+      - name: Wait for DC rollout of jag-staffnet-identity-provisioning - Kamloops (OC PROD)
         env:
           appName: ${{github.event.inputs.app2}}
           openshiftEnvNamespace: ${{secrets.OPENSHIFT_LICENSE_PLATE}}-${{ github.event.inputs.env }}
@@ -198,8 +198,8 @@ jobs:
           openshift_token: ${{secrets.OPENSHIFT_SA_ENV_DEPLOYER_TOKEN_DR}}
           namespace: ${OPENSHIFT_NAMESPACE}
         
-      # Labels the deployment config of the application jag-staffnet-biometrics-api with release version number to spin up the pods labelled in same version - Calgary (OC DR)
-      - name: Labelling DC of jag-staffnet-biometrics-api to release version - Calgary (OC DR)
+      # Labels the deployment config of the application jag-staffnet-biometrics with release version number to spin up the pods labelled in same version - Calgary (OC DR)
+      - name: Labelling DC of jag-staffnet-biometrics to release version - Calgary (OC DR)
         env:
           releaseVersion: ${{ env.releaseVersion }}
           appName: ${{github.event.inputs.app1}}
@@ -207,16 +207,16 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-biometrics-api to get completed before proceeding next stage - Calgary (OC DR)
-      - name: Wait for DC rollout of jag-staffnet-biometrics-api - Calgary (OC DR)
+      # Wait to DC rollout of jag-staffnet-biometrics to get completed before proceeding next stage - Calgary (OC DR)
+      - name: Wait for DC rollout of jag-staffnet-biometrics - Calgary (OC DR)
         env:
           appName: ${{github.event.inputs.app1}}
           openshiftEnvNamespace: ${{secrets.OPENSHIFT_LICENSE_PLATE}}-${{ github.event.inputs.env }}
         run: |
           oc rollout status -n ${openshiftEnvNamespace} dc/${appName} --watch
 
-      # Labels the deployment config of the application jag-staffnet-identity-provisioning-api with release version number to spin up the pods labelled in same version - Calgary (OC DR)
-      - name: Labelling DC of jag-staffnet-identity-provisioning-api to release version - Calgary (OC DR)
+      # Labels the deployment config of the application jag-staffnet-identity-provisioning with release version number to spin up the pods labelled in same version - Calgary (OC DR)
+      - name: Labelling DC of jag-staffnet-identity-provisioning to release version - Calgary (OC DR)
         env:
           releaseVersion: ${{ env.releaseVersion }}
           appName: ${{github.event.inputs.app2}}
@@ -224,8 +224,8 @@ jobs:
         run: |
           oc patch dc ${appName} -n ${openshiftEnvNamespace} --patch '{"spec":{"template":{"metadata":{"labels":{"version":"${{ env.releaseVersion }}.${{ env.gitsha }}"}}}}}'
       
-      # Wait to DC rollout of jag-staffnet-identity-provisioning-api to get completed before proceeding next stage - Calgary (OC DR)
-      - name: Wait for DC rollout of jag-staffnet-identity-provisioning-api - Calgary (OC DR)
+      # Wait to DC rollout of jag-staffnet-identity-provisioning to get completed before proceeding next stage - Calgary (OC DR)
+      - name: Wait for DC rollout of jag-staffnet-identity-provisioning - Calgary (OC DR)
         env:
           appName: ${{github.event.inputs.app2}}
           openshiftEnvNamespace: ${{secrets.OPENSHIFT_LICENSE_PLATE}}-${{ github.event.inputs.env }}
