@@ -1,7 +1,7 @@
 security:
   basic-auth:
-    password: ${BASIC_AUTH_PASS}
-    username: ${BASIC_AUTH_USER}
+    password: ${PROVISION_AUTH_PASS}
+    username: ${PROVISION_AUTH_USER}
 staffnet:
   host: http://127.0.0.1/
   namespace: ${STAFFNET_NAMESPACE}
