@@ -115,11 +115,6 @@ objects:
                     secretKeyRef:
                       name: staffnet-splunk-config
                       key: SPLUNK_INDEX
-                - name: LIFECYCLE_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: staffnet-application-secrets
-                      key: LIFECYCLE_HOST
                 - name: ORDS_HOST
                   valueFrom:
                     secretKeyRef:
