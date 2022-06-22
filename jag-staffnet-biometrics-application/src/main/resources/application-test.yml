@@ -4,7 +4,7 @@ security:
     username: ${BIOMETRIC_AUTH_USER}
   web-service:
     password: ${WS_AUTH_PASS}
-    username: ${WS_AUTH_PASS}
+    username: ${WS_AUTH_USER}
 staffnet:
   online-service-id: 1
   web-service-url: http://127.0.0.1/
