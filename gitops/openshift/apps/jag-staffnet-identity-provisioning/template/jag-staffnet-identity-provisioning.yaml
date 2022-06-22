@@ -26,7 +26,7 @@ parameters:
     description: The OpenShift namespace prefix
     required: false
     # Below value must be changed as per gold cluster oc nameplate
-    value: 8fc8c2
+    value: c5fb6c
 
   - name: OC_ENV
     description: The OpenShift environment, ie dev, test or prod
@@ -36,11 +36,6 @@ parameters:
     description: The application name that each component is part of
     required: false
     value: java
-
-  - name: API_NAME
-    description: The application name that each component is part of
-    required: false
-    value: jag-staffnet-identity-provisioning
 
   - name: DNS
     description: The application name that each component is part of
@@ -194,7 +189,7 @@ objects:
       # balance algorithm
       haproxy.router.openshift.io/balance: roundrobin
     spec:
-      host: ${API_NAME}-${OC_NAMESPACE}-${OC_ENV}.${DNS}
+      host: ${COMPONENT_NAME}-${OC_NAMESPACE}-${OC_ENV}.${DNS}
       to:
         kind: Service
         name: ${COMPONENT_NAME}

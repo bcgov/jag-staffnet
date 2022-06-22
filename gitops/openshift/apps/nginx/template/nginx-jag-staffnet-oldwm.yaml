@@ -19,13 +19,13 @@ parameters:
   - name: COMPONENT_NAME
     description: The application name that each component is part of
     required: false
-    value: nginx-jag-staffnet
+    value: nginx-jag-staffnet-oldwm
 
   - name: OC_NAMESPACE
     description: The OpenShift namespace prefix
     required: false
     # Below value must be changed as per gold cluster oc nameplate
-    value: 8fc8c2
+    value: c5fb6c
 
   - name: OC_ENV
     description: The OpenShift environment, ie dev, test or prod
@@ -35,11 +35,6 @@ parameters:
     description: The application name that each component is part of
     required: false
     value: nginx
-
-  - name: ENDPOINT
-    description: The application name that each component is part of
-    required: false
-    value: nginx-jag-staffnet
 
 objects:
 
@@ -52,24 +47,48 @@ objects:
     data:
       nginx-proxy.conf: |-
         location /nginx-health {
-          return 200 "Application is healthy";
-          access_log off;
-        }
-        location /ws {
-          client_max_body_size 100m;
-          proxy_read_timeout 240s;
-          proxy_send_timeout 80s;
-          proxy_redirect off;
-          port_in_redirect off;
-          proxy_http_version 1.1;
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Host $server_name;
-          proxy_pass_request_headers on;
-          proxy_pass https://wsgw.dev.jag.gov.bc.ca/courts/ocp/CeisScss;
-        }
+        return 200 "Application is healthy";
+        access_log off;
+      }
+
+      location /actuator/health {
+        default_type application/json;
+        return 200 '{"status":"UP","groups":["liveness","readiness"]}';
+        access_log off;
+      }
+
+      location /biometrics {
+        client_max_body_size 100m;
+        proxy_read_timeout 240s;
+        proxy_send_timeout 80s;
+        proxy_redirect off;
+        port_in_redirect off;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_pass_request_headers on;
+        proxy_pass https://wsgw.dev.jag.gov.bc.ca/staffnet/biometrics;
+      }
+
+      location /identity-provisioning {
+        client_max_body_size 100m;
+        proxy_read_timeout 240s;
+        proxy_send_timeout 80s;
+        proxy_redirect off;
+        port_in_redirect off;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_pass_request_headers on;
+        proxy_pass https://wsgw.dev.jag.gov.bc.ca/staffnet/identity-provisioning;
+      }
+      
   - kind: DeploymentConfig
     apiVersion: apps.openshift.io/v1
     metadata:
@@ -124,7 +143,13 @@ objects:
                   protocol: TCP
                 - containerPort: 8443
                   protocol: TCP
-              resources: {}
+              resources:
+                limits:
+                  cpu: 50m
+                  memory: 200Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
               volumeMounts:
                 - name: ${COMPONENT_NAME}-conf
                   readOnly: true
