@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       app1:
-        description: 'App Name (jag-staffnet-biometrics-api)'
+        description: 'App Name (jag-staffnet-biometrics)'
         required: true
-        default: 'jag-staffnet-biometrics-api'
+        default: 'jag-staffnet-biometrics'
       app2:
-        description: 'App Name (jag-staffnet-identity-provisioning-api)'
+        description: 'App Name (jag-staffnet-identity-provisioning)'
         required: true
-        default: 'jag-staffnet-identity-provisioning-api'
+        default: 'jag-staffnet-identity-provisioning'
       imageSourceEnv:
         description: 'Image Source Env'
         required: true

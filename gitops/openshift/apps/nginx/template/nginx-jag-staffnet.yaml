@@ -39,9 +39,14 @@ parameters:
   - name: ENDPOINT1
     description: The target endpoint
     required: false
-    value: jag-staffnet
+    value: jag-staffnet-biometrics
 
   - name: ENDPOINT2
+    description: The target endpoint
+    required: false
+    value: jag-staffnet-identity-provisioning
+
+  - name: ENDPOINT3
     description: The target endpoint
     required: false
     value: jag-staffnet-oldwm
