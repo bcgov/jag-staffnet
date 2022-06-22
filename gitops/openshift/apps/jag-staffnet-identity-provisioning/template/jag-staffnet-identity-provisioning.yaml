@@ -120,6 +120,11 @@ objects:
                     secretKeyRef:
                       name: staffnet-application-secrets
                       key: LIFECYCLE_HOST
+                - name: ORDS_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-application-secrets
+                      key: ORDS_HOST
               resources:
                 limits:
                   cpu: 500m
