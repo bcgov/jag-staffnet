@@ -80,20 +80,20 @@ objects:
               ports:
                 - containerPort: 8080
               env:
-                - name: PROVISION_AUTH_USER
+                - name: BASIC_AUTH_USER
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-provision-secrets
                       key: PROVISION_AUTH_USER
-                - name: PROVISION_AUTH_PASS
+                - name: BASIC_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-provision-secrets
                       key: PROVISION_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-provision-secrets
                       key: SPRING_PROFILE
                 - name: SPLUNK_HTTP_URL
                   valueFrom:
@@ -113,7 +113,7 @@ objects:
                 - name: ORDS_HOST
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-provision-secrets
                       key: ORDS_HOST
               resources:
                 limits:
