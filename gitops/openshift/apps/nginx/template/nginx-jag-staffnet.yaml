@@ -82,20 +82,9 @@ objects:
         }
 
         location /healthcheck {
-          client_max_body_size 100m;
-          proxy_read_timeout 240s;
-          proxy_send_timeout 80s;
-          proxy_redirect off;
-          port_in_redirect off;
-          proxy_http_version 1.1;
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Host $server_name;
-          proxy_set_header Authorization '${AUTH_HEADER}';
-          proxy_pass_request_headers on;
-          proxy_pass http://healthcheck/actuator/health;
+          default_type application/json;
+          return 200 '{"status":"UP","groups":["liveness","readiness"]}';
+          access_log off;
         }
 
         location /api/biometrics {
@@ -147,12 +136,6 @@ objects:
           server jag-staffnet-identity-provisioning;
           # Tured off for now
           #server nginx-jag-staffnet-oldwm;
-        }
-
-        upstream healthcheck {
-          server jag-staffnet-biometrics;
-          server jag-staffnet-identity-provisioning;
-          server nginx-jag-staffnet-oldwm;
         }
 
   - kind: DeploymentConfig

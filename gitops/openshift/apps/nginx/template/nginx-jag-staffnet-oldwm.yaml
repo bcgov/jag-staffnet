@@ -51,12 +51,6 @@ objects:
         access_log off;
       }
 
-      location /actuator/health {
-        default_type application/json;
-        return 200 '{"status":"UP","groups":["liveness","readiness"]}';
-        access_log off;
-      }
-
       location /biometrics {
         client_max_body_size 100m;
         proxy_read_timeout 240s;
