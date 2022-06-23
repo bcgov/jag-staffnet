@@ -80,6 +80,16 @@ objects:
               ports:
                 - containerPort: 8080
               env:
+                - name: BASIC_AUTH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-application-secrets
+                      key: BASIC_AUTH_USER
+                - name: BASIC_AUTH_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-application-secrets
+                      key: BASIC_AUTH_PASS
                 - name: PROVISION_AUTH_USER
                   valueFrom:
                     secretKeyRef:
