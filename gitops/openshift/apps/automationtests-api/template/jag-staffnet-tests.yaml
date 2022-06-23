@@ -82,22 +82,22 @@ objects:
                 - name: BASIC_AUTH_USER
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: BIOMETRIC_AUTH_USER
                 - name: BASIC_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: BASIC_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: SPRING_PROFILE
                 - name: API_HOST
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: API_HOST
               resources:
                 limits:

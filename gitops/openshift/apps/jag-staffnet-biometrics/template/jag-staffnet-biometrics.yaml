@@ -83,17 +83,17 @@ objects:
                 - name: BASIC_AUTH_USER
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: BIOMETRIC_AUTH_USER
                 - name: BASIC_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: BIOMETRIC_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: SPRING_PROFILE
                 - name: SPLUNK_HTTP_URL
                   valueFrom:
@@ -113,27 +113,27 @@ objects:
                 - name: ORDS_HOST
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: ORDS_HOST
                 - name: ONLINE_SERVICE_ID
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: ONLINE_SERVICE_ID
                 - name: WS_AUTH_USER
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: WS_AUTH_USER
                 - name: WS_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: WS_AUTH_PASS
                 - name: WS_URL
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-biometric-secrets
+                      name: staffnet-biometrics-secrets
                       key: WS_URL
               resources:
                 limits:
