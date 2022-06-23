@@ -16,10 +16,6 @@ jobs:
     env:
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
-      BIOMETRIC_AUTH_USER: ${{ secrets.BIOMETRIC_AUTH_USER }}
-      BIOMETRIC_AUTH_PASS: ${{ secrets.BIOMETRIC_AUTH_PASS }}
-      PROVISION_AUTH_USER: ${{ secrets.PROVISION_AUTH_USER }}
-      PROVISION_AUTH_PASS: ${{ secrets.PROVISION_AUTH_PASS }}
       WS_AUTH_USER: ${{ secrets.WS_AUTH_USER }}
       WS_AUTH_PASS: ${{ secrets.WS_AUTH_PASS }}
     steps:
