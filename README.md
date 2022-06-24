@@ -63,11 +63,11 @@ Option D) Eclipse
 
 staffnet-biometrics-secrets.BASIC_AUTH_PASS
 
-staffnet-biometrics-secrets.ASIC_AUTH_USER
+staffnet-biometrics-secrets.BASIC_AUTH_USER
 
 staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_PASS
 
-staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.ASIC_AUTH_USER
+staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_USER
 
 ORDS_HOST
 
