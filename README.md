@@ -20,9 +20,9 @@ Code Climate: https://codeclimate.com/github/bcgov/jag-staffnet
 
 ### Required Environmental Variables
 
-BIOMETRIC_AUTH_PASS and PROVISION_AUTH_PASS: The password for the basic authentication. This can be any value for local.
+BASIC_AUTH_PASS: The password for the basic authentication. This can be any value for local.
 
-BIOMETRIC_AUTH_USER and PROVISION_AUTH_USER: The username for the basic authentication. This can be any value for local.
+BASIC_AUTH_USER: The username for the basic authentication. This can be any value for local.
 
 ORDS_HOST: The url for ords rest package.
 
@@ -61,13 +61,13 @@ Option D) Eclipse
 2) Import the Maven project using the Maven Project Import Wizard.
 3) Set Variables either as Windows/Linux Environmental variables or POM goal Environment Variables:
 
-BIOMETRIC_AUTH_PASS
+staffnet-biometrics-secrets.BASIC_AUTH_PASS
 
-BIOMETRIC_AUTH_USER
+staffnet-biometrics-secrets.BASIC_AUTH_USER
 
-PROVISION_AUTH_PASS
+staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_PASS
 
-PROVISION_AUTH_USER
+staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_USER
 
 ORDS_HOST
 
