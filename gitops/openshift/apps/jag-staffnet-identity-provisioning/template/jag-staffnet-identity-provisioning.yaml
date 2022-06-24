@@ -84,12 +84,12 @@ objects:
                   valueFrom:
                     secretKeyRef:
                       name: staffnet-identity-provisioning-secrets
-                      key: PROVISION_AUTH_USER
+                      key: BASIC_AUTH_USER
                 - name: BASIC_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
                       name: staffnet-identity-provisioning-secrets
-                      key: PROVISION_AUTH_PASS
+                      key: BASIC_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
                     secretKeyRef:

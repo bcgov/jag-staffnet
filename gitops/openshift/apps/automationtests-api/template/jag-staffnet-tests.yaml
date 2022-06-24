@@ -79,15 +79,25 @@ objects:
               ports:
                 - containerPort: 8080
               env:
-                - name: BASIC_AUTH_USER
+                - name: BIOMETRICS_AUTH_USER
                   valueFrom:
                     secretKeyRef:
                       name: staffnet-biometrics-secrets
-                      key: BIOMETRIC_AUTH_USER
-                - name: BASIC_AUTH_PASS
+                      key: BASIC_AUTH_USER
+                - name: BIOMETRICS_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
                       name: staffnet-biometrics-secrets
+                      key: BASIC_AUTH_PASS
+                - name: PROVISION_AUTH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-identity-provisioning-secrets
+                      key: BASIC_AUTH_USER
+                - name: PROVISION_AUTH_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-identity-provisioning-secrets
                       key: BASIC_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
