@@ -86,4 +86,5 @@ SPLUNK_INDEX
 
 ### JaCoCo Coverage Report
 1) Run ```mvn clean verify```
-3) Open ```staffnet-code-coverage/target/site/jacoco-aggregate/index.html``` in a browser
+2) Open ```staffnet-code-coverage/target/site/jacoco-aggregate/index.html``` in a browser
+
