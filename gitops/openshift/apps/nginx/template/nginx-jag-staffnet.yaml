@@ -62,6 +62,21 @@ parameters:
     required: true
     value: ''
 
+  - name: SSL_Certificate
+    description: SSL application certificate
+    required: false
+    value: ''
+
+  - name: SSL_PrivateKey
+    description: Private key for the SSL application certificate
+    required: false
+    value: ''
+
+  - name: CA_CertificateChain
+    description: CA certificate chain for the SSL application certificate
+    required: false
+    value: ''
+
 objects:
 
   - kind: ConfigMap
@@ -257,5 +272,8 @@ objects:
         targetPort: 8080-tcp
       tls:
         termination: edge
+        certificate: '${SSL_Certificate}'
+        key: '${SSL_PrivateKey}'
+        caCertificate: '${CA_CertificateChain}'
         insecureEdgeTerminationPolicy: None
       wildcardPolicy: None
