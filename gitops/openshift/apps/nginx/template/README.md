@@ -9,7 +9,7 @@
 2) Run below command in each env. namespace dev/test/prod/tools
    ``oc process -f nginx-jag-staffnet.yaml --param-file=nginx-jag-staffnet.env | oc apply -f -``
 
-### Template for Nginx 2 - To reverse proxy the traffic from Nginx 1 to the old webmethods api.
+### Template for Nginx 2 - To reverse proxy the traffic from Nginx 1 to the old webmethods api..
 
 
 ### Command to execute template
