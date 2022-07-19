@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<s:schema elementFormDefault="qualified" targetNamespace="http://www.bceid.ca/webservices/BCS/V4/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bceid.ca/webservices/BCS/V4/">
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.bceid.ca/webservices/BCS/V4/" xmlns:annox="http://annox.dev.java.net" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.bceid.ca/webservices/BCS/V4/">
     <s:element name="StartEnrollment">
         <s:complexType>
             <s:sequence>
@@ -377,7 +377,14 @@
     <s:simpleType name="MatchIdentityNameType">
         <s:restriction base="s:string">
             <s:enumeration value="Legal"/>
-            <s:enumeration value="KnownAs"/>
+            <s:enumeration value="KnownAs">
+                <s:annotation>
+                    <s:appinfo>
+                        <annox:annotate target="enum-constant">@com.fasterxml.jackson.annotation.JsonProperty("KNOWNAS")
+                        </annox:annotate>
+                    </s:appinfo>
+                </s:annotation>
+            </s:enumeration>
         </s:restriction>
     </s:simpleType>
     <s:element name="StartEnrollmentWithIdCheckResponse">
