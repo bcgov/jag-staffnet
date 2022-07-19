@@ -52,15 +52,8 @@ parameters:
     value: jag-staffnet-oldwm
 
   - name: DNS
-    description: The application name that each component is part of
-    required: false
-    # Below value must be changed as per gold cluster certificate/DNS
-    value: apps.gold.devops.gov.bc.ca
-  
-  - name: AUTH_HEADER
-    description: The http Authorization header to perform healthcheck for api.
+    description: The nginx router url
     required: true
-    value: ''
 
   - name: SSL_Certificate
     description: SSL application certificate
