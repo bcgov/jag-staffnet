@@ -52,7 +52,8 @@
                     <excludes>
                         <exclude>**/configuration/WSDLFilter*</exclude>
                         <exclude>**/configuration/HttpServletRequestWrapper.class</exclude>
-                        <exclude>**/StaffnetApplication.class</exclude>
+                        <exclude>**/StaffnetBiometricsApplication.class</exclude>
+                        <exclude>**/StaffnetIdentityProvisioningApplication.class</exclude>
                         <exclude>**/ObjectFactory.class</exclude>
                         <exclude>**/Adapter1.class</exclude>
                     </excludes>
