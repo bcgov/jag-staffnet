@@ -198,6 +198,8 @@ public class EnrollmentController {
             two.setPhotoTakenDate(
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
+            req.setPhotoTakenDate(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
