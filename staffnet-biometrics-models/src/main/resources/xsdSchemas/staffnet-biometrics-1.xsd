@@ -41,7 +41,7 @@
             <xsd:element name="photo" type="xsd:base64Binary"/>
             <xsd:element name="dateOfBirth" type="xsd:string"/>
             <xsd:element name="biometricTemplateUrl" type="xsd:string"/>
-            <xsd:element name="photoTakenDate" type="xsd:dateTime"/>
+            <xsd:element name="photoTakenDate" type="xsd:string"/>
             <xsd:element name="imageSetSuccessYN" nillable="true" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>

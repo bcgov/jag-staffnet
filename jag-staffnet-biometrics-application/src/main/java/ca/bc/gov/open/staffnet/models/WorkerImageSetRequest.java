@@ -10,5 +10,5 @@ public class WorkerImageSetRequest implements Serializable {
     private String userId;
     private String callingModule;
     private byte[] photo;
-    private Instant photoTakenDate;
+    private String photoTakenDate;
 }
