@@ -13,7 +13,6 @@ import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
-import java.time.Instant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -97,7 +96,7 @@ public class OrdsErrorTests {
         finishEnrollmentWithIdCheckResponse2.setBiometricTemplateUrl("A");
         finishEnrollmentWithIdCheckResponse2.setGivenNames("A");
         finishEnrollmentWithIdCheckResponse2.setLastName("A");
-        finishEnrollmentWithIdCheckResponse2.setPhotoTakenDate(Instant.now());
+        finishEnrollmentWithIdCheckResponse2.setPhotoTakenDate("A");
         soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse2);
 
         when(webServiceTemplate.marshalSendAndReceive(
