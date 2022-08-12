@@ -145,7 +145,7 @@ public class RefreshController {
                                     "Error received from SOAP SERVICE - RefreshIdentityWithIdCheck",
                                     "refreshIdentityWithIdCheck",
                                     ex.getMessage(),
-                                    inner)));
+                                    refreshIdentityWithIdCheck.getRequest())));
         }
         return out;
     }

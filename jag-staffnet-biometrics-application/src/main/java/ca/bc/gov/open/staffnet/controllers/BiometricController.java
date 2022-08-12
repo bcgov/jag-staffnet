@@ -141,7 +141,7 @@ public class BiometricController {
                                     "Error received from SOAP SERVICE - ReconciliationService",
                                     "biometricReconciliation",
                                     ex.getMessage(),
-                                    inner)));
+                                    reconciliationService.getRequest())));
         }
         return out;
     }
@@ -210,7 +210,7 @@ public class BiometricController {
                                     "Error received from SOAP SERVICE - DeactivateBiometricCredentialByDID",
                                     "deactivateBiometricCredentialByDID",
                                     ex.getMessage(),
-                                    inner)));
+                                    deactivateBiometricCredentialByDID.getRequest())));
         }
         return out;
     }
@@ -276,7 +276,7 @@ public class BiometricController {
                                     "Error received from SOAP SERVICE - DestroyBiometricCredentialByDID",
                                     "destroyBiometricCredentialByDID",
                                     ex.getMessage(),
-                                    inner)));
+                                    destroyBiometricCredentialByDID.getRequest())));
         }
         return out;
     }
@@ -345,7 +345,7 @@ public class BiometricController {
                                     "Error received from SOAP SERVICE - ReactivateBiometricCredentialByDID",
                                     "reactivateBiometricCredentialByDID",
                                     ex.getMessage(),
-                                    inner)));
+                                    reactivateBiometricCredentialByDID.getRequest())));
         }
         return out;
     }

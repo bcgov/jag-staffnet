@@ -101,7 +101,7 @@ public class SearchController {
                                     "Error received from SOAP SERVICE - StartSearchForIdentity",
                                     "startSearchForIdentity",
                                     ex.getMessage(),
-                                    inner)));
+                                    startSearchForIdentity.getRequest())));
         }
         return out;
     }
@@ -157,7 +157,7 @@ public class SearchController {
                                     "Error received from SOAP SERVICE - FinishSearchForIdentity",
                                     "finishSearchForIdentity",
                                     ex.getMessage(),
-                                    inner)));
+                                    finishSearchForIdentity.getRequest())));
         }
         return out;
     }
