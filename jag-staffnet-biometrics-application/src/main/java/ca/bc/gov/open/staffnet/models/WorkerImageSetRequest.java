@@ -1,7 +1,6 @@
 package ca.bc.gov.open.staffnet.models;
 
 import java.io.Serializable;
-import java.time.Instant;
 import lombok.Data;
 
 @Data
