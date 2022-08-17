@@ -110,7 +110,7 @@ objects:
               namespace: ${OC_NAMESPACE}-tools
               name: '${COMPONENT_NAME}:latest'
         - type: ConfigChange
-      replicas: 1
+      replicas: 2
       revisionHistoryLimit: 10
       test: false
       selector:
@@ -140,7 +140,7 @@ objects:
               resources:
                 limits:
                   cpu: 50m
-                  memory: 200Mi
+                  memory: 100Mi
                 requests:
                   cpu: 50m
                   memory: 100Mi
