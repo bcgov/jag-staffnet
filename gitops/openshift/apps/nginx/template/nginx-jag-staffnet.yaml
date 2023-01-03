@@ -46,11 +46,6 @@ parameters:
     required: false
     value: jag-staffnet-identity-provisioning
 
-  - name: ENDPOINT3
-    description: The target endpoint
-    required: false
-    value: jag-staffnet-oldwm
-
   - name: DNS
     description: The nginx router url
     required: true
@@ -136,14 +131,10 @@ objects:
       nginx-upstream.conf: |-
         upstream splitter-biometrics {
           server jag-staffnet-biometrics;
-          # Tured off for now
-          #server nginx-jag-staffnet-oldwm;
         }
 
         upstream splitter-identity-provisioning {
           server jag-staffnet-identity-provisioning;
-          # Tured off for now
-          #server nginx-jag-staffnet-oldwm;
         }
 
   - kind: DeploymentConfig
