@@ -42,3 +42,7 @@ cc-test-reporter
 /comparison-tool/results/*.txt
 /TestErrors.zip
 *-soapui-project.xml
+/StaffnetIdentity-soapui-project.xml
+/StaffnetIdentityTestSuite*.txt
+/StaffnetBio-soapui-project.xml
+/StaffnetBioTestSuite*.txt

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.12</version>
+        <version>2.7.7</version>
     </parent>
     <groupId>ca.bc.gov.open</groupId>
     <artifactId>jag-staffnet</artifactId>
@@ -16,6 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <log4j2.version>2.17.1</log4j2.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
     <repositories>
         <repository>
@@ -32,6 +33,7 @@
         <module>jag-staffnet-identity-provisioning-application</module>
         <module>staffnet-identity-provisioning-models</module>
         <module>staffnet-code-coverage</module>
+        <module>AutomatedTest</module>
     </modules>
 
     <build>

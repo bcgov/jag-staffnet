@@ -1,13 +1,12 @@
 # Staffnet
 
-[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](<Redirect-URL>)
+[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/jag-staffnet)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a492f352f279a2d1621e/maintainability)](https://codeclimate.com/github/bcgov/jag-staffnet/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a492f352f279a2d1621e/test_coverage)](https://codeclimate.com/github/bcgov/jag-staffnet/test_coverage)
 
 ### Recommended Tools
 * Intellij
 * Docker
-* Docker Compose
 * Maven
 * Java 11
 * Lombok
@@ -26,8 +25,21 @@ BASIC_AUTH_USER: The username for the basic authentication. This can be any valu
 
 ORDS_HOST: The url for ords rest package.
 
-SPLUNK_HTTP_URL: The url for the spluck hec. For local splunk this value should be 127.0.0.1:8088 for
-remote do not include /services/collector.
+ONLINE_SERVICE_ID: Biometrics Online Service Id
+
+WS_URL: webservice url to retrieve biometrics information
+
+WS_AUTH_USER: web service username
+
+WS_AUTH_PASS: web service password
+
+WSDL Endpoint Local:
+* localhost:8080/biometrics/StaffNet_Biometrics.ws.provider:SNBiometrics?WSDL
+
+* localhost:8080/identity-provisioning/StaffNetIdentityProvisioning.ws.provider:StaffNetIdentityProvisioning?WSDL
+
+### Optional Enviromental Variables
+SPLUNK_HTTP_URL: The url for the splunk hec.
 
 SPLUNK_TOKEN: The bearer token to authenticate the application.
 
@@ -61,9 +73,13 @@ Option D) Eclipse
 2) Import the Maven project using the Maven Project Import Wizard.
 3) Set Variables either as Windows/Linux Environmental variables or POM goal Environment Variables:
 
-BASIC_AUTH_PASS
+staffnet-biometrics-secrets.BASIC_AUTH_PASS
 
-BASIC_AUTH_USER
+staffnet-biometrics-secrets.BASIC_AUTH_USER
+
+staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_PASS
+
+staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_USER
 
 ORDS_HOST
 
@@ -73,6 +89,13 @@ SPLUNK_TOKEN
 
 SPLUNK_INDEX
 
+ONLINE_SERVICE_ID
+
+WS_URL
+
+WS_AUTH_USER
+
+WS_AUTH_PASS
 
 4) Create POM goals: clean install, spring-boot:run  (when running locally).
 

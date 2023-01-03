@@ -140,7 +140,7 @@ public class EnrollmentController {
                                     "Error received from SOAP SERVICE - StartEnrollmentWithIdCheck",
                                     "startEnrollmentWithIdCheck",
                                     ex.getMessage(),
-                                    inner)));
+                                    startEnrollmentWithIdCheck.getRequest())));
         }
         return out;
     }
@@ -198,6 +198,8 @@ public class EnrollmentController {
             two.setPhotoTakenDate(
                     soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             req.setPhoto(soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhoto());
+            req.setPhotoTakenDate(
+                    soapSvcResp.getFinishEnrollmentWithIdCheckResult().getPhotoTakenDate());
             log.info(
                     objectMapper.writeValueAsString(
                             new RequestSuccessLog(
@@ -211,7 +213,7 @@ public class EnrollmentController {
                                     "Error received from SOAP SERVICE - FinishEnrollmentWithIdCheck",
                                     "finishEnrollmentWithIdCheck",
                                     ex.getMessage(),
-                                    inner)));
+                                    finishEnrollmentWithIdCheck.getRequest())));
             return out;
         }
 
@@ -242,7 +244,7 @@ public class EnrollmentController {
                                     "Error received from ORDS",
                                     "finishEnrollmentWithIdCheck",
                                     ex.getMessage(),
-                                    inner)));
+                                    req)));
             throw new ORDSException();
         }
     }

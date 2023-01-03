@@ -1,17 +1,24 @@
 # Description
 
-This Pull Request is for release **jag-staffnet Version Vx.x.x**
+This PR includes the following proposed change(s):
 
-## link to the JIRA Request item
+- {List all the changes, if possible add the jira ticket #}
 
-- put the link here to the jira release.
+## Type of change
 
-## Release Notes
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Refactoring / Documentation
 
-### Enhancement
+if your change is a breaking change, please add `breaking change` label to this PR
 
-- List all enhancement here.
+## How Has This Been Tested?
 
-### Fix
+Please describe the tests that you ran to verify your changes.
 
-- List all fixes here.
+## Checklist:
+
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have made corresponding changes to the documentation
+- [ ] New and existing unit tests pass locally with my changes

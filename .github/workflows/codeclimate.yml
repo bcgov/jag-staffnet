@@ -4,9 +4,11 @@ name: CodeClimate Workflow
 # Triggers that controls when the workflow will run
 on:
   push:
-    branches: [release/*,main]
+    branches: [ main ]
   pull_request:
-    branches: [release/*,main]
+    branches: [ main ]
+  workflow_dispatch:
+    branches: [main]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,21 +20,24 @@ jobs:
 
     env:
       FILE_COUNTER: 0
-      CC_TEST_REPORTER_ID: <REPLACE ME>
+      CC_TEST_REPORTER_ID: 7fdb5d959c343780ce353586dccfa790ac7c1f086ab620ed91645e48f3cafc77
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+      WS_AUTH_USER: ${{ secrets.WS_AUTH_USER }}
+      WS_AUTH_PASS: ${{ secrets.WS_AUTH_PASS }}
       ACTION_DEBUG: true
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Set up JDK build environment
       - name: Set up JDK 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: 11
 
       # Get Code Climate binary
@@ -77,16 +82,19 @@ jobs:
 
       - name: Run Maven Test
         run: mvn -ntp verify
+      
+      - name: Fix Jacoco Report Format for CC
+        run: sed -e 's/<[\/]\?group[^>]*>//g' staffnet-code-coverage/target/site/jacoco-aggregate/jacoco.xml > staffnet-code-coverage/target/site/jacoco-aggregate/jacoco-codeclimatecompat.xml
 
-        # Formatting the Code Coverage Report
+      # Formatting the Code Coverage Report
       - name: Format the coverage report
         run: JACOCO_SOURCE_PATH="jag-staffnet-biometrics-application/src/main/java jag-staffnet-identity-provisioning-application/src/main/java staffnet-biometrics-models/target/generated-sources/xjc staffnet-identity-provisioning-models/target/generated-sources/xjc staffnet-common-models/src/main/java" ./cc-test-reporter format-coverage staffnet-code-coverage/target/site/jacoco-aggregate/jacoco-codeclimatecompat.xml --input-type jacoco -o ./target/site/jacoco/codeclimate.json
 
-        # Upload JSON for debugging purposes
+      # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.1
         with:
-          name: staffnet-coverage-report
+          name: staffnet-code-coverage-report
           path: ./target/site/jacoco/codeclimate.json
 
       # Upload total coverage report to Code Climate

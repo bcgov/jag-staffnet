@@ -25,7 +25,7 @@ parameters:
     description: The OpenShift namespace prefix
     required: false
     # Below value must be changed as per gold cluster oc nameplate
-    value: 8fc8c2
+    value: c5fb6c
 
   - name: OC_ENV
     description: The OpenShift environment, ie dev, test or prod
@@ -39,18 +39,36 @@ parameters:
   - name: ENDPOINT1
     description: The target endpoint
     required: false
-    value: jag-staffnet
+    value: jag-staffnet-biometrics
 
   - name: ENDPOINT2
+    description: The target endpoint
+    required: false
+    value: jag-staffnet-identity-provisioning
+
+  - name: ENDPOINT3
     description: The target endpoint
     required: false
     value: jag-staffnet-oldwm
 
   - name: DNS
-    description: The application name that each component is part of
+    description: The nginx router url
+    required: true
+
+  - name: SSL_Certificate
+    description: SSL application certificate
     required: false
-    # Below value must be changed as per gold cluster certificate/DNS
-    value: apps.gold.devops.gov.bc.ca
+    value: ''
+
+  - name: SSL_PrivateKey
+    description: Private key for the SSL application certificate
+    required: false
+    value: ''
+
+  - name: CA_CertificateChain
+    description: CA certificate chain for the SSL application certificate
+    required: false
+    value: ''
 
 objects:
 
@@ -63,29 +81,21 @@ objects:
     data:
       nginx-proxy.conf: |-
         location /nginx-health {
-          return 200 "Application is healthy";
-          access_log off;
+        return 200 "Application is healthy";
+        access_log off;
         }
+
         location = /api {
           return 302 /api/actuator/health;
         }
-        location /api/actuator/health {
-          client_max_body_size 100m;
-          proxy_read_timeout 240s;
-          proxy_send_timeout 80s;
-          proxy_redirect off;
-          port_in_redirect off;
-          proxy_http_version 1.1;
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Host $server_name;
-          proxy_pass_request_headers on;
-          proxy_pass http://splitter/actuator/health;
+
+        location /healthcheck {
+          default_type application/json;
+          return 200 '{"status":"UP","groups":["liveness","readiness"]}';
+          access_log off;
         }
 
-        location /api/ws {
+        location /api/biometrics {
           client_max_body_size 100m;
           proxy_read_timeout 240s;
           proxy_send_timeout 80s;
@@ -98,8 +108,25 @@ objects:
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Host $server_name;
           proxy_pass_request_headers on;
-          proxy_pass http://splitter/ws;
+          proxy_pass http://splitter-biometrics/biometrics;
         }
+
+        location /api/identity-provisioning {
+          client_max_body_size 100m;
+          proxy_read_timeout 240s;
+          proxy_send_timeout 80s;
+          proxy_redirect off;
+          port_in_redirect off;
+          proxy_http_version 1.1;
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Host $server_name;
+          proxy_pass_request_headers on;
+          proxy_pass http://splitter-identity-provisioning/identity-provisioning;
+        }
+
   - kind: ConfigMap
     apiVersion: v1
     metadata:
@@ -107,18 +134,25 @@ objects:
       namespace: ${OC_NAMESPACE}-${OC_ENV}
     data:
       nginx-upstream.conf: |-
-        upstream splitter {
-          server jag-staffnet;
+        upstream splitter-biometrics {
+          server jag-staffnet-biometrics;
           # Tured off for now
-          # server nginx-jag-staffnet-oldwm;
+          #server nginx-jag-staffnet-oldwm;
         }
+
+        upstream splitter-identity-provisioning {
+          server jag-staffnet-identity-provisioning;
+          # Tured off for now
+          #server nginx-jag-staffnet-oldwm;
+        }
+
   - kind: DeploymentConfig
     apiVersion: apps.openshift.io/v1
     metadata:
       name: ${COMPONENT_NAME}
       namespace: ${OC_NAMESPACE}-${OC_ENV}
       annotations:
-        app.openshift.io/connects-to: ${ENDPOINT1}, ${ENDPOINT2}
+        app.openshift.io/connects-to: ${ENDPOINT1}, ${ENDPOINT2}, ${ENDPOINT3}
     spec:
       strategy:
         type: Rolling
@@ -172,7 +206,13 @@ objects:
                   protocol: TCP
                 - containerPort: 8443
                   protocol: TCP
-              resources: {}
+               resources:
+                limits:
+                  cpu: 50m
+                  memory: 200Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
               volumeMounts:
                 - name: ${COMPONENT_NAME}-conf
                   readOnly: true
@@ -225,5 +265,8 @@ objects:
         targetPort: 8080-tcp
       tls:
         termination: edge
+        certificate: '${SSL_Certificate}'
+        key: '${SSL_PrivateKey}'
+        caCertificate: '${CA_CertificateChain}'
         insecureEdgeTerminationPolicy: None
       wildcardPolicy: None

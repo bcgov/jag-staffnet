@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.xml.soap.SOAPMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +34,15 @@ public class SoapConfig extends WsConfigurerAdapter {
     public static final String SOAP_NAMESPACE =
             "http://reeks.bcgov/StaffNet_Biometrics.ws.provider:SNBiometrics";
 
+    @Autowired private WebServiceSenderWithAuth webServiceSenderWithAuth;
+
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
             ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
+        return new ServletRegistrationBean<>(servlet, "/biometrics/*");
     }
 
     @Bean
@@ -88,7 +91,6 @@ public class SoapConfig extends WsConfigurerAdapter {
     public WebServiceTemplate webServiceTemplate() {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        WebServiceSenderWithAuth webServiceSenderWithAuth = new WebServiceSenderWithAuth();
 
         webServiceTemplate.setMessageSender(webServiceSenderWithAuth);
         webServiceTemplate.setMessageFactory(messageFactory12());

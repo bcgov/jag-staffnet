@@ -4,4 +4,3 @@ security:
     username: ${BASIC_AUTH_USER}
 staffnet:
   host: http://127.0.0.1/
-  namespace: ${STAFFNET_NAMESPACE}

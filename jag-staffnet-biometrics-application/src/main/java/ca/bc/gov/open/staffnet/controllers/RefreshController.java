@@ -88,7 +88,7 @@ public class RefreshController {
                 refreshIdentityWithIdCheckRequest.setRequesterAccountTypeCode(
                         BCeIDAccountTypeCode.fromValue(inner.getRequesterAccountTypeCode()));
             }
-            refreshIdentityWithIdCheckRequest.setDid(inner.getDid());
+            refreshIdentityWithIdCheckRequest.setDid(resp.getBody().getDid());
             refreshIdentityWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
             refreshIdentityWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
             List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
@@ -145,7 +145,7 @@ public class RefreshController {
                                     "Error received from SOAP SERVICE - RefreshIdentityWithIdCheck",
                                     "refreshIdentityWithIdCheck",
                                     ex.getMessage(),
-                                    inner)));
+                                    refreshIdentityWithIdCheck.getRequest())));
         }
         return out;
     }

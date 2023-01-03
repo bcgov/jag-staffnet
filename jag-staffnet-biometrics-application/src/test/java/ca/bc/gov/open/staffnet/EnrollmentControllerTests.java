@@ -14,7 +14,6 @@ import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -132,7 +131,7 @@ public class EnrollmentControllerTests {
         finishEnrollmentWithIdCheckResponse2.setBiometricTemplateUrl("A");
         finishEnrollmentWithIdCheckResponse2.setGivenNames("A");
         finishEnrollmentWithIdCheckResponse2.setLastName("A");
-        finishEnrollmentWithIdCheckResponse2.setPhotoTakenDate(Instant.now());
+        finishEnrollmentWithIdCheckResponse2.setPhotoTakenDate("A");
         soapSvcResp.setFinishEnrollmentWithIdCheckResult(finishEnrollmentWithIdCheckResponse2);
         when(webServiceTemplate.marshalSendAndReceive(
                         anyString(),

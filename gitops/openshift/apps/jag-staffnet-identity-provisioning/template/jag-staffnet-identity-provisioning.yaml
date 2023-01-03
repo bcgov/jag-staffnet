@@ -26,7 +26,7 @@ parameters:
     description: The OpenShift namespace prefix
     required: false
     # Below value must be changed as per gold cluster oc nameplate
-    value: 8fc8c2
+    value: c5fb6c
 
   - name: OC_ENV
     description: The OpenShift environment, ie dev, test or prod
@@ -36,11 +36,6 @@ parameters:
     description: The application name that each component is part of
     required: false
     value: java
-
-  - name: API_NAME
-    description: The application name that each component is part of
-    required: false
-    value: jag-staffnet-identity-provisioning
 
   - name: DNS
     description: The application name that each component is part of
@@ -64,7 +59,7 @@ objects:
 
     spec:
       completionDeadlineSeconds: 1200
-      replicas: 1
+      replicas: 2
       selector:
         name: ${COMPONENT_NAME}
       strategy:
@@ -88,17 +83,17 @@ objects:
                 - name: BASIC_AUTH_USER
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-identity-provisioning-secrets
                       key: BASIC_AUTH_USER
                 - name: BASIC_AUTH_PASS
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-identity-provisioning-secrets
                       key: BASIC_AUTH_PASS
                 - name: SPRING_PROFILES_ACTIVE
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
+                      name: staffnet-identity-provisioning-secrets
                       key: SPRING_PROFILE
                 - name: SPLUNK_HTTP_URL
                   valueFrom:
@@ -115,14 +110,14 @@ objects:
                     secretKeyRef:
                       name: staffnet-splunk-config
                       key: SPLUNK_INDEX
-                - name: LIFECYCLE_HOST
+                - name: ORDS_HOST
                   valueFrom:
                     secretKeyRef:
-                      name: staffnet-application-secrets
-                      key: LIFECYCLE_HOST
+                      name: staffnet-identity-provisioning-secrets
+                      key: ORDS_HOST
               resources:
                 limits:
-                  cpu: 500m
+                  cpu: 200m
                   memory: 512Mi
                 requests:
                   cpu: 50m
@@ -194,7 +189,7 @@ objects:
       # balance algorithm
       haproxy.router.openshift.io/balance: roundrobin
     spec:
-      host: ${API_NAME}-${OC_NAMESPACE}-${OC_ENV}.${DNS}
+      host: ${COMPONENT_NAME}-${OC_NAMESPACE}-${OC_ENV}.${DNS}
       to:
         kind: Service
         name: ${COMPONENT_NAME}
