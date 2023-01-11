@@ -115,6 +115,16 @@ objects:
                     secretKeyRef:
                       name: staffnet-identity-provisioning-secrets
                       key: ORDS_HOST
+                - name: ORDS_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-identity-provisioning-secrets
+                      key: ORDS_USERNAME
+                - name: ORDS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-identity-provisioning-secrets
+                      key: ORDS_PASSWORD
               resources:
                 limits:
                   cpu: 200m
