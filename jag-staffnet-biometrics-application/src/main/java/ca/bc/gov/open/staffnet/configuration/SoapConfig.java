@@ -60,6 +60,7 @@ public class SoapConfig extends WsConfigurerAdapter {
                 .getInterceptors()
                 .add(
                         (request, body, execution) -> {
+                            log.info("username:" + username + ", username:" + password);
                             String auth = username + ":" + password;
                             byte[] encodedAuth = Base64.encodeBase64(auth.getBytes());
                             request.getHeaders()
