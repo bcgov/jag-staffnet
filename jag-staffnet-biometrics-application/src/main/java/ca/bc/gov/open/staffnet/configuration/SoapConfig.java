@@ -56,6 +56,7 @@ public class SoapConfig extends WsConfigurerAdapter {
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(0, createMappingJacksonHttpMessageConverter());
+        log.info("username-:" + username + ", username-:" + password);
         restTemplate
                 .getInterceptors()
                 .add(
