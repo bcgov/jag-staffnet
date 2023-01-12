@@ -115,6 +115,16 @@ objects:
                     secretKeyRef:
                       name: staffnet-biometrics-secrets
                       key: ORDS_HOST
+                - name: ORDS_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-biometrics-secrets
+                      key: ORDS_USERNAME
+                - name: ORDS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: staffnet-biometrics-secrets
+                      key: ORDS_PASSWORD
                 - name: ONLINE_SERVICE_ID
                   valueFrom:
                     secretKeyRef:

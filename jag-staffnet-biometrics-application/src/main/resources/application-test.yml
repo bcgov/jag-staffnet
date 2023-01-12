@@ -9,3 +9,5 @@ staffnet:
   online-service-id: 1
   web-service-url: http://127.0.0.1/
   host: http://127.0.0.1/
+  username: ${BASIC_AUTH_USER}
+  password: ${BASIC_AUTH_PASS}
