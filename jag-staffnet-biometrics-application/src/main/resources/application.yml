@@ -7,6 +7,8 @@ security:
     username: ${WS_AUTH_USER}
 staffnet:
   host: ${ORDS_HOST}
+  username: ${ORDS_USERNAME}
+  password: ${ORDS_PASSWORD}
   online-service-id: ${ONLINE_SERVICE_ID}
   web-service-url: ${WS_URL}
 management:

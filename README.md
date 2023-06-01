@@ -25,6 +25,10 @@ BASIC_AUTH_USER: The username for the basic authentication. This can be any valu
 
 ORDS_HOST: The url for ords rest package.
 
+ORDS_USERNAME: ORDS_HOST authentication
+
+ORDS_PASSWORD: ORDS_HOST authentication
+
 ONLINE_SERVICE_ID: Biometrics Online Service Id
 
 WS_URL: webservice url to retrieve biometrics information
@@ -82,6 +86,10 @@ staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_PA
 staffnet-identity-provisioning-secrets.staffnet-biometrics-secrets.BASIC_AUTH_USER
 
 ORDS_HOST
+
+ORDS_USERNAME
+
+ORDS_PASSWORD
 
 SPLUNK_HTTP_URL
 
