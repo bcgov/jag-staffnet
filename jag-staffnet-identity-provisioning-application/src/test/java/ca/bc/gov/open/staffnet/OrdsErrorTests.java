@@ -30,20 +30,20 @@ public class OrdsErrorTests {
 
     @Mock private RestTemplate restTemplate;
 
-//    @Test
-//    public void testPingOrdsFail() {
-//        HealthController healthController = new HealthController(restTemplate, objectMapper);
-//
-//        Assertions.assertThrows(ORDSException.class, () -> healthController.getPing(new GetPing()));
-//    }
+    @Test
+    public void testPingOrdsFail() {
+        HealthController healthController = new HealthController(restTemplate, objectMapper);
 
-//    @Test
-//    public void testHealthOrdsFail() {
-//        HealthController healthController = new HealthController(restTemplate, objectMapper);
-//
-//        Assertions.assertThrows(
-//                ORDSException.class, () -> healthController.getHealth(new GetHealth()));
-//    }
+        Assertions.assertThrows(ORDSException.class, () -> healthController.getPing(new GetPing()));
+    }
+
+    @Test
+    public void testHealthOrdsFail() {
+        HealthController healthController = new HealthController(restTemplate, objectMapper);
+
+        Assertions.assertThrows(
+                ORDSException.class, () -> healthController.getHealth(new GetHealth()));
+    }
 
     @Test
     public void testGetProvisionedWorkersOrdsFail() {
