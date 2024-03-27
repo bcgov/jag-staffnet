@@ -108,7 +108,7 @@ public class BiometricController {
             for (var worker : resp.getBody().getWorkers()) {
                 workers.add(worker);
             }
-            arrayOfReconciliationItem.setReconciliationItem(workers);
+            arrayOfReconciliationItem.getReconciliationItem().addAll(workers);
 
             reconciliationServiceRequest.setReconciliationItems(arrayOfReconciliationItem);
             reconciliationService.setRequest(reconciliationServiceRequest);
