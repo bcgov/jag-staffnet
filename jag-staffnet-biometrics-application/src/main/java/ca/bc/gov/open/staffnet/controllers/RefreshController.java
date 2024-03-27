@@ -93,7 +93,7 @@ public class RefreshController {
             refreshIdentityWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
             List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-            arrayOfIdentityName.setIdentityName(identityNameList);
+            arrayOfIdentityName.getIdentityName().addAll(identityNameList);
             refreshIdentityWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
             refreshIdentityWithIdCheck.setRequest(refreshIdentityWithIdCheckRequest);
         } catch (Exception ex) {

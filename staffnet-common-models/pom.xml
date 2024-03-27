@@ -12,9 +12,10 @@
     <version>1.0.0</version>
     <name>staffnet-common-models</name>
     <description>Models for Staffnet Common</description>
+
     <properties>
-        <java.version>11</java.version>
-        <log4j2.version>2.17.1</log4j2.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -70,9 +71,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.14.0</version>
+                <groupId>com.helger.maven</groupId>
+                <artifactId>jaxb40-maven-plugin</artifactId>
+                <version>0.16.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -82,36 +83,19 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>com.fasterxml.jackson.core</groupId>
-                        <artifactId>jackson-annotations</artifactId>
-                        <version>2.13.1</version>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>4.0.1</version>
                     </dependency>
                     <dependency>
-                        <groupId>org.jvnet.jaxb2_commons</groupId>
-                        <artifactId>jaxb2-namespace-prefix</artifactId>
-                        <version>1.3</version>
+                        <groupId>com.sun.activation</groupId>
+                        <artifactId>jakarta.activation</artifactId>
+                        <version>1.2.1</version>
                     </dependency>
                 </dependencies>
                 <configuration>
                     <bindingDirectory>src/main/resources</bindingDirectory>
                     <extension>true</extension>
-                    <args>
-                        <arg>-Xnamespace-prefix</arg>
-                        <arg>-Xsetters</arg>
-                        <arg>-Xannotate</arg>
-                    </args>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics</artifactId>
-                            <version>1.11.1</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics-annotate</artifactId>
-                            <version>1.1.0</version>
-                        </plugin>
-                    </plugins>
                     <schemaLanguage>WSDL</schemaLanguage>
                     <schemaDirectory>src/main/resources/xsdSchemas</schemaDirectory>
                 </configuration>

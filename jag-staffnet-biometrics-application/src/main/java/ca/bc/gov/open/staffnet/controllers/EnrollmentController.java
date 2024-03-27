@@ -88,7 +88,7 @@ public class EnrollmentController {
             startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
             List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-            arrayOfIdentityName.setIdentityName(identityNameList);
+            arrayOfIdentityName.getIdentityName().addAll(identityNameList);
             startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
         } catch (Exception ex) {
             log.error(

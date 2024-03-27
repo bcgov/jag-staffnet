@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +57,7 @@ public class SoapConfig extends WsConfigurerAdapter {
                 .add(
                         (request, body, execution) -> {
                             String auth = username + ":" + password;
-                            byte[] encodedAuth = Base64.encodeBase64(auth.getBytes());
+                            byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(), false);
                             request.getHeaders()
                                     .add("Authorization", "Basic " + new String(encodedAuth));
                             return execution.execute(request, body);

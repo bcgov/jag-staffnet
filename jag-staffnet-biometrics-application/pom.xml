@@ -11,10 +11,10 @@
     <artifactId>jag-staffnet-biometrics-application</artifactId>
     <version>1.0.0</version>
     <name>staffnet-biometrics-application</name>
+
     <properties>
-        <default-package>ca.bc.gov.open.staffnet</default-package>
-        <java.version>11</java.version>
-        <log4j2.version>2.17.1</log4j2.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -91,7 +91,6 @@
             <version>2.13.1</version>
         </dependency>
 
-
         <!-- Splunk logging -->
         <dependency>
             <groupId>com.splunk.logging</groupId>
@@ -103,12 +102,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.4.14</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.10</version>
+            <version>1.4.14</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -180,13 +179,8 @@
             <version>1.11.1</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -194,6 +188,16 @@
             <artifactId>staffnet-biometrics-models</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>6.2.2</version>
         </dependency>
     </dependencies>
 
