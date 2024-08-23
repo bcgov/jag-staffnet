@@ -1,12 +1,14 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.two.ArrayOfIdentityName;
-import ca.bc.gov.open.staffnet.biometrics.two.BCeIDAccountTypeCode;
-import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheck;
+import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheckResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.RefreshIdentityWithIdCheckResponse2;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
+import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
@@ -42,6 +44,9 @@ public class RefreshController {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
+
+    private final String LEGAL = "LEGAL";
+    private final String KNOWNAS = "KNOWNAS";
 
     @Autowired
     public RefreshController(
@@ -91,9 +96,16 @@ public class RefreshController {
             refreshIdentityWithIdCheckRequest.setDid(resp.getBody().getDid());
             refreshIdentityWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
             refreshIdentityWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
-            List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
+            List<IdentityNameResponse> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-            arrayOfIdentityName.getIdentityName().addAll(identityNameList);
+            for ( var identityName: identityNameList) {
+                var in =  new IdentityName();
+                in.setType(identityName.getType().equalsIgnoreCase(LEGAL)? MatchIdentityNameType.LEGAL:MatchIdentityNameType.KNOWN_AS);
+                in.setGivenName(identityName.getGivenName());
+                in.setLastName(identityName.getLastName());
+                in.setMiddleName(identityName.getMiddleName());
+                arrayOfIdentityName.getIdentityName().add(in);
+            }
             refreshIdentityWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
             refreshIdentityWithIdCheck.setRequest(refreshIdentityWithIdCheckRequest);
         } catch (Exception ex) {
