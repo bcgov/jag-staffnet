@@ -9,6 +9,7 @@ import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheck;
 import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
 import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
+import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,12 +57,12 @@ public class EnrollmentControllerTests {
         workerInfoResponse.setResponseCode(ResponseCode.SUCCESS);
         workerInfoResponse.setDateOfBirth("A");
         workerInfoResponse.setPhotoBase64(new byte[0]);
-        List<IdentityName> identityNameList = new ArrayList<>();
-        IdentityName identityName = new IdentityName();
+        List<IdentityNameResponse> identityNameList = new ArrayList<>();
+        IdentityNameResponse identityName = new IdentityNameResponse();
         identityName.setGivenName("A");
         identityName.setLastName("A");
         identityName.setMiddleName("A");
-        identityName.setType(MatchIdentityNameType.LEGAL);
+        identityName.setType("LEGAL");
         identityNameList.add(identityName);
         workerInfoResponse.setIdentityNames(identityNameList);
         ResponseEntity<WorkerInfoResponse> responseEntity =
