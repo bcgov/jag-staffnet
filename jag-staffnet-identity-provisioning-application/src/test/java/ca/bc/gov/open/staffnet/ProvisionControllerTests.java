@@ -42,7 +42,7 @@ public class ProvisionControllerTests {
         workers.setFirstNm("A");
         workers.setLastNm("A");
         workers.setEmployeeNumber("A");
-        one.setWorkers(Collections.singletonList(workers));
+        one.getWorkers().addAll(Collections.singletonList(workers));
 
         ResponseEntity<GetProvisionedWorkerResponse> responseEntity =
                 new ResponseEntity<>(one, HttpStatus.OK);

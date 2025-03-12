@@ -11,7 +11,7 @@ public class WorkerInfoResponse implements Serializable {
     private String did;
     private byte[] photoBase64;
     private String dateOfBirth;
-    private List<IdentityName> identityNames;
+    private List<IdentityNameResponse> identityNames;
     private ResponseCode responseCode;
     private String responseMessage;
 }

@@ -1,10 +1,15 @@
 package ca.bc.gov.open.staffnet.controllers;
 
 import ca.bc.gov.open.staffnet.biometrics.one.*;
-import ca.bc.gov.open.staffnet.biometrics.two.ArrayOfIdentityName;
-import ca.bc.gov.open.staffnet.biometrics.two.BCeIDAccountTypeCode;
-import ca.bc.gov.open.staffnet.biometrics.two.IdentityName;
-import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheck;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.FinishEnrollmentWithIdCheckResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheck;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckRequest;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckResponse;
+import ca.bc.gov.open.staffnet.biometrics.one.StartEnrollmentWithIdCheckResponse2;
+import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.*;
@@ -40,6 +45,9 @@ public class EnrollmentController {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final WebServiceTemplate webServiceTemplate;
+
+    private final String LEGAL = "LEGAL";
+    private final String KNOWNAS = "KNOWNAS";
 
     @Autowired
     public EnrollmentController(
@@ -86,9 +94,16 @@ public class EnrollmentController {
             startEnrollmentWithIdCheckRequest.setDid(inner.getDid());
             startEnrollmentWithIdCheckRequest.setDateOfBirth(resp.getBody().getDateOfBirth());
             startEnrollmentWithIdCheckRequest.setPhoto(resp.getBody().getPhotoBase64());
-            List<IdentityName> identityNameList = resp.getBody().getIdentityNames();
+            List<IdentityNameResponse> identityNameList = resp.getBody().getIdentityNames();
             ArrayOfIdentityName arrayOfIdentityName = new ArrayOfIdentityName();
-            arrayOfIdentityName.setIdentityName(identityNameList);
+            for ( var identityName: identityNameList) {
+                var in =  new IdentityName();
+                in.setType(identityName.getType().equalsIgnoreCase(LEGAL)?MatchIdentityNameType.LEGAL:MatchIdentityNameType.KNOWN_AS);
+                in.setGivenName(identityName.getGivenName());
+                in.setLastName(identityName.getLastName());
+                in.setMiddleName(identityName.getMiddleName());
+                arrayOfIdentityName.getIdentityName().add(in);
+            }
             startEnrollmentWithIdCheckRequest.setIdentityNames(arrayOfIdentityName);
         } catch (Exception ex) {
             log.error(

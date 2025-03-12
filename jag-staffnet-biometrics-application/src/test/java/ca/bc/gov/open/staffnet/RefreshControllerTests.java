@@ -9,6 +9,7 @@ import ca.bc.gov.open.staffnet.biometrics.two.IssuanceToken;
 import ca.bc.gov.open.staffnet.biometrics.two.MatchIdentityNameType;
 import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.controllers.RefreshController;
+import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,12 +51,12 @@ public class RefreshControllerTests {
         req.setRefreshIdentityWithIdCheckRequest(refreshIdentityWithIdCheckRequest);
 
         WorkerInfoResponse workerInfoResponse = new WorkerInfoResponse();
-        List<IdentityName> identityNameList = new ArrayList<>();
-        IdentityName identityName = new IdentityName();
+        List<IdentityNameResponse> identityNameList = new ArrayList<>();
+        IdentityNameResponse identityName = new IdentityNameResponse();
         identityName.setGivenName("A");
         identityName.setLastName("A");
         identityName.setMiddleName("A");
-        identityName.setType(MatchIdentityNameType.LEGAL);
+        identityName.setType("LEGAL");
         identityNameList.add(identityName);
         workerInfoResponse.setIdentityNames(identityNameList);
         workerInfoResponse.setResponseCode(ResponseCode.SUCCESS);
