@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <groupId>ca.bc.gov.open.Roleregistry.test</groupId>
+    <groupId>ca.bc.gov.open.StaffnetIdentity.test</groupId>
     <version>1.0.0</version>
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.3.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
@@ -109,7 +109,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>Roleregistry-test-runner</finalName>
+        <finalName>StaffnetIdentity-test-runner</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
