@@ -201,6 +201,11 @@
             <artifactId>netty-handler</artifactId>
             <version>4.1.119.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>6.4.4</version>
+        </dependency>
     </dependencies>
 
     <build>
