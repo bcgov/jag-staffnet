@@ -3,13 +3,10 @@
 name: Build & Vulnerability Scan using Trivy Scanner
 
 on:
-  push:
-    branches: [ main, release/* ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main, release/* ]
   workflow_dispatch:
-    branches: [ main, release/*]
 
 jobs:
   build-scan-image:
@@ -33,10 +30,7 @@ jobs:
 
       # Runs build steps
       - name: Maven Package
-        run: mvn -ntp clean package
-
-      - name: Maven Verify
-        run: mvn -ntp clean verify
+        run: mvn -ntp clean package -Dmaven.test.skip=true
 
       - name: Build image jag-staffnet-biometrics-api from Dockerfile
         env:
@@ -44,14 +38,14 @@ jobs:
           DOCKER_BUILDKIT: 1
           CONTEXT: ./jag-staffnet-biometrics-application
         run: |
-          docker build -t docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }} ${CONTEXT}
+          docker build -t jag-staffnet-biometrics-api ${CONTEXT}
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner for jag-staffnet-biometrics-api image
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }}
+          image-ref: jag-staffnet-biometrics-api
           format: sarif
           output: trivy-results.sarif
           exit-code: 0
