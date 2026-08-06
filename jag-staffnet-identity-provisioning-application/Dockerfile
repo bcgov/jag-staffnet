@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jre-alpine
 
-RUN apk upgrade libexpat
+RUN apk update && apk add --upgrade --no-cache expat  # fix CVE-2024-8176
 
 COPY ./target/staffnet-identity-provisioning-application.jar staffnet-identity-provisioning-application.jar
 

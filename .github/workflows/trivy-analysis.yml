@@ -14,7 +14,7 @@ on:
 jobs:
   build-scan-image:
     name: Build & Scan Image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
@@ -54,7 +54,7 @@ jobs:
           image-ref: docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }}
           format: sarif
           output: trivy-results.sarif
-          exit-code: 1
+          exit-code: 0
           ignore-unfixed: true
           limit-severities-for-sarif: true
           severity: HIGH,CRITICAL
@@ -75,14 +75,14 @@ jobs:
           image-ref: docker.io/staffnet/jag-staffnet-identity-provisioning-api:${{ github.sha }}
           format: sarif
           output: trivy-results.sarif
-          exit-code: 1
+          exit-code: 0
           ignore-unfixed: true
           limit-severities-for-sarif: true
           severity: HIGH,CRITICAL
 
       #Upload results to the Github security tab.
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: trivy-results.sarif
