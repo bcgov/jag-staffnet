@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.14</version>
     </parent>
     <groupId>ca.bc.gov.open</groupId>
     <artifactId>jag-staffnet</artifactId>
@@ -17,6 +17,13 @@
         <java.version>17</java.version>
         <log4j2.version>2.17.1</log4j2.version>
         <snakeyaml.version>2.0</snakeyaml.version>
+        <tomcat.version>10.1.57</tomcat.version>
+        <spring-framework.version>6.2.19</spring-framework.version>
+        <spring-security.version>6.5.9</spring-security.version>
+        <spring-ws.version>4.1.4</spring-ws.version>
+        <jackson-bom.version>2.21.7</jackson-bom.version>
+        <netty.version>4.1.137.Final</netty.version>
+        <micrometer.version>1.15.12</micrometer.version>
     </properties>
     <repositories>
         <repository>
