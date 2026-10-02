@@ -5,7 +5,7 @@ permissions:
 # Controls when the workflow will run
 on:
   push:
-    branches: [main]
+    branches: [devops]
   workflow_dispatch:
 env:
   IMAGE_NAME: jag-staffnet-biometrics-application
@@ -39,7 +39,7 @@ jobs:
       - name: Build Image
         working-directory: ${{env.WORKING_DIRECTORY}}
         run: |
-          docker build -t artifacts.developer.gov.bc.ca/${{env.ARTIFACTORY_REPO}}/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f .\jag-staffnet-biometrics-application\Dockerfile .
+          docker build -t artifacts.developer.gov.bc.ca/${{env.ARTIFACTORY_REPO}}/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f jag-staffnet-biometrics-application/Dockerfile .
       
       - name: Docker Push to Artifactory
         run: |
