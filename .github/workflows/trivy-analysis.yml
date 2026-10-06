@@ -42,10 +42,9 @@ jobs:
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
-          CONTEXT: .
-          DOCKERFILE: ./jag-staffnet-biometrics-application/Dockerfile
+          CONTEXT: ./jag-staffnet-biometrics-application
         run: |
-          docker build -t docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }} -f ${DOCKERFILE} ${CONTEXT}
+          docker build -t docker.io/staffnet/jag-staffnet-biometrics-api:${{ github.sha }} ${CONTEXT}
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner for jag-staffnet-biometrics-api image
@@ -64,10 +63,9 @@ jobs:
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
-          CONTEXT: .
-          DOCKERFILE: ./jag-staffnet-identity-provisioning-application/Dockerfile
+          CONTEXT: ./jag-staffnet-identity-provisioning-application
         run: |
-          docker build -t docker.io/staffnet/jag-staffnet-identity-provisioning-api:${{ github.sha }} -f ${DOCKERFILE} ${CONTEXT}
+          docker build -t docker.io/staffnet/jag-staffnet-identity-provisioning-api:${{ github.sha }} ${CONTEXT}
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner for jag-staffnet-identity-provisioning-api image
