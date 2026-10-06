@@ -3,16 +3,16 @@ package ca.bc.gov.open.staffnet.controllers;
 import ca.bc.gov.open.staffnet.biometrics.one.*;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDRequest;
-import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.DeactivateBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDRequest;
-import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.DestroyBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDID;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDRequest;
-import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse2;
+import ca.bc.gov.open.staffnet.biometrics.one.ReactivateBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.biometrics.two.ReconciliationService;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
@@ -24,7 +24,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -39,8 +40,10 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
-@Slf4j
 public class BiometricController {
+
+    private static final Logger log = LoggerFactory.getLogger(BiometricController.class);
+
     @Value("${staffnet.host}")
     private String host = "https://127.0.0.1/";
 
