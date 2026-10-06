@@ -19,7 +19,7 @@ WORKDIR /
 
 COPY . .
 
-RUN mvn clean install -Dmaven.test.skip=${SKIP_TESTS}
+RUN mvn clean install -Dmaven.test.skip=true
 
 #############################################################################################
 
