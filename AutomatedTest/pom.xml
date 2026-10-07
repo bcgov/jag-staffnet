@@ -32,6 +32,12 @@
                 <artifactId>testng</artifactId>
                 <version>7.8.0</version>
             </dependency>
+            <!-- soapui pulls in vulnerable commons-beanutils 1.9.4 transitively (CVE-2025-48734) -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.11.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>
