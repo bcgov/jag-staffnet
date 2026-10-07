@@ -110,6 +110,9 @@ WS_AUTH_PASS
 
 4) Create POM goals: clean install, spring-boot:run  (when running locally).
 
+### Set project version using maven
+1) Run ```mvn versions:set -DartifactId=*  -DgroupId=*```
+
 ### Pre Commit
 1) Do not commit \CRLF use unix line enders
 2) Run the linter ```mvn spotless:apply```
