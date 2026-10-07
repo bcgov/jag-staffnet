@@ -1,8 +1,8 @@
 security:
   basic-auth:
-    password: ${BASIC_AUTH_PASS}
-    username: ${BASIC_AUTH_USER}
+    password: ${BASIC_AUTH_PASS:test-password}
+    username: ${BASIC_AUTH_USER:test-user}
 staffnet:
   host: http://127.0.0.1/
-  username: ${BASIC_AUTH_USER}
-  password: ${BASIC_AUTH_PASS}
+  username: ${BASIC_AUTH_USER:test-user}
+  password: ${BASIC_AUTH_PASS:test-password}

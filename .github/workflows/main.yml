@@ -92,18 +92,20 @@ jobs:
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
-          CONTEXT: ./jag-staffnet-biometrics-application
+          CONTEXT: .
+          DOCKERFILE: ./jag-staffnet-biometrics-application/Dockerfile
         run: |
-          docker build -t ${{github.event.inputs.app1}}:${{env.gitsha}} ${CONTEXT}
+          docker build -t ${{github.event.inputs.app1}}:${{env.gitsha}} -f ${DOCKERFILE} ${CONTEXT}
       
       #Build image jag-staffnet-identity-provisioning
       - name: Build image jag-staffnet-identity-provisioning
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
-          CONTEXT: ./jag-staffnet-identity-provisioning-application
+          CONTEXT: .
+          DOCKERFILE: ./jag-staffnet-identity-provisioning-application/Dockerfile
         run: |
-          docker build -t ${{github.event.inputs.app2}}:${{env.gitsha}} ${CONTEXT}
+          docker build -t ${{github.event.inputs.app2}}:${{env.gitsha}} -f ${DOCKERFILE} ${CONTEXT}
 
       #Login to OpenShift Container Repository - Kamloops (OC PROD)
       - name: Login to OpenShift Container Repository - Kamloops (OC PROD)

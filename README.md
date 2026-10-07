@@ -51,10 +51,13 @@ SPLUNK_INDEX: The index that the application will push logs to. The index must b
 before they can be pushed to.
 
 ### Building the Application
-1) Set intellij to use java 17 for the project modals and sdk
+1) Set IntelliJ to use Java 17 for the project modules and SDK.
 2) Run ``mvn compile``
 3) Make sure ```target/generated-sources/xjc``` folder in included in module path for
 ```staffnet-common-models ```, ```staffnet-biometrics-models ```  and ```staffnet-identity-provisioning-models ```
+
+The `test` profile uses local placeholder credentials when `BASIC_AUTH_USER` and
+`BASIC_AUTH_PASS` are unset. Production profiles still require configured credentials.
 
 
 ### Running the application
@@ -106,6 +109,9 @@ WS_AUTH_USER
 WS_AUTH_PASS
 
 4) Create POM goals: clean install, spring-boot:run  (when running locally).
+
+### Set project version using maven
+1) Run ```mvn versions:set -DartifactId=*  -DgroupId=*```
 
 ### Pre Commit
 1) Do not commit \CRLF use unix line enders

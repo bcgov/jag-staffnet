@@ -9,10 +9,13 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.TimeZone;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class InstantDeserializer extends JsonDeserializer<Instant> {
+
+    private static final Logger log = LoggerFactory.getLogger(InstantDeserializer.class);
+
     @Override
     public Instant deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {

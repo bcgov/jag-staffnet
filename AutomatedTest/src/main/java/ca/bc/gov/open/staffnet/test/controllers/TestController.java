@@ -6,7 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Slf4j
 @RestController
 @RequestMapping("/tests")
 public class TestController {
+
+    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+
     @Value("${test.host}")
     private String host = "https://127.0.0.1/";
 
