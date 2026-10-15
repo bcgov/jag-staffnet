@@ -3,11 +3,12 @@ package ca.bc.gov.open.staffnet.configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import jakarta.xml.soap.SOAPMessage;
 import java.util.HashMap;
 import java.util.Map;
-import jakarta.xml.soap.SOAPMessage;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -27,8 +28,9 @@ import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 
 @EnableWs
 @Configuration
-@Slf4j
 public class SoapConfig extends WsConfigurerAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(SoapConfig.class);
 
     @Value("${staffnet.username}")
     private String username;
