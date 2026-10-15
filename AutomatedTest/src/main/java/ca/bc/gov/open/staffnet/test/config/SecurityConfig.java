@@ -26,7 +26,6 @@ public class SecurityConfig {
     @Value("${security.basic-auth.password}")
     private String password;
 
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user =
