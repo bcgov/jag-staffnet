@@ -11,13 +11,17 @@ import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.controllers.RefreshController;
 import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class RefreshControllerTests {
@@ -40,7 +46,7 @@ public class RefreshControllerTests {
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
-    public void testRefreshIdentityWithIdCheck() throws JsonProcessingException {
+    public void testRefreshIdentityWithIdCheck() throws JacksonException {
         var req = new RefreshIdentityWithIdCheck();
         RefreshIdentityWithIdCheckRequest refreshIdentityWithIdCheckRequest =
                 new RefreshIdentityWithIdCheckRequest();

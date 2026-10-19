@@ -9,10 +9,14 @@ import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.biometrics.two.SearchStatusCode;
 import ca.bc.gov.open.staffnet.biometrics.two.SearchToken;
 import ca.bc.gov.open.staffnet.controllers.SearchController;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class SearchControllerTests {
@@ -31,7 +37,7 @@ public class SearchControllerTests {
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
-    public void testStartSearchForIdentity() throws JsonProcessingException {
+    public void testStartSearchForIdentity() throws JacksonException {
         var req = new StartSearchForIdentity();
         StartSearchForIdentityRequest startSearchForIdentityRequest =
                 new StartSearchForIdentityRequest();
@@ -70,7 +76,7 @@ public class SearchControllerTests {
     }
 
     @Test
-    public void testFinishSearchForIdentity() throws JsonProcessingException {
+    public void testFinishSearchForIdentity() throws JacksonException {
         var req = new FinishSearchForIdentity();
         FinishSearchForIdentityRequest finishSearchForIdentityRequest =
                 new FinishSearchForIdentityRequest();

@@ -12,8 +12,8 @@ import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,13 +64,13 @@ public class RefreshController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "refreshIdentityWithIdCheck")
     @ResponsePayload
     public RefreshIdentityWithIdCheckResponse refreshIdentityWithIdCheck(
-            @RequestPayload RefreshIdentityWithIdCheck search) throws JsonProcessingException {
+            @RequestPayload RefreshIdentityWithIdCheck search) throws JacksonException {
         var inner =
                 search.getRefreshIdentityWithIdCheckRequest() != null
                         ? search.getRefreshIdentityWithIdCheckRequest()
                         : new RefreshIdentityWithIdCheckRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "refresh")
+                UriComponentsBuilder.fromUriString(host + "refresh")
                         .queryParam("individualID", inner.getIndividualID());
 
         ca.bc.gov.open.staffnet.biometrics.two.RefreshIdentityWithIdCheck

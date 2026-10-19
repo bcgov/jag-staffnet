@@ -1,6 +1,6 @@
 package ca.bc.gov.open.staffnet.test.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;

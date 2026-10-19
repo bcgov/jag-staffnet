@@ -4,12 +4,16 @@ import static org.mockito.Mockito.when;
 
 import ca.bc.gov.open.staffnet.controllers.ProvisionController;
 import ca.bc.gov.open.staffnet.identity_provisioning.one.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.Collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class ProvisionControllerTests {
@@ -29,7 +35,7 @@ public class ProvisionControllerTests {
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
-    public void getProvisionedWorkersTest() throws JsonProcessingException {
+    public void getProvisionedWorkersTest() throws JacksonException {
         var req = new GetProvisionedWorkers();
         var resp = new GetProvisionedWorkersResponse();
 
@@ -62,7 +68,7 @@ public class ProvisionControllerTests {
     }
 
     @Test
-    public void GetWorkerProvisioningQueueItemTest() throws JsonProcessingException {
+    public void GetWorkerProvisioningQueueItemTest() throws JacksonException {
         var req = new GetWorkerProvisioningQueueItem();
         var resp = new GetWorkerProvisioningQueueItemResponse();
 
@@ -99,7 +105,7 @@ public class ProvisionControllerTests {
     }
 
     @Test
-    public void SetWorkerProvisioningStatusTest() throws JsonProcessingException {
+    public void SetWorkerProvisioningStatusTest() throws JacksonException {
         var req = new SetWorkerProvisioningStatus();
         var resp = new SetWorkerProvisioningStatusResponse();
 

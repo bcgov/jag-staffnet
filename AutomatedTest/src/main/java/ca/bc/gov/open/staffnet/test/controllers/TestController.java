@@ -39,7 +39,7 @@ public class TestController {
 
     @GetMapping(value = "/all")
     public ResponseEntity runAllTests() throws IOException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "tests/init");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(host + "tests/init");
         try {
             HttpEntity<Map<String, String>> resp =
                     restTemplate.exchange(

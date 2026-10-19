@@ -8,8 +8,8 @@ import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +44,8 @@ public class HealthController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getHealth")
     @ResponsePayload
     public GetHealthResponse getHealth(@RequestPayload GetHealth empty)
-            throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "health");
+            throws JacksonException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(host + "health");
 
         try {
             HttpEntity<GetHealthResponse> resp =
@@ -72,8 +72,8 @@ public class HealthController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getPing")
     @ResponsePayload
-    public GetPingResponse getPing(@RequestPayload GetPing empty) throws JsonProcessingException {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ping");
+    public GetPingResponse getPing(@RequestPayload GetPing empty) throws JacksonException {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(host + "ping");
         try {
             HttpEntity<GetPingResponse> resp =
                     restTemplate.exchange(

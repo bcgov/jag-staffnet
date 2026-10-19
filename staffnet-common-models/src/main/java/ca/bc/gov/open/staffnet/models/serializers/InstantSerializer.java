@@ -1,18 +1,18 @@
 package ca.bc.gov.open.staffnet.models.serializers;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-public class InstantSerializer extends JsonSerializer<Instant> {
+public class InstantSerializer extends ValueSerializer<Instant> {
     @Override
-    public void serialize(Instant value, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException {
+    public void serialize(Instant value, JsonGenerator gen, SerializationContext serializers)
+            throws JacksonException {
         String out =
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                         .withZone(ZoneId.of("UTC"))

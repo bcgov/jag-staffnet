@@ -1,12 +1,10 @@
 package ca.bc.gov.open.staffnet.configuration;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.xml.soap.SOAPMessage;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +15,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.config.annotation.EnableWs;
-import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.config.annotation.WsConfigurer;
 import org.springframework.ws.soap.SoapVersion;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 @EnableWs
 @Configuration
-public class SoapConfig extends WsConfigurerAdapter {
+public class SoapConfig implements WsConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(SoapConfig.class);
 
@@ -58,33 +60,35 @@ public class SoapConfig extends WsConfigurerAdapter {
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(0, createMappingJacksonHttpMessageConverter());
+        restTemplate.getMessageConverters().add(0, createJacksonJsonHttpMessageConverter());
         restTemplate
                 .getInterceptors()
                 .add(
                         (request, body, execution) -> {
                             String auth = username + ":" + password;
-                            byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(), false);
-                            request.getHeaders()
-                                    .add("Authorization", "Basic " + new String(encodedAuth));
+                            String encodedAuth =
+                                    Base64.getEncoder()
+                                            .encodeToString(
+                                                    auth.getBytes(StandardCharsets.UTF_8));
+                            request.getHeaders().add("Authorization", "Basic " + encodedAuth);
                             return execution.execute(request, body);
                         });
         return restTemplate;
     }
 
-    private MappingJackson2HttpMessageConverter createMappingJacksonHttpMessageConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper());
-        return converter;
+    private JacksonJsonHttpMessageConverter createJacksonJsonHttpMessageConverter() {
+        return new JacksonJsonHttpMessageConverter(objectMapper());
     }
 
     @Bean
     @Primary
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
-        return objectMapper;
+    public JsonMapper objectMapper() {
+        return JsonMapper.builder()
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(DateTimeFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .disable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+                .disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
+                .build();
     }
 
     @Bean

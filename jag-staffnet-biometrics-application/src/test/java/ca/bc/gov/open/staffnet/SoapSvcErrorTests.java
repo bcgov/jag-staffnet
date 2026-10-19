@@ -30,17 +30,21 @@ import ca.bc.gov.open.staffnet.controllers.SearchController;
 import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
 import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -51,6 +55,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -64,7 +70,7 @@ public class SoapSvcErrorTests {
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
-    public void testBiometricReconciliationSoapServiceFail() throws JsonProcessingException {
+    public void testBiometricReconciliationSoapServiceFail() throws JacksonException {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
 
@@ -118,7 +124,7 @@ public class SoapSvcErrorTests {
 
     @Test
     public void testDestroyBiometricCredentialByDIDSoapServiceFail()
-            throws JsonProcessingException {
+            throws JacksonException {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
         DestroyBiometricCredentialByDIDResponse out =
@@ -131,7 +137,7 @@ public class SoapSvcErrorTests {
 
     @Test
     public void testReactivateBiometricCredentialByDIDSoapServiceFail()
-            throws JsonProcessingException {
+            throws JacksonException {
         BiometricController biometricController =
                 new BiometricController(restTemplate, objectMapper, webServiceTemplate);
         ReactivateBiometricCredentialByDIDResponse out =
@@ -143,7 +149,7 @@ public class SoapSvcErrorTests {
     }
 
     @Test
-    public void testStartEnrollmentWithIdCheckSoapServiceFail() throws JsonProcessingException {
+    public void testStartEnrollmentWithIdCheckSoapServiceFail() throws JacksonException {
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
 
@@ -199,7 +205,7 @@ public class SoapSvcErrorTests {
     }
 
     @Test
-    public void testFinishEnrollmentWithIdCheckSoapServiceFail() throws JsonProcessingException {
+    public void testFinishEnrollmentWithIdCheckSoapServiceFail() throws JacksonException {
         EnrollmentController enrollmentController =
                 new EnrollmentController(restTemplate, objectMapper, webServiceTemplate);
         FinishEnrollmentWithIdCheckResponse out =
@@ -210,7 +216,7 @@ public class SoapSvcErrorTests {
     }
 
     @Test
-    public void testStartSearchForIdentitySoapServiceFail() throws JsonProcessingException {
+    public void testStartSearchForIdentitySoapServiceFail() throws JacksonException {
         SearchController searchController =
                 new SearchController(restTemplate, objectMapper, webServiceTemplate);
         StartSearchForIdentityResponse out =
@@ -220,7 +226,7 @@ public class SoapSvcErrorTests {
     }
 
     @Test
-    public void testFinishSearchForIdentitySoapServiceFail() throws JsonProcessingException {
+    public void testFinishSearchForIdentitySoapServiceFail() throws JacksonException {
         SearchController searchController =
                 new SearchController(restTemplate, objectMapper, webServiceTemplate);
         FinishSearchForIdentityResponse out =
@@ -230,7 +236,7 @@ public class SoapSvcErrorTests {
     }
 
     @Test
-    public void testRefreshIdentityWithIdCheckSoapServiceFail() throws JsonProcessingException {
+    public void testRefreshIdentityWithIdCheckSoapServiceFail() throws JacksonException {
         RefreshController refreshController =
                 new RefreshController(restTemplate, objectMapper, webServiceTemplate);
 
