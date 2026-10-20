@@ -5,8 +5,8 @@ import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.identity_provisioning.one.*;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +41,13 @@ public class ProvisionController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getProvisionedWorkers")
     @ResponsePayload
     public GetProvisionedWorkersResponse getProvisionedWorkers(
-            @RequestPayload GetProvisionedWorkers search) throws JsonProcessingException {
+            @RequestPayload GetProvisionedWorkers search) throws JacksonException {
         var inner =
                 search.getGetProvisionedWorkerRequest() != null
                         ? search.getGetProvisionedWorkerRequest()
                         : new GetProvisionedWorkerRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "workers")
+                UriComponentsBuilder.fromUriString(host + "workers")
                         .queryParam("locationCd", inner.getLocationCd());
 
         try {
@@ -82,13 +82,13 @@ public class ProvisionController {
             localPart = "getWorkerProvisioningQueueItem")
     @ResponsePayload
     public GetWorkerProvisioningQueueItemResponse getWorkerProvisioningQueueItem(
-            @RequestPayload GetWorkerProvisioningQueueItem search) throws JsonProcessingException {
+            @RequestPayload GetWorkerProvisioningQueueItem search) throws JacksonException {
         var inner =
                 search.getGetWorkerProvisioningQueueItemRequest() != null
                         ? search.getGetWorkerProvisioningQueueItemRequest()
                         : new GetWorkerProvisioningQueueItemRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "worker/queueitem")
+                UriComponentsBuilder.fromUriString(host + "worker/queueitem")
                         .queryParam("locationCd", inner.getLocationCd());
 
         try {
@@ -120,12 +120,12 @@ public class ProvisionController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "setWorkerProvisioningStatus")
     @ResponsePayload
     public SetWorkerProvisioningStatusResponse setWorkerProvisioningStatus(
-            @RequestPayload SetWorkerProvisioningStatus search) throws JsonProcessingException {
+            @RequestPayload SetWorkerProvisioningStatus search) throws JacksonException {
         var inner =
                 search.getSetWorkerProvisioningStatusRequest() != null
                         ? search.getSetWorkerProvisioningStatusRequest()
                         : new SetWorkerProvisioningStatusRequest();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "worker/status");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(host + "worker/status");
 
         HttpEntity<SetWorkerProvisioningStatusRequest> body =
                 new HttpEntity<>(inner, new HttpHeaders());

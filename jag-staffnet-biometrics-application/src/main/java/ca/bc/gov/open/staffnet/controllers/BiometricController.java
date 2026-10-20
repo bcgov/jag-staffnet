@@ -20,8 +20,8 @@ import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -70,13 +70,13 @@ public class BiometricController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "biometricReconciliation")
     @ResponsePayload
     public BiometricReconciliationResponse biometricReconciliation(
-            @RequestPayload BiometricReconciliation search) throws JsonProcessingException {
+            @RequestPayload BiometricReconciliation search) throws JacksonException {
         var inner =
                 search.getBiometricReconciliationRequest() != null
                         ? search.getBiometricReconciliationRequest()
                         : new BiometricReconciliationRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "bio/reconciliation");
+                UriComponentsBuilder.fromUriString(host + "bio/reconciliation");
 
         ReconciliationService reconciliationService = new ReconciliationService();
         ReconciliationServiceRequest reconciliationServiceRequest =
@@ -223,7 +223,7 @@ public class BiometricController {
             localPart = "destroyBiometricCredentialByDID")
     @ResponsePayload
     public DestroyBiometricCredentialByDIDResponse destroyBiometricCredentialByDID(
-            @RequestPayload DestroyBiometricCredentialByDID search) throws JsonProcessingException {
+            @RequestPayload DestroyBiometricCredentialByDID search) throws JacksonException {
         var inner =
                 search.getDestroyBiometricCredentialByDIDRequest() != null
                         ? search.getDestroyBiometricCredentialByDIDRequest()
@@ -290,7 +290,7 @@ public class BiometricController {
     @ResponsePayload
     public ReactivateBiometricCredentialByDIDResponse reactivateBiometricCredentialByDID(
             @RequestPayload ReactivateBiometricCredentialByDID search)
-            throws JsonProcessingException {
+            throws JacksonException {
         var inner =
                 search.getReactivateBiometricCredentialByDIDRequest() != null
                         ? search.getReactivateBiometricCredentialByDIDRequest()

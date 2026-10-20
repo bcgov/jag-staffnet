@@ -7,8 +7,8 @@ import ca.bc.gov.open.staffnet.biometrics.two.ResponseCode;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.models.OrdsErrorLog;
 import ca.bc.gov.open.staffnet.models.RequestSuccessLog;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class SearchController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startSearchForIdentity")
     @ResponsePayload
     public StartSearchForIdentityResponse startSearchForIdentity(
-            @RequestPayload StartSearchForIdentity search) throws JsonProcessingException {
+            @RequestPayload StartSearchForIdentity search) throws JacksonException {
         var inner =
                 search.getStartSearchForIdentityRequest() != null
                         ? search.getStartSearchForIdentityRequest()
@@ -112,7 +112,7 @@ public class SearchController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishSearchForIdentity")
     @ResponsePayload
     public FinishSearchForIdentityResponse finishSearchForIdentity(
-            @RequestPayload FinishSearchForIdentity search) throws JsonProcessingException {
+            @RequestPayload FinishSearchForIdentity search) throws JacksonException {
         var inner =
                 search.getFinishSearchForIdentityRequest() != null
                         ? search.getFinishSearchForIdentityRequest()

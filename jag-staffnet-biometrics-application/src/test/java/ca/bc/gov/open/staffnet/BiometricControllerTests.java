@@ -14,12 +14,16 @@ import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.biometrics.two.DestroyBiometricCredentialByDIDResponse;
 import ca.bc.gov.open.staffnet.controllers.BiometricController;
 import ca.bc.gov.open.staffnet.models.GetEnrolledWorkersOutput;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class BiometricControllerTests {
@@ -42,7 +48,7 @@ public class BiometricControllerTests {
     @Mock private RestTemplate restTemplate = new RestTemplate();
 
     @Test
-    public void testBiometricReconciliation() throws JsonProcessingException {
+    public void testBiometricReconciliation() throws JacksonException {
         var req = new BiometricReconciliation();
         BiometricReconciliationRequest biometricReconciliationRequest =
                 new BiometricReconciliationRequest();
@@ -120,7 +126,7 @@ public class BiometricControllerTests {
     }
 
     @Test
-    public void testDestroyBiometricCredentialByDID() throws JsonProcessingException {
+    public void testDestroyBiometricCredentialByDID() throws JacksonException {
         var req = new DestroyBiometricCredentialByDID();
         DestroyBiometricCredentialByDIDRequest destroyBiometricCredentialByDIDRequest =
                 new DestroyBiometricCredentialByDIDRequest();
@@ -155,7 +161,7 @@ public class BiometricControllerTests {
     }
 
     @Test
-    public void testReactivateBiometricCredentialByDID() throws JsonProcessingException {
+    public void testReactivateBiometricCredentialByDID() throws JacksonException {
         var req = new ReactivateBiometricCredentialByDID();
         ReactivateBiometricCredentialByDIDRequest reactivateBiometricCredentialByDIDRequest =
                 new ReactivateBiometricCredentialByDIDRequest();

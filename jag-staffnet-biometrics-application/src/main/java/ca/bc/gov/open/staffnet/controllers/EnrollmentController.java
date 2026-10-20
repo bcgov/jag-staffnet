@@ -13,8 +13,8 @@ import ca.bc.gov.open.staffnet.biometrics.two.*;
 import ca.bc.gov.open.staffnet.configuration.SoapConfig;
 import ca.bc.gov.open.staffnet.exceptions.ORDSException;
 import ca.bc.gov.open.staffnet.models.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,13 +65,13 @@ public class EnrollmentController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "startEnrollmentWithIdCheck")
     @ResponsePayload
     public StartEnrollmentWithIdCheckResponse startEnrollmentWithIdCheck(
-            @RequestPayload StartEnrollmentWithIdCheck search) throws JsonProcessingException {
+            @RequestPayload StartEnrollmentWithIdCheck search) throws JacksonException {
         var inner =
                 search.getStartEnrollmentWithIdCheckRequest() != null
                         ? search.getStartEnrollmentWithIdCheckRequest()
                         : new StartEnrollmentWithIdCheckRequest();
         UriComponentsBuilder builder =
-                UriComponentsBuilder.fromHttpUrl(host + "enrollment/start")
+                UriComponentsBuilder.fromUriString(host + "enrollment/start")
                         .queryParam("individualID", inner.getIndividualID());
 
         ca.bc.gov.open.staffnet.biometrics.two.StartEnrollmentWithIdCheck
@@ -166,7 +166,7 @@ public class EnrollmentController {
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "finishEnrollmentWithIdCheck")
     @ResponsePayload
     public FinishEnrollmentWithIdCheckResponse finishEnrollmentWithIdCheck(
-            @RequestPayload FinishEnrollmentWithIdCheck search) throws JsonProcessingException {
+            @RequestPayload FinishEnrollmentWithIdCheck search) throws JacksonException {
         var inner =
                 search.getFinishEnrollmentWithIdCheckRequest() != null
                         ? search.getFinishEnrollmentWithIdCheckRequest()
@@ -239,7 +239,7 @@ public class EnrollmentController {
             return out;
         }
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "enrollment/finish");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(host + "enrollment/finish");
 
         HttpEntity<WorkerImageSetRequest> body = new HttpEntity<>(req, new HttpHeaders());
         try {

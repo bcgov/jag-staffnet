@@ -12,13 +12,17 @@ import ca.bc.gov.open.staffnet.controllers.EnrollmentController;
 import ca.bc.gov.open.staffnet.models.IdentityNameResponse;
 import ca.bc.gov.open.staffnet.models.WorkerImageSetResponse;
 import ca.bc.gov.open.staffnet.models.WorkerInfoResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class EnrollmentControllerTests {
@@ -41,7 +47,7 @@ public class EnrollmentControllerTests {
     @Mock private WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
 
     @Test
-    public void testStartEnrollmentWithIdCheck() throws JsonProcessingException {
+    public void testStartEnrollmentWithIdCheck() throws JacksonException {
         var req = new StartEnrollmentWithIdCheck();
         StartEnrollmentWithIdCheckRequest startEnrollmentWithIdCheckRequest =
                 new StartEnrollmentWithIdCheckRequest();
@@ -105,7 +111,7 @@ public class EnrollmentControllerTests {
     }
 
     @Test
-    public void testFinishEnrollmentWithIdCheck() throws JsonProcessingException {
+    public void testFinishEnrollmentWithIdCheck() throws JacksonException {
         var req = new FinishEnrollmentWithIdCheck();
         FinishEnrollmentWithIdCheckRequest finishEnrollmentWithIdCheckRequest =
                 new FinishEnrollmentWithIdCheckRequest();

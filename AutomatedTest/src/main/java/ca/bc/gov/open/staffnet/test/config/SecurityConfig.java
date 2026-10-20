@@ -1,5 +1,7 @@
 package ca.bc.gov.open.staffnet.test.config;
 
+import static org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher.pathPattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.Customizer;
 
 @EnableWebSecurity
 @Configuration
@@ -41,9 +43,9 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(new AntPathRequestMatcher("/openapi/openapi.yml")).permitAll()
+                        .requestMatchers(pathPattern("/openapi/openapi.yml")).permitAll()
                         .anyRequest().authenticated())
-                .httpBasic();
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
