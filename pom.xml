@@ -11,7 +11,7 @@
     </parent>
     <groupId>ca.bc.gov.open</groupId>
     <artifactId>jag-staffnet</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.1-SNAPSHOT</version>
     <name>jag-staffnet</name>
     <description>STAFF-NET Application</description>
     <properties>
