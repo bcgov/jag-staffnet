@@ -5,11 +5,11 @@
     <parent>
         <groupId>ca.bc.gov.open</groupId>
         <artifactId>jag-staffnet</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jag-staffnet-identity-provisioning-application</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.1-SNAPSHOT</version>
     <name>staffnet-identity-provisioning-application</name>
 
     <properties>
@@ -174,7 +174,7 @@
         <dependency>
             <groupId>ca.bc.gov.open</groupId>
             <artifactId>staffnet-identity-provisioning-models</artifactId>
-            <version>1.0.0</version>
+            <version>2.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
